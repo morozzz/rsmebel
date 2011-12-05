@@ -1,0 +1,62 @@
+.div-album-photo {
+    background: url(../../img/special-item-background.bmp) repeat-y right,
+        url(../../img/news-item-background.bmp) repeat-y left,
+        url(../../img/c09155-1-1.bmp) repeat;
+    -pie-background: url(../../img/special-item-background.bmp) repeat-y right,
+        url(../../img/news-item-background.bmp) repeat-y left,
+        url(../../img/c09155-1-1.bmp);
+    padding: 5px;
+}
+
+.div-neighbors {
+    margin: 10px 10px;
+    padding: 10px;
+    background: url(../../img/bronze-1-30.png) repeat-x top left #63583f;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b49d66', endColorstr='#63583f'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#b49d66), to(#63583f)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #b49d66,  #63583f); /* for firefox 3.6+ */
+    text-shadow: black 1px -1px 1px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+
+    color: white;
+    font-family: tahoma;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.div-neighbors a {
+    /*color: white;*/
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.div-neighbor-prev {
+    float: left;
+    width: 30%;
+    text-align: right
+}
+
+.div-neighbor-next {
+    float: right;
+    width: 30%;
+    text-align: left;
+}
+
+.div-neighbor-center {
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+    text-align: center;
+}
+
+.div-album-photo-image {
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px -1px 1px black;
+}
+
+.div-album-photo-image img {
+    border: 10px solid #373637;
+}

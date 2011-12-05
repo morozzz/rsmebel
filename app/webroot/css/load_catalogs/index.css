@@ -1,0 +1,12 @@
+#load-catalog-list-table td {
+  font-weight: bold;
+}
+.link-load-catalogs {
+  font-style: italic;
+}
+.link-load-file {
+  font-style: italic;
+}
+.catalog_header {
+  color: red;
+}

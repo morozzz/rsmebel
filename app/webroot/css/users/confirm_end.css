@@ -1,0 +1,9 @@
+.info-message {
+  padding-top: 20px;
+  color: white;
+}
+
+a {
+    color: yellow;
+    text-decoration: underline;
+}

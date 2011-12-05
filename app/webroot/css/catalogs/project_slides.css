@@ -1,0 +1,77 @@
+#catalog-body {
+    /*background: url("../../img/special-item-background.png") repeat-y right #C09155;*/
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.td-projectslide {
+    background: url(../../img/gray-1-300.png) repeat-x top left #373637;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#676667', endColorstr='#373637'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#676667), to(#373637)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #676667,  #373637); /* for firefox 3.6+ */
+    height: 100%;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+
+    -moz-box-shadow: 3px -3px 10px black;
+    -webkit-box-shadow: 3px -3px 10px black;
+    box-shadow: 3px -3px 10px black;
+}
+
+.td-projectslide:hover {
+    -moz-box-shadow: 5px -5px 10px black;
+    -webkit-box-shadow: 5px -5px 10px black;
+    box-shadow: 5px -5px 10px black;
+}
+
+.div-projectslide-image {
+    width: 156px;
+    height: 156px;
+    padding: 5px 0px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.div-projectslide-image-1,
+.div-projectslide-image-2,
+.div-projectslide-image-3 {
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    height: 100%;
+}
+
+.div-projectslide-image-1 {
+    background: black;
+    padding-right: 2px;
+    padding-top: 2px;
+}
+
+.div-projectslide-image-2 {
+    background: white;
+    padding: 2px;
+}
+
+.div-projectslide-image-3 img {
+    visibility: hidden;
+}
+
+.div-project-name {
+    padding: 5px 2px;
+
+    text-align: center;
+    font-family: tahoma;
+    color: white;
+    font-size: 14px;
+    text-shadow: 1px -1px 1px black;
+    font-weight: bold;
+}
+
+.div-project-name:hover {
+    color: yellow;
+    text-decoration: underline;
+}

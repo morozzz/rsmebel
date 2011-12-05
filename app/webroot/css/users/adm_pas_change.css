@@ -1,0 +1,17 @@
+.submit {
+  float:left;
+}
+
+#lbUserType {
+  padding-left: 10px;
+}
+
+.info-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+#divCancel {
+  text-align: center;
+  width:170px;
+}

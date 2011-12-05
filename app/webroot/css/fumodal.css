@@ -1,0 +1,133 @@
+@charset "utf-8";
+/* CSS Document */
+
+#fumodal_window_container {
+	display:block;
+	background-color:#f0f0f0;
+}
+
+#fumodal_window_top {
+	width:100%;
+	height:5px;
+	display:block;
+	overflow:hidden;
+	background:url(../img/fumodal/bar_T.gif) repeat-x top left;
+}
+
+#fumodal_window_TL {
+	width:5px;
+	height:5px;
+	display:block;
+	float:left;
+	background:url(../img/fumodal/corner_LT.gif) no-repeat top left;
+}
+
+#fumodal_window_TR {
+	width:5px;
+	height:5px;
+	display:block;
+	float:right;
+	background:url(../img/fumodal/corner_RT.gif) no-repeat top left;
+}
+
+#fumodal_window_BL {
+	width:5px;
+	height:5px;
+	display:block;
+	float:left;
+	background:url(../img/fumodal/corner_LB.gif) no-repeat top left;
+}
+
+#fumodal_window_BR {
+	width:5px;
+	height:5px;
+	display:block;
+	float:right;
+	background:url(../img/fumodal/corner_RB.gif) no-repeat top left;
+}
+
+#fumodal_window_middle {
+	width:100%;
+	display:block;
+}
+
+#fumodal_window_L {
+	width:5px;
+	height:100%;
+	display:block;
+	float:left;
+	background:url(../img/fumodal/bar_L.gif) repeat-y top left;
+}
+#fumodal_window_R {
+	width:5px;
+	height:100%;
+	display:block;
+	float:right;
+	background:url(../img/fumodal/bar_R.gif) repeat-y top left;
+}
+
+#fumodal_window_inner {
+	display:block;
+	height:100%;
+	float:left;
+	background-color:#f0f0f0;
+}
+#fumodal_window_content {
+	padding:10px;
+	z-index:0;
+	position:absolute;
+	top:35px;
+	left:5px;
+}
+
+#fumodal_window_busy_back {
+	z-index:1;
+	position:absolute;
+	top:35px;
+	left:5px;
+	background-color:#f0f0f0;
+}
+
+#fumodal_window_busy {
+	z-index:2;
+	position:absolute;
+	top:35px;
+	left:5px;
+}
+#fumodal_window_busy_icon {
+	width:40px;
+	height:40px;
+	top:50%;
+	left:50%;
+	margin-left:-20px;
+	margin-top:-20px;
+	display:block;
+	position:absolute;
+	background:url(../img/fumodal/busy.gif) no-repeat top left;
+}
+
+#fumodal_window_top_bar {
+	display:block;
+	height:30px;
+	background:url(../img/fumodal/title_bar.gif) repeat-x top left;
+}
+#fumodal_window_title {
+	display:block;
+	height:20px;
+	padding:7px 10px 3px 10px;
+	float:left;
+}
+#fumodal_window_close {
+	display:block;
+	width:30px;
+	height:30px;
+	float:right;
+	background:url(../img/fumodal/close_button.gif) no-repeat top left;
+}
+#fumodal_window_bottom {
+	display:block;
+	width:100%;
+	height:5px;
+	overflow:hidden;
+	background:url(../img/fumodal/bar_B.gif) repeat-x top left;
+}

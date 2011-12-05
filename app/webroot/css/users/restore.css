@@ -1,0 +1,15 @@
+#user-register-form {
+  background:none repeat scroll 0 0 #373637;
+  text-shadow:0 -2px 4px black;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.error-message {
+  font-size: 14px;
+}
+.submit {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

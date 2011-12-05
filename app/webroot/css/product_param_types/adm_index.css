@@ -1,0 +1,37 @@
+    #div-product-param-type {
+        margin: 0 auto;
+        width: 300px;
+    }
+
+    #table-product-param-type {
+        border: 1px solid #003D4C;
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+    }
+
+    #table-product-param-type tr {
+        border: 1px solid #003D4C;
+    }
+
+    #table-product-param-type th {
+        height: 25px;
+    }
+
+    #table-product-param-type td {
+        padding: 3px 5px;
+    }
+
+    #table-product-param-type td,
+    #table-product-param-type th {
+        border-left: 1px dotted #003D4C;
+        border-right: 1px dotted #003D4C;
+    }
+
+    #table-product-param-type input {
+        width: 90%;
+    }
+
+    .added-row {
+        background-color: #FFAAAA;
+    }

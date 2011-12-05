@@ -1,0 +1,85 @@
+.align-table {
+    width: 100%;
+}
+
+input.sort-order-input {
+    width: 40px;
+    text-align: right;
+}
+
+.table-image {
+    cursor: pointer;
+}
+
+.load-image {
+    display: none;
+}
+
+
+.div-add-action a:hover {
+    color: #0000AA;
+}
+
+#table-header {
+    border: 1px black solid;
+    height: 20px;
+}
+
+#table-header div {
+    height: 20px;
+}
+
+#table-body {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#table-body li {
+    cursor: move;
+    display: block;
+    border: 1px black solid;
+    border-top: none;
+    clear: both;
+    overflow: hidden;
+    height: 50px;
+}
+
+#table-body li.ui-sortable-helper {
+    border-top: 1px black solid;
+}
+
+#table-body li div.td-div {
+    height: 100%;
+    padding: 3px 0px;
+}
+
+.td-action,
+.td-cnew-stamp,
+.td-cnew-small-image,
+.td-cnew-big-image,
+.td-cnew-name {
+    float: left;
+    width: 15%;
+    text-align: center;
+    border-right: 1px dotted black;
+}
+
+.input-sort-order{
+    width: 90%;
+}
+.td-sort-order {
+    float: left;
+    width: 8%;
+    text-align: center;
+    border-right: 1px dotted black;
+}
+
+.select-action {
+    width: 90%;
+}
+
+.div-changed {
+    background-color: #FFDDDD;
+}
+

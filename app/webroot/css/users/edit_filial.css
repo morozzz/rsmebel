@@ -1,0 +1,108 @@
+div.body-input,
+div.form{
+  width: 650px;
+}
+
+.div-register-button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.div-required label {
+  color: yellow;
+  padding-right: 5px;
+}
+
+.div-input-registr label {
+  padding-right: 5px;
+}
+
+.div-phone-kod label{
+  padding-right: 2px;
+}
+
+.body-input input {
+  height: 20px;
+}
+
+.info-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+#user-register-form {
+  background:none repeat scroll 0 0 #373637;
+  text-shadow:0 -2px 4px black;
+  color: white;
+}
+
+#div-filial-edit {
+  float: left;
+  width: 150px;
+  padding-left: 10px;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#div-filial-edit a{
+  color: yellow;
+}
+
+#div-filial-edit a:hover{
+  text-decoration: underline;
+}
+
+h1.error-message {
+    display: block;
+    text-align: center;
+    margin: 0;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: red;
+}
+
+h2.question-continue-register {
+    display: block;
+    text-align: justify;
+    margin: 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: black;
+}
+
+.form {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.submit {
+  padding-top: 5px;
+}
+
+/*UI*/
+.ui-widget-header {
+    background: url("../../img/jquery-ui/ui-bg_gloss-wave_35_f6a828_500x100_blue.png") repeat-x scroll 50% 50% #B0CAF9;
+    border: 1px solid #9999FF;
+    padding: 5px;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 0;
+    margin: 0;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    padding: 0;
+    margin: 5px 10px;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding: 5px 10px;
+}
+
+.ui-button-text-only .ui-button-text {
+    padding:0.1em 1em;
+}
+/*******************/

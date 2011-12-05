@@ -1,0 +1,33 @@
+    #div-image {
+        margin: 0 auto;
+        width: 500px;
+    }
+
+    #table-image {
+        border: 1px solid #003D4C;
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+    }
+
+    #table-image tr {
+        border: 1px solid #003D4C;
+    }
+
+    #table-image th {
+        height: 25px;
+    }
+
+    #table-image td {
+        padding: 3px 5px;
+    }
+
+    #table-image td,
+    #table-image th {
+        border-left: 1px dotted #003D4C;
+        border-right: 1px dotted #003D4C;
+    }
+
+    .added-row {
+        background-color: #FFAAAA;
+    }

@@ -1,0 +1,125 @@
+.div-product-long-about {
+    font-family: tahoma;
+    font-size: 14px;
+}
+
+#catalog-body {
+    /*padding: 10px;*/
+    margin: 5px;
+    /*background: url("../../img/special-item-background.png") repeat-y right center #C09155;*/
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#catalog-body a {
+    color: white;
+}
+
+#catalog-body a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.div-product-prev {
+    background: url(../../img/gray-1-300.png) repeat-x top left #373637;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#676667', endColorstr='#373637'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#676667), to(#373637)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #676667,  #373637); /* for firefox 3.6+ */
+}
+
+.div-product-next {
+    background: url(../../img/gray-1-300.png) repeat-x top left #373637;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#676667', endColorstr='#373637'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#676667), to(#373637)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #676667,  #373637); /* for firefox 3.6+ */
+}
+
+.div-product {
+    background: url(../../img/gray-1-300.png) repeat-x top left #373637;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#676667', endColorstr='#373637'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#676667), to(#373637)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #676667,  #373637); /* for firefox 3.6+ */
+}
+
+.div-product-prev,
+.div-product-next,
+.div-product {
+    padding: 10px;
+}
+
+.div-product-prev {
+    -moz-border-radius: 0px 20px 20px 0px;
+    -webkit-border-radius: 0px 20px 20px 0px;
+    border-radius: 0px 20px 20px 0px;
+    
+    -moz-box-shadow: 2px -2px 1px black;
+    -webkit-box-shadow: 2px -2px 1px black;
+    box-shadow: 2px -2px 1px black;
+}
+
+a:hover .div-product-prev {
+    -moz-box-shadow: 4px -4px 4px black;
+    -webkit-box-shadow: 4px -4px 4px black;
+    box-shadow: 4px -4px 4px black;
+}
+
+.div-product-prev h3 span {
+    text-shadow: black 1px -1px 1px;
+}
+
+.div-product-next {
+    -moz-border-radius: 20px 0px 0px 20px;
+    -webkit-border-radius: 20px 0px 0px 20px;
+    border-radius: 20px 0px 0px 20px;
+
+    -moz-box-shadow: -2px -2px 1px black;
+    -webkit-box-shadow: -2px -2px 1px black;
+    box-shadow: -2px -2px 1px black;
+}
+
+a:hover .div-product-next {
+    -moz-box-shadow: -4px -4px 4px black;
+    -webkit-box-shadow: -4px -4px 4px black;
+    box-shadow: -4px -4px 4px black;
+}
+
+.div-product-next h3 span {
+    text-shadow: black -1px -1px 1px;
+}
+
+a:hover .div-product-prev,
+a:hover .div-product-next {
+    text-decoration: underline;
+}
+
+.div-product {
+    color: white;
+    margin: 10px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    
+    -moz-box-shadow: 4px -4px 4px black;
+    -webkit-box-shadow: 4px -4px 4px black;
+    box-shadow: 4px -4px 4px black;
+}
+
+.div-product-prev .div-small-image-product-1 {
+    padding-right: 2px;
+    padding-left: 0px;
+}
+
+.div-product-next .div-small-image-product-1 {
+    padding-right: 0px;
+    padding-left: 2px;
+}
+
+.div-product-custom-content {
+    padding-top: 10px;
+}
+
+.div-nazad,
+.div-vpered {
+    margin-top: 5px;
+}

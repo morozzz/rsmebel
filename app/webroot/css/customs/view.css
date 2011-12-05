@@ -1,0 +1,227 @@
+h1 {
+    padding: 0px 0px;
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+}
+
+#div-background-custom-data {
+  padding: 10px;
+    background: url(../../img/special-item-background.bmp) repeat-y right,
+        url(../../img/news-item-background.bmp) repeat-y left,
+        url(../../img/c09155-1-1.bmp) repeat;
+    -pie-background: url(../../img/special-item-background.bmp) repeat-y right,
+        url(../../img/news-item-background.bmp) repeat-y left,
+        url(../../img/c09155-1-1.bmp);
+}
+
+#custom-data {
+  -moz-box-shadow: 5px -5px 10px black;
+  -webkit-box-shadow: 5px -5px 10px black;
+  box-shadow: 5px -5px 10px black;
+}
+
+#custom-data h2 {
+    color: yellow;
+}
+
+.div-print-version {
+    padding: 5px 20px;
+    background: url(../../img/bronze-1-30.png) repeat-x top left #63583f;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b49d66', endColorstr='#63583f'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#b49d66), to(#63583f)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #b49d66,  #63583f); /* for firefox 3.6+ */
+    text-shadow: black 1px -1px 1px;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.div-print-version a {
+    color: yellow;
+}
+
+/*tabs*/
+/*.ui-widget-header {
+    background: url("../../img/jquery-ui/ui-bg_gloss-wave_35_f6a828_500x100_blue.png") repeat-x scroll 50% 50% #F6A828;
+    border: 1px solid #9999FF;
+    padding: 5px;
+}
+
+.ui-widget-content {
+    background: none;
+    background-color: #F5F5F5;
+}
+
+.ui-widget-header .ui-state-default {
+    background: none;
+    background-color: #EEEEAA;
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+    color: red;
+}
+
+.ui-state-hover a, .ui-state-hover a:hover {
+    color: blue;
+}
+
+.ui-widget-content .ui-state-active {
+    border-color: #AAAA33;
+    background: none;
+    background-color: #DDDD33;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #AA0000;
+}*/
+
+/*****************************************************/
+
+#tab-infos {
+    overflow: auto;
+}
+
+#tab-infos h2 {
+    padding: 5px 0px;
+    margin: 0px;
+    font-size: 18px;
+}
+
+#tab-infos-general {
+    float: left;
+    width: 45%;
+}
+
+#tab-infos-company {
+    margin-left: 50%;
+    overflow: auto;
+}
+
+.div-info-label {
+    width: 200px;
+    float: left;
+    padding: 3px 0px;
+    min-height: 20px;
+    height: expression((this.scrollHeight<20)?"20px":"auto");
+    line-height: 20px;
+}
+
+.div-info-value {
+    margin-left: 200px;
+    padding: 3px 0px;
+    font-weight: bold;
+    font-size: 14px;
+    min-height: 20px;
+    height: expression((this.scrollHeight<20)?"20px":"auto");
+    line-height: 20px;
+}
+
+#tab-dets a {
+    color: yellow;
+}
+
+#tab-dets table,
+#tab-statuses table {
+    width: 650px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/*again crazy IE*/
+/*#tab-dets table tr,
+#tab-statuses table tr {
+    border: 2px solid #A3A3D3;
+}*/
+
+#tab-dets table th,
+#tab-statuses table th,
+#tab-dets table td,
+#tab-statuses table td {
+    border-top: 2px solid #A3A3D3;
+    border-bottom: 2px solid #A3A3D3;
+}
+
+#tab-dets table th:first-child,
+#tab-statuses table th:first-child,
+#tab-dets table td:first-child,
+#tab-statuses table td:first-child,
+#tab-dets table tr .td-first,
+#tab-statuses table tr .td-first {
+    border-left: 2px solid #A3A3D3
+}
+
+#tab-dets table th:last-child,
+#tab-statuses table th:last-child,
+#tab-dets table td:last-child,
+#tab-statuses table td:last-child,
+#tab-dets table tr .td-last,
+#tab-statuses table tr .td-last {
+    border-right: 2px solid #A3A3D3
+}
+
+#tab-dets table th,
+#tab-statuses table th {
+    padding: 3px 2px;
+    /*background-color: #EEEEEE;*/
+    text-align: center;
+    border-left: 1px dotted #A3A3D3;
+    border-right: 1px dotted #A3A3D3;
+}
+
+#tab-dets table td,
+#tab-statuses table td {
+    padding: 4px 5px;
+    border-left: 1px dotted #A3A3D3;
+    border-right: 1px dotted #A3A3D3;
+}
+
+.status-image {
+    float: left;
+    padding: 2px 5px;
+    padding-right: 15px;
+}
+
+.ui-widget-header .ui-state-default,
+.ui-widget-header {
+    background: none;
+}
+
+.ui-widget-header .ui-state-hover {
+    border-color: yellow;
+}
+
+.ui-widget-header .ui-state-default a,
+.ui-widget-header .ui-state-default a:active,
+.ui-widget-header .ui-state-default a:link {
+    color: white;
+}
+
+.ui-widget-header .ui-state-active a,
+.ui-widget-header .ui-state-active a:active,
+.ui-widget-header .ui-state-active a:link {
+    color: yellow;
+}
+
+.ui-widget-content {
+    background: url(../../img/gray-1-300.png) repeat-x top left #373637;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#676667', endColorstr='#373637'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#676667), to(#373637)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #676667,  #373637); /* for firefox 3.6+ */
+    color: white;
+    text-shadow: black 1px -1px 1px;
+}
+
+/*.ui-widget-content .ui-state-hover {
+    background: #373637;
+}*/
+
+.ui-state-active a:active,
+.ui-state-active a:link,
+.ui-state-active a {
+    color: white;
+}
+
+.ui-tabs-nav {
+    text-shadow: none;
+}

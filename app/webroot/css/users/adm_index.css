@@ -1,0 +1,31 @@
+/*#users-list-table td {
+  font-weight: bold;
+}
+#users-list-table h1 {
+  font-size: 12px;
+}
+.users_header {
+    color: red;
+}*/
+
+.div-filter {
+    padding: 10px 5px;
+}
+
+.div-filter-row {
+    padding: 3px 5px;
+}
+
+.div-filter-label {
+    float: left;
+    width: 200px;
+}
+
+.div-filter-input {
+    margin-left: 200px;
+}
+
+.div-filter-input input[type=text],
+.div-filter-input select {
+    width: 150px;
+}

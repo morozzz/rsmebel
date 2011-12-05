@@ -1,0 +1,9 @@
+#dispatches-list-table td {
+  font-weight: bold;
+}
+#dispatches-list-table h1 {
+  font-size: 12px;
+}
+.dispatches_header {
+    color: red;
+}

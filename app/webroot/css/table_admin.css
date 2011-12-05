@@ -1,0 +1,169 @@
+/*headers*/
+/*****************************************************************************/
+h1 {
+    padding: 5px 20px;
+    margin: 0px 0px 10px 0px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h2 {
+    padding: 5px 20px;
+    font-size: 18px;
+    text-align: left;
+}
+
+h3 {
+    padding: 3px 10px;
+    margin: 2px 0px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: normal;
+}
+/*****************************************************************************/
+
+/*links*/
+/*****************************************************************************/
+.div-navigation {
+    padding: 3px;
+}
+
+.link-navigation {
+    font-size: 12px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+/*****************************************************************************/
+
+/*images*/
+/*****************************************************************************/
+.show-image {
+    cursor: pointer;
+}
+/*****************************************************************************/
+
+/*messages*/
+/*****************************************************************************/
+.message {
+    background-color: #E0E0E0;
+    border: 2px solid #777777;
+    padding: 3px;
+    margin: 5px 0px;
+}
+
+#flashMessage {
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+}
+/*****************************************************************************/
+
+/*table-admin*/
+/*****************************************************************************/
+.table-admin {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.tbody-admin {
+    background:url("../img/jquery-ui/ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #DFEFFC !important;
+}
+
+.table-admin td {
+    border: 1px solid black;
+}
+
+.table-admin td {
+    padding: 5px;
+}
+
+.table-admin td input[type=text],
+.table-admin td input[type=password],
+.table-admin td select {
+    width: 90%;
+}
+
+td.changed {
+    background: #FFDDDD !important;
+}
+
+.div-button-bottom {
+    text-align: right;
+}
+
+.sortable {
+    cursor: move;
+}
+/*****************************************************************************/
+
+/*buttons*/
+/*****************************************************************************/
+.button {
+    margin: 4px !important;
+}
+/*****************************************************************************/
+
+/*dialogs*/
+/*****************************************************************************/
+.dialog-div-row {
+    clear: both;
+    padding: 3px 5px;
+    margin: 3px 0px;
+}
+
+.dialog-label {
+    width: 150px;
+    float: left;
+    height: 20px;
+    line-height: 20px;
+}
+
+.dialog-div-input {
+    margin-left: 150px;
+}
+
+.dialog-div-input input,
+.dialog-div-input select {
+    width: 99%;
+    margin: 1px -10px;
+    font-size: 12px !important;
+}
+
+.dialog-label-text {
+    height: 20px;
+    line-height: 20px;
+}
+
+.dialog-div-text {
+    
+}
+
+.div-file-dialog {
+    cursor: pointer;
+}
+/*****************************************************************************/
+
+/*paginate table*/
+/*****************************************************************************/
+.admin-pagination {
+    width: 100%;
+    margin: 5px 0px;
+}
+
+.admin-pagination td {
+    vertical-align: middle;
+}
+
+.admin-pagination a {
+    color: red !important;
+}
+
+.admin-pagination a:hover {
+    color: blue !important;
+}
+
+.admin-pagination-limit-select {
+    width: 100%;
+}
+/*****************************************************************************/

@@ -1,0 +1,8 @@
+input.sort-order-input{
+    width: 40px;
+    text-align: right;
+}
+
+select.product-param-show-type-input {
+    width: 150px;
+}

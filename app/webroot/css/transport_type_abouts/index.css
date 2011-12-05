@@ -1,0 +1,46 @@
+    #div-transport-type-about {
+        margin: 0 auto;
+        width: 600px;
+    }
+
+    #table-transport-type-about {
+        border: 1px solid #003D4C;
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+    }
+
+    #table-transport-type-about tr {
+        border: 1px solid #003D4C;
+    }
+
+    #table-transport-type-about th {
+        height: 25px;
+    }
+
+    #table-transport-type-about td {
+        padding: 3px 5px;
+    }
+
+    #table-transport-type-about td,
+    #table-transport-type-about th {
+        border-left: 1px dotted #003D4C;
+        border-right: 1px dotted #003D4C;
+    }
+
+    input.input-transport-type-about-name {
+        width: 300px;
+    }
+
+    .added-row {
+        background-color: #FFAAAA;
+    }
+
+    #div-edit-text-dialog {
+        position: absolute;
+        display: none;
+        cursor: default;
+        background: url("../../img/jquery-ui/ui-bg_highlight-soft_100_eeeeee_1x100.png") repeat-x scroll 50% top #EEEEEE;
+        margin: 4px;
+        -moz-border-radius: 4px 4px 4px 4px;
+    }

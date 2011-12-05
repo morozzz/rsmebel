@@ -1,0 +1,67 @@
+.div-images {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    padding: 20px 0px;
+    margin: 0px auto;
+}
+
+.table-images {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.td-image {
+    width: 33%;
+}
+
+.div-td-image {
+    margin: 10px;
+    padding: 10px;
+    /*background-color: #DDFFFF;*/
+    background: url(../../img/blue-1-350.jpg) repeat-x;
+    height: 270px;
+    cursor: pointer;
+    -moz-border-radius: 20px 20px 20px 20px;
+}
+
+.div-td-image:hover {
+    background: url(../../img/blue-2-350.jpg) repeat-x;
+}
+
+.div-td-image-selected,
+.div-td-image-selected:hover {
+    background: url(../../img/blue-3-350.jpg) repeat-x;
+}
+
+.div-image {
+    height: 200px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.div-image .image {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.link-select-image {
+    display: block;
+    margin: 5px auto;
+    width: 60%;
+    height: 30px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    background-color: green;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4444FF;
+    background: url(../../img/green-1-30.jpg) repeat-x;
+}
+
+.link-select-image {
+    color: #3333DD;
+}

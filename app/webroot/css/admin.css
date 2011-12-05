@@ -1,0 +1,263 @@
+body {
+    background: white;
+}
+
+root { 
+    display: block;
+}
+
+h1 {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 0px;
+    text-align: center;
+    color: #333377;
+}
+
+#top-lg {
+    text-align: center;
+    background: white;
+}
+
+.div-image-lg {
+    height: 100px;
+}
+
+.div-image-lg img {
+    float: left;
+    padding-left: 30px;
+    padding-right: 50px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+#admin-lg-text {
+    padding: 0;
+    margin: 0;
+    line-height: 100px;
+    text-align: left;
+    font-size: 36px;
+    font-weight: bold;
+    font-style: italic;
+    color: #4444AA;
+    background: transparent;
+    border: none;
+}
+
+#admin-left-menu {
+    float: left;
+    width: 200px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*#admin-left-menu ul {*/
+#ul-admin-left-menu {
+    margin: 14px 0px 14px 10px;
+    padding-left: 25px;
+}
+
+#admin-left-menu ul li{
+    padding: 3px 5px;
+    margin-left: 0px;
+    vertical-align: middle;
+}
+
+li#admin-menu-catalog {
+    list-style-image: url(../img/book.png);
+}
+
+li#admin-menu-load_catalog {
+    list-style-image: url(../img/book_add.png);
+}
+
+li#admin-menu-producer {
+    list-style-image: url(../img/building.png);
+}
+
+li#admin-menu-project {
+    list-style-image: url(../img/ruby.png);
+}
+
+li#admin-menu-project-profile {
+    list-style-image: url(../img/ruby_key.png);
+}
+
+li#admin-menu-image {
+    list-style-image: url(../img/image.png);
+}
+
+li#admin-menu-custom {
+    list-style-image: url(../img/cart.png);
+}
+
+li#admin-menu-custom-status-type {
+    list-style-image: url(../img/pencil.png);
+}
+
+li#admin-menu-transport-type {
+    list-style-image: url(../img/lorry.png);
+}
+
+li#admin-menu-articles {
+    list-style-image: url(../img/html.png);
+}
+
+li#admin-menu-article-types {
+    list-style-image: url(../img/html.png);
+}
+
+li#admin-menu-news {
+    list-style-image: url(../img/newspaper.png);
+}
+
+li#admin-menu-banners {
+    list-style-image: url(../img/application_view_tile.png);
+}
+
+li#admin-menu-slides {
+    list-style-image: url(../img/application_cascade.png);
+}
+
+li#admin-menu-short-links {
+    list-style-image: url(../img/arrow_right.png);
+}
+
+li#admin-menu-strings {
+    list-style-image: url(../img/html.png);
+}
+
+li#admin-menu-info {
+    list-style-image: url(../img/information.png);
+}
+
+li#admin-menu-spec {
+    list-style-image: url(../img/lightning.png);
+}
+
+li#admin-menu-catalog-news {
+    list-style-image: url(../img/newspaper.png);
+}
+
+li#admin-menu-catalog-new-types {
+    list-style-image: url(../img/newspaper.png);
+}
+
+li#admin-menu-design_info {
+    list-style-image: url(../img/picture_edit.png);
+}
+
+li#admin-menu-home-footer {
+    list-style-image: url(../img/application_put.png);
+}
+
+li#admin-menu-company-info {
+    list-style-image: url(../img/information.png);
+}
+
+li#admin-menu-users-control {
+    list-style-image: url(../img/user.png);
+}
+
+li#admin-dispatches-control {
+    list-style-image: url(../img/email.png);
+}
+
+li#admin-design-order {
+    list-style-image: url(../img/design.png);
+}
+
+li#admin-design-order-tools {
+    list-style-image: url(../img/layout_edit.png);
+}
+li#admin-menu-shop_rule {
+    list-style-image: url(../img/book_addresses.png);
+}
+li#admin-menu-purchase_rule {
+    list-style-image: url(../img/book_open.png);
+}
+li#admin-menu-questions {
+    list-style-image: url(../img/email_edit.png);
+}
+
+#admin-content {
+    margin-left: 200px;
+    padding-left: 3px;
+}
+
+.action {
+    color: red;
+    cursor: pointer;
+}
+
+.action:hover {
+    color: blue;
+}
+
+.tr-special,
+.tr-special td {
+    background: #FFFFB0 !important;
+}
+
+.div-show-path {
+    margin: 5px 0px;
+    padding: 5px;
+}
+
+.div-show-path a:hover{
+    color: blue !important;
+    text-decoration: underline !important;
+}
+
+span.catalog-tree-sign {
+font-size:14px;
+padding-right:5px;
+}
+.treeview li.li-square {
+list-style-type:square;
+margin-left:30px;
+padding-left:0;
+}
+.catalog-tree-name-level0 {
+font-size:14px;
+font-weight:bold;
+}
+.image-level-0 {
+display:block;
+height:40px;
+left:0;
+position:absolute;
+top:0;
+width:40px;
+}
+.catalog-tree-name-level1 {
+font-size:12px;
+font-weight:normal;
+}
+.catalog-tree-name-level2 {
+font-size:11px;
+font-weight:normal;
+}
+.catalog-tree-selected {
+background-color:#E0E0EB;
+}
+#catalog-list {
+font-size:12px;
+font-weight:bold;
+}
+#catalog-list a {
+color:black;
+}
+#catalog-list a:hover {
+color:red;
+}

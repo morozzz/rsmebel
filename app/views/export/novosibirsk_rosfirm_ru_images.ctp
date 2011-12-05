@@ -1,0 +1,1 @@
+<?php foreach($products as $product) echo $html->image($product['SmallImage']['url']);?>

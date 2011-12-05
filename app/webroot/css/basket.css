@@ -1,0 +1,49 @@
+.top-header {
+    background: url(../img/bronze-1-30.png) repeat-x top left #63583f;; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b49d66', endColorstr='#63583f'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#b49d66), to(#63583f)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #b49d66,  #63583f); /* for firefox 3.6+ */
+    text-shadow: black 1px -1px 1px;
+    font-family: tahoma;
+}
+
+.top-header table {
+    /*background: #392412;*/
+    /*-moz-border-radius: 0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;*/
+}
+
+.top-header,
+.top-header a {
+    color: white
+}
+
+.top-header a.link-user-login {
+    color: yellow;
+}
+
+.top-header a:hover {
+    color: yellow;
+    text-decoration: underline;
+}
+
+.div-top-header-basket,
+.div-top-header-basket a {
+    font-family: tahoma;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.div-top-header-basket a {
+    color: yellow;
+}
+
+.link-print-catalog-small,
+.link-print-catalog-big {
+    display: block;
+}
+
+#archive_orders a {
+    color: yellow;
+}

@@ -1,0 +1,16 @@
+.div-diler {
+    font-size: 14px;
+}
+
+.div-diler-label {
+    float: left;
+    width: 20%;
+}
+
+.div-diler-data {
+    margin-left: 20%;
+    padding-left: 20px;
+    padding-bottom: 4px;
+    text-align: left;
+    font-weight: bold;
+}

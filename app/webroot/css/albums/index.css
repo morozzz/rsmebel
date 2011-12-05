@@ -1,0 +1,35 @@
+#company-info-body {
+    width: 80% !important;
+}
+
+.table-album td {
+    width: 33%;
+}
+
+.div-album {
+    padding: 10px 0px;
+    border-top: 1px #C09155 dotted;
+    border-bottom: 1px #C09155 dotted;
+}
+
+.div-album-photo {
+    float: left;
+    width: 150px;
+}
+
+.div-album-photo img {
+    width: 150px;
+}
+
+.div-album-info {
+    margin-left: 150px;
+    padding-left: 10px;
+}
+
+.div-album-name {
+    font-size: 16px;
+}
+
+.div-album-short-about {
+    font-size: 14px;
+}

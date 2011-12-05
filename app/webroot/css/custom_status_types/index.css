@@ -1,0 +1,33 @@
+    #div-custom-status-type {
+        margin: 0 auto;
+        width: 500px;
+    }
+
+    #table-custom-status-type {
+        border: 1px solid #003D4C;
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+    }
+
+    #table-custom-status-type tr {
+        border: 1px solid #003D4C;
+    }
+
+    #table-custom-status-type th {
+        height: 25px;
+    }
+
+    #table-custom-status-type td {
+        padding: 3px 5px;
+    }
+
+    #table-custom-status-type td,
+    #table-custom-status-type th {
+        border-left: 1px dotted #003D4C;
+        border-right: 1px dotted #003D4C;
+    }
+
+    .added-row {
+        background-color: #FFAAAA;
+    }

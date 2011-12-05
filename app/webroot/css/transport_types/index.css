@@ -1,0 +1,41 @@
+    #div-transport-type {
+        margin: 0 auto;
+        width: 600px;
+    }
+
+    #table-transport-type {
+        border: 1px solid #003D4C;
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+    }
+
+    #table-transport-type tr {
+        border: 1px solid #003D4C;
+    }
+
+    #table-transport-type th {
+        height: 25px;
+    }
+
+    #table-transport-type td {
+        padding: 3px 5px;
+    }
+
+    #table-transport-type td,
+    #table-transport-type th {
+        border-left: 1px dotted #003D4C;
+        border-right: 1px dotted #003D4C;
+    }
+
+    input.input-transport-type-name {
+        width: 300px;
+    }
+
+    input.input-transport-type-price {
+        width: 50px;
+    }
+
+    .added-row {
+        background-color: #FFAAAA;
+    }

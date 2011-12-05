@@ -1,0 +1,136 @@
+
+#div-search {
+  background:none repeat scroll 0 0 #373637;
+  padding: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#div-search-body {
+  padding: 10px;
+  text-shadow:0 -2px 4px black;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 3px -3px 10px black;
+    -webkit-box-shadow: 3px -3px 10px black;
+    box-shadow: 3px -3px 10px black;
+    background:url("../../img/special-item-background.png") repeat-y scroll right center #C09155;
+}
+
+.clear-div {
+  clear: both;
+  border-top: 2px #A3A3D3 solid;
+}
+#SearchQueryText {
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  width: 250px;
+}
+div.input {
+  padding-bottom:5px;
+}
+#search-param {
+  margin-top: 10px;
+  border-bottom: 2px #A3A3D3 solid;
+  padding-bottom: 5px;
+}
+
+#search-param-label {
+  font-family:Arial,Geneva,Helvetica,sans-serif;
+  font-weight:bold;
+  padding-left: 10px;
+  width: 200px;
+  float: left;
+  font-size: 14px;
+}
+
+.search-param-checkbox {
+  float: left;
+  padding-right: 50px;
+  font-size: 14px;
+}
+
+.search-param-producer {
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.search-param-producer label {
+    width: 200px;
+    display: block;
+    float: left;
+}
+
+.search-param-producer select {
+    min-width: 100px;
+}
+/*#search-param-checkbox1 {
+  padding-left: 330px;
+  font-size: 14px;
+}*/
+.input-checkbox {
+  padding-bottom: 10px;
+}
+
+#search-text {
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+.left-image{
+  float: left;
+  padding-left: 15px;
+}
+.left-image img{
+  border: medium none;
+  height: 90px;
+  width: 90px;
+}
+.header-center {
+  text-align: center;
+  padding-left: 120px;
+}
+.catalog-name {
+  height: 14px;
+  text-align: left;
+}
+.catalog-note{
+  text-align: left;
+  font-weight: normal;
+}
+.clear-div3 {
+  clear:both;
+  padding-bottom: 10px;
+}
+.news-string {
+  font-weight: bold;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color:yellow;
+}
+.news-string a{
+  color:yellow;
+}
+.allResult {
+  font-family:Arial,Geneva,Helvetica,sans-serif;
+}
+.section {
+  /*height: 80px;*/
+  text-align: center;
+}
+.info-message {
+  padding-left: 10px;
+  color:white;
+  font-weight: normal;
+}
+#info-message-note {
+  float: left;
+}
+#info-message-count-info {
+  float: left;
+}

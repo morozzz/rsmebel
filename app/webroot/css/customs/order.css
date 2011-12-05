@@ -1,0 +1,149 @@
+
+#flashMessage {
+  color: red;
+  padding-left: 200px;
+}
+.div-input{
+  margin-top:5px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+#form-order {
+  background:none repeat scroll 0 0 #373637;
+  text-shadow:0 -2px 4px black;
+  color: white;
+}
+
+#form-order a:hover{
+  text-decoration: underline;
+  color:yellow;
+}
+
+#basket-table {
+    width: 65%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#basket-table tr {
+    border: 2px solid #A3A3D3;
+}
+
+tr#tr-th-basket-table {
+    border-top: none;
+}
+
+#basket-table th {
+    padding: 5px 10px 5px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: yellow;
+}
+
+#basket-table td {
+    vertical-align: top;
+    padding: 10px 10px 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.basket-table-image {
+    width: 150px;
+}
+
+#basket-table td.td-delete {
+    vertical-align: middle;
+    text-align: center;
+    padding: 0;
+    margin: 0
+}
+
+.div-basket-catalog-path {
+    font-size: 11px;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.div-basket-product-name {
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.div-basket-product-short-about {
+    font-size: 11px;
+}
+
+.div-price {
+    width: 65%;
+    text-align: right;
+    padding-right: 100px;
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+.div-price-label {
+    margin-right: 170px;
+}
+
+.div-price-value{
+    float: right;
+    width: 170px;
+    font-weight: bold;
+}
+
+#div-custom-form-submit {
+    width: 65%;
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 100px;
+    padding-bottom: 20px;
+}
+
+img.link-delete-basket {
+    cursor: pointer;
+}
+
+#submit-custom-order {
+    margin-left: 30px;
+}
+
+#h-custom-order {
+    border-bottom: 2px solid #A3A3D3;
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.custom-form-group {
+    padding: 5px 5px;
+    border-bottom: 2px solid #A3A3D3;
+}
+
+.custom-form-labels {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+    display: block;
+    float: left;
+    width: 340px;
+    height: 100%;
+    color: yellow;
+}
+
+#btnPost {
+   margin-left: 185px;
+}
+
+.custom-form-inputs {
+    margin-left: 350px;
+}
+
+#custom-form-address-block1 {
+    padding-bottom: 5px;
+}
+#ClientInfoId {
+  width: 350px;
+  height: 25px;
+}

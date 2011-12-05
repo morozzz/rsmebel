@@ -1,0 +1,9 @@
+.data-table {
+    width: 100%;
+    border: 1px;
+    border-collapse: collapse;
+}
+
+.data-table td {
+    border: 1px;
+}
