@@ -1,0 +1,43 @@
+9
+
+dir
+550
+svn://172.16.171.70/rep/mto/trunk/php/cake/vendors
+svn://172.16.171.70/rep
+
+
+
+2010-06-22T07:07:32.572125Z
+436
+Detinkin
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+12625cf2-f399-354a-8d8e-2eff2e4b0f92
+
+ole
+dir
+
+css
+dir
+
+shells
+dir
+
+js
+dir
+
+excel_writer
+dir
+
