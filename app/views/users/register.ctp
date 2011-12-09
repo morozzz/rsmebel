@@ -53,6 +53,9 @@
     echo "<div class=\"caption\" id=\"register-caption\">ПОКУПАТЕЛЬ</div>";
     echo "<div>";
 
+    echo "<div class=\"body-input div-input-registr\">";
+      echo $form->input('ClientType.client_type_id', array('label' => 'Тип клиента:', 'empty' => 'Выберете из списка'));
+    echo "</div>";
 
     echo "<div class=\"caption\" id=\"register-caption\">ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ(обязательно для заполнения)</div>";
 

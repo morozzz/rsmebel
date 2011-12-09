@@ -4,7 +4,7 @@ class UsersController extends AppController {
     var $name = 'Users';
     var $components = array('Captcha', 'Email', 'SendEmail', 'AdminCommon');
     var $allowedActions = array('register', 'restore', 'captcha', 'confirm', 'login', 'logout');
-    var $uses = array("User", "UserLog", "CompanyType", "ProfilType", "ClientInfo", "Role");
+    var $uses = array("User", "UserLog", "CompanyType", "ClientType", "ProfilType", "ClientInfo", "Role");
     var $helpers = array('Form', 'Session', 'Ajax', 'Javascript', 'AdminCommon');
     var $actionJs = array(
         "jquery-ui-1.8.5.custom.min",
@@ -441,6 +441,12 @@ class UsersController extends AppController {
           Cache::write('company_types', $company_types);
         }
         $this->set('companyTypes', $company_types);
+
+        if(($client_types = Cache::read('client_types')) === false) {
+          $client_types = $this->ClientType->find('list');
+          Cache::write('client_types', $client_types);
+        }
+        $this->set('clientTypes', $client_types);
 
 
         if(($profil_types = Cache::read('profil_types')) === false) {
