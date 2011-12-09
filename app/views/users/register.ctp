@@ -24,7 +24,7 @@
 
 <?php
 
-    echo $common->caption('ПЕРСОНАЛЬНЫЕ ДАННЫЕ - ОСНОВНОЙ ФИЛИАЛ');
+    echo $common->caption('ПЕРСОНАЛЬНЫЕ ДАННЫЕ');
 
     echo $form->create('User', array(
         'action' => 'register',
@@ -38,15 +38,6 @@
     echo $form->hidden('ClientInfo.id');
 
     echo "<div id='div-filial-edit'>";
-      echo "Для удобного оформления заказов мы рекомендуем вам зарегистрировать дополнительные филиалы.<br><br>";
-      if ($userid == -1) {
-        echo "Эта функция будет доступна после регистрации. <br>";
-        echo "Пожалуйста зарегистрируйтесь.";
-      }
-      else {
-        echo "Для этого необходимо пройти по ссылке: <br>";
-        echo $html->link('Дополнительные филиалы', array('controller' => 'users', 'action' => 'list_filials'));
-      }
     echo "</div>";
 
     echo "<div class='form'>";
@@ -58,6 +49,10 @@
     echo "<div style = 'text-align: center;'>";
     echo "<font color=red size=5> * </font><font color=yellow><b> Поля, отмеченные звездочкой, обязательны для заполнения </b> </font>";
     echo "</div>";
+
+    echo "<div class=\"caption\" id=\"register-caption\">ПОКУПАТЕЛЬ</div>";
+    echo "<div>";
+
 
     echo "<div class=\"caption\" id=\"register-caption\">ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ(обязательно для заполнения)</div>";
 
@@ -91,7 +86,7 @@
 
     echo "<hr color = '#A3A3D3'> </hr>";
 
-    echo "<div class=\"caption\" id=\"register-caption\">ПЕРСОНАЛЬНАЯ ИНФОРМАЦИЯ - ОСНОВНОЙ ФИЛИАЛ</div>";
+    echo "<div class=\"caption\" id=\"register-caption\">ПЕРСОНАЛЬНАЯ ИНФОРМАЦИЯ</div>";
 
         echo "<div>";
             echo "<div class=\"body-input div-input-registr\">";
@@ -144,7 +139,7 @@
 
     echo "<hr color = '#A3A3D3'> </hr>";
 
-    echo "<div class=\"caption\" id=\"register-caption\">ИНФОРМАЦИЯ О ФИРМЕ(ОСНОВНОМ ФИЛИАЛЕ) / ДЛЯ ЗАКАЗОВ В ИНТЕРНЕТ-МАГАЗИНЕ</div>";
+    echo "<div class=\"caption\" id=\"register-caption\">ИНФОРМАЦИЯ О ФИРМЕ ДЛЯ ЗАКАЗОВ В ИНТЕРНЕТ-МАГАЗИНЕ</div>";
 
         echo "<div>";
             echo "<div class=\"body-input div-input-registr\">";
@@ -278,23 +273,6 @@
 
 <script type="text/javascript">
 
-   <?php
-//
-//    if($userid <> -1) {
-//     echo "jQuery(\"#UserPasswordConfirm\").attr('value', jQuery(\"#UserPassword\").attr('value'));";
-//     //echo "jQuery(\"#UserPasswordConfirm\").attr('disabled', 'true');";
-//     //echo "jQuery(\"#UserPassword\").attr('disabled', 'true');";
-//     // echo "$(\"#UserUsername\").attr('disabled', 'true');";
-//    }
-//    else {
-//     echo "jQuery(\"#UserPassword\").attr('value', '');";
-//     echo "jQuery(\"#UserPasswordConfirm\").attr('value', '');";
-//     echo "jQuery(\"#UserPasswordConfirm\").attr('disabled', '');";
-//     echo "jQuery(\"#UserPassword\").attr('disabled', '');";
-//     // echo "$(\"#UserUsername\").attr('disabled', '');";
-//    }
-   ?>
-
    jQuery("#UserPassword").attr('value', '');;
    jQuery("#UserPasswordConfirm").attr('value', '');
 
@@ -348,70 +326,4 @@
        return true;
     });
 
-//  var forumroot = webroot.replace('cake', 'forum');
-//   jQuery('#btn-register').click(function() {
-//       var username = jQuery('#UserUsername').val();
-//       var password = jQuery('#UserPassword').val();
-//       var email = jQuery('#UserEmail').val();
-//
-//       if(password != jQuery('#UserPasswordConfirm').val()) {
-//           jQuery('#UserPassword').focus();
-//           alert('Введенные пароль и подтверждение пароля не совпадают!');
-//           return;
-//       }
-//
-//       jQuery.ajax({
-//           url: forumroot+'phpbb_register.php',
-//           data: {
-//               username: username,
-//               password: password,
-//               email: email
-//           },
-//           type: 'post',
-//           complete: function() {
-//                jQuery('#user-register-form').submit();
-//           }
-////           success: function(responseText) {
-////               if(responseText) {
-////                    jQuery('#user-register-form').submit();
-////               } else {
-////                    jQuery('#dialog-forum-register-failed').dialog('open');
-////               }
-////           },
-////           error: function() {
-////               jQuery('#dialog-forum-register-failed').dialog('open');
-////           }
-//       });
-//   })
 </script>
-
-<!--<div id="dialog-forum-register-failed">
-    <h1 class="error-message">Внимание: регистрация на форуме не удалась</h1>
-    <h2 class="question-continue-register">
-        Продолжить регистрацию в интернет-магазине?
-        (При этом некоторые функции форума будут недоступны)
-    </h2>
-</div>
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        jQuery('#dialog-forum-register-failed').dialog({
-            show: 'blind',
-            hide: 'blind',
-            modal: true,
-            autoOpen: false,
-            dialogClass: 'widget-login-failed',
-            title: 'Неудачная регистрация на форуме',
-            resizable: false,
-            height: 'auto',
-            width: 500,
-            buttons: {
-                'Продолжить': function() {
-                    jQuery('#user-register-form').submit();
-                },
-                'Отмена' : function() {
-                    jQuery(this).dialog('close');
-                }
-            }
-        });
-    });
-</script>-->
