@@ -2,7 +2,7 @@
 
     jQuery(document).ready(function() {
         jQuery('#UserCaptcha').val('');
-    })
+    });
 
    function setAddress() {
      jQuery("#ClientInfoJurIndex").attr('value', jQuery("#ClientInfoPostIndex").attr('value'));
@@ -54,7 +54,7 @@
     echo "<div>";
 
     echo "<div class=\"body-input div-input-registr\">";
-      echo $form->input('ClientType.client_type_id', array('label' => 'Тип клиента:', 'empty' => 'Выберете из списка'));
+      echo $form->input('ClientInfo.client_type_id', array('label' => 'Тип клиента:'));
     echo "</div>";
 
     echo "<div class=\"caption\" id=\"register-caption\">ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ(обязательно для заполнения)</div>";
@@ -142,6 +142,7 @@
 
     echo "<hr color = '#A3A3D3'> </hr>";
 
+    echo "<div id=\"register-opt-client\">";
     echo "<div class=\"caption\" id=\"register-caption\">ИНФОРМАЦИЯ О ФИРМЕ ДЛЯ ЗАКАЗОВ В ИНТЕРНЕТ-МАГАЗИНЕ</div>";
 
         echo "<div>";
@@ -235,7 +236,7 @@
               echo "</table>";
             echo "</div>";
         echo "</div>";
-        
+    echo "</div>";
     echo "<hr color = '#A3A3D3'> </hr>";
 
     echo "<div class=\"caption\" id=\"register-caption\">ЗАЩИТА ОТ АВТОМАТИЧЕСКИХ РЕГИСТРАЦИЙ</div>";
@@ -287,6 +288,16 @@
      else {
        jQuery('#ClientInfoRegNum').attr('disabled', 'true');
        jQuery('#ClientInfoKPP').attr('disabled', '');
+     }
+
+   }).change();
+
+   jQuery('#ClientInfoClientTypeId').change(function(){
+     if (jQuery('#ClientInfoClientTypeId').attr('value') == 1) {
+       jQuery("#register-opt-client").hide();
+     }
+     else {
+       jQuery("#register-opt-client").show();
      }
 
    }).change();
