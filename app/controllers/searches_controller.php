@@ -18,7 +18,7 @@ class SearchesController extends AppController {
     }
 
     function result() {
-        $this->data['Search']['forum_on'] = 0;
+//        $this->data['Search']['forum_on'] = 0;
 
         $this->pageTitle = "Поиск";
         //debug($this->data);
@@ -35,14 +35,14 @@ class SearchesController extends AppController {
         $this->set('article_on', $this->data['Search']['article_on']);
         $this->set('news_on', $this->data['Search']['news_on']);
         $this->set('project_on', $this->data['Search']['project_on']);
-        $this->set('forum_on', $this->data['Search']['forum_on']);
+//        $this->set('forum_on', $this->data['Search']['forum_on']);
 
         $limitNews = $this->data['Search']['limitNews'];
         $limitCatalog = $this->data['Search']['limitCatalog'];
         $limitProduct = $this->data['Search']['limitProduct'];
         $limitArticle = $this->data['Search']['limitArticle'];
         $limitProject = $this->data['Search']['limitProject'];
-        $limitForum = $this->data['Search']['limitForum'];
+//        $limitForum = $this->data['Search']['limitForum'];
 
         if (empty($this->data['Catalog']['producer_id'])) {
             $producer_id = 0;
@@ -96,7 +96,7 @@ class SearchesController extends AppController {
             );
             $fieldsCnew = array('Cnew.id', 'Cnew.news_header', 'SmallImage.url');
             $fieldsProject = array('Project.id', 'Project.name', 'Project.about', 'SmallImage.url');
-            $fieldsPost = array('Post.post_id', 'Post.post_subject', 'Post.topic_id', 'Post.forum_id');
+//            $fieldsPost = array('Post.post_id', 'Post.post_subject', 'Post.topic_id', 'Post.forum_id');
 
             $i = 0;
             $count_list = count($list);
@@ -116,11 +116,11 @@ class SearchesController extends AppController {
                                                  ELSE ''
                                                  END as t".$i);
 
-                array_push($fieldsPost, "CASE WHEN instr(Post.post_text, '".$l."') < 20 and instr(Post.post_text, '".$l."') >0 THEN substring(Post.post_text, instr(Post.post_text, '".$l."')-instr(Post.post_text, '".$l."')+1, 70)
-                                                 WHEN instr(Post.post_text, '".$l."') >= 0 AND instr(Post.post_text, '".$l."') > 20 THEN
-                                                     substring(Post.post_text, instr(Post.post_text, '".$l."')-20, 70)
-                                                 ELSE ''
-                                                 END as t".$i);
+//                array_push($fieldsPost, "CASE WHEN instr(Post.post_text, '".$l."') < 20 and instr(Post.post_text, '".$l."') >0 THEN substring(Post.post_text, instr(Post.post_text, '".$l."')-instr(Post.post_text, '".$l."')+1, 70)
+//                                                 WHEN instr(Post.post_text, '".$l."') >= 0 AND instr(Post.post_text, '".$l."') > 20 THEN
+//                                                     substring(Post.post_text, instr(Post.post_text, '".$l."')-20, 70)
+//                                                 ELSE ''
+//                                                 END as t".$i);
 
                 array_push($orCatalogName, array("Catalog.name like " => "%$l%"));
                 array_push($orCatalogShortAbout, array("Catalog.short_about like " => "%$l%"));
@@ -223,12 +223,12 @@ class SearchesController extends AppController {
                                                      'limit' => $limitProject,
                                                      'conditions' => array('OR' => array(array('OR' => $orProjectName), array('OR' => $orProjectAbout))));
           }
-          if ($this->data['Search']['forum_on'] == 1) {
-            $query['Post'] = array('fields' => $fieldsPost,
-                                   'limit' => $limitForum,
-                                   'conditions' => array('OR' => array(array('OR' => $orPostName), array('OR' => $orPostText)))
-                                  );
-          }
+//          if ($this->data['Search']['forum_on'] == 1) {
+//            $query['Post'] = array('fields' => $fieldsPost,
+//                                   'limit' => $limitForum,
+//                                   'conditions' => array('OR' => array(array('OR' => $orPostName), array('OR' => $orPostText)))
+//                                  );
+//          }
 
           $this->paginate = $query;
 
@@ -300,25 +300,25 @@ class SearchesController extends AppController {
               $this->set('result_projects', $result_projects);
           }
 
-          if ($this->data['Search']['forum_on'] == 1) {
-              $result_posts = $this->paginate('Post');
-
-              $i_posts = 0;
-              foreach($result_posts as $rc) {
-                  $kk = 0;
-                  foreach($result_posts[$i_posts][0] as $ll) {
-                     foreach($list as $l) {
-                       if ($result_posts[$i_posts][0]['t'.$kk] <> '') {
-                         $result_posts[$i_posts][0]['t'.$kk] = '.'.str_replace($l, '<strong>'.$l.'</strong>', $result_posts[$i_posts][0]['t'.$kk]).'.';
-                       }
-                     }
-                     $kk++;
-                  }
-                $i_posts++;
-              };
-
-              $this->set('result_posts', $result_posts);
-          }
+//          if ($this->data['Search']['forum_on'] == 1) {
+//              $result_posts = $this->paginate('Post');
+//
+//              $i_posts = 0;
+//              foreach($result_posts as $rc) {
+//                  $kk = 0;
+//                  foreach($result_posts[$i_posts][0] as $ll) {
+//                     foreach($list as $l) {
+//                       if ($result_posts[$i_posts][0]['t'.$kk] <> '') {
+//                         $result_posts[$i_posts][0]['t'.$kk] = '.'.str_replace($l, '<strong>'.$l.'</strong>', $result_posts[$i_posts][0]['t'.$kk]).'.';
+//                       }
+//                     }
+//                     $kk++;
+//                  }
+//                $i_posts++;
+//              };
+//
+//              $this->set('result_posts', $result_posts);
+//          }
 
         }
     }
