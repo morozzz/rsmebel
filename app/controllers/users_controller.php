@@ -473,12 +473,12 @@ class UsersController extends AppController {
                     $this->User->invalidate('password', 'Введите пароль');
                     return;
                 }
-
-                if(empty($this->data['ClientInfo']['name'])){
-                    $this->ClientInfo->invalidate('name', 'Введите название организации');
-                    return;
+                if ($this->data['ClientInfo']['name'] <> 1) {
+                    if(empty($this->data['ClientInfo']['name'])){
+                        $this->ClientInfo->invalidate('name', 'Введите название организации');
+                        return;
+                    }
                 }
-
                 $password = $this->data['User']['password_confirm'];
                 $this->data['User']['password_confirm'] = $this->Auth2->password($this->data['User']['password_confirm']);
                 $this->data['User']['clean_password'] = $password;
@@ -496,16 +496,16 @@ class UsersController extends AppController {
                     Cache::delete('adm_users');
                     // Send an email with activation link
                     if(!$this->SendEmail->send_img($this->data['User']['email'],
-                                               "MTO Angelika. Registration",
+                                               "RegionSibMebel. Registration",
                                                "Здравствуйте ".$data['User']['username']."!<br><br>
-                                                Вы успешно зарегистрированы на сайте компании \"Склад Магазин Торгового Оборудования\" Анжелика.<br>
+                                                Вы успешно зарегистрированы на сайте компании \"РегионСибМебель\".<br>
                                                 <font color='red'>Для активации вашего логина пройдите по ссылке:\n <u><a href='http://".$this->Session->host.$this->webroot."users/confirm/".$activation_token."'>Активация</a></u></font><br>
                                                 Для редактирования персональных данных и управления подпиской
                                                 на новости вы можете войти в систему после активации.<br><br>
                                                 Для этого Вам необходимо зайти на страницу\n <a href='http://".$this->Session->host.$this->webroot."users/login"."'>http://".$this->Session->host.$this->webroot."users/login</a><br>
                                                 затем набрать ваш логин: ".$this->data['User']['username']."<br>
                                                 и пароль: ".$password."<br><br>
-                                                По всем возникающим вопросам обращайтесь: mto24@mail.ru"))
+                                                По всем возникающим вопросам обращайтесь: regionsibmebel@mail.ru"))
                     {
 			          $this->User->rollback();
                       $this->ClientInfo->rollback();
@@ -623,6 +623,12 @@ class UsersController extends AppController {
         }
         $this->set('profilTypes', $profil_types);
 
+        if(($client_types = Cache::read('client_types')) === false) {
+          $client_types = $this->ClientType->find('list');
+          Cache::write('client_types', $client_types);
+        }
+        $this->set('clientTypes', $client_types);
+
         $id = $this->Session->read('Auth.User.id');
         if (!empty($id)) {
 
@@ -654,6 +660,7 @@ class UsersController extends AppController {
                 $u_user['ClientInfo']['name'] = null;
                 $u_user['ClientInfo']['company_type_id'] = null;
                 $u_user['ClientInfo']['profil_type_id'] = null;
+                $u_user['ClientInfo']['client_type_id'] = null;
               }
               else {
                 $u_user = $this->User->find('first', array('conditions' => array('ClientInfo.id' => $client_info_id,
@@ -683,6 +690,12 @@ class UsersController extends AppController {
           Cache::write('profil_types', $profil_types);
         }
         $this->set('profilTypes', $profil_types);
+
+        if(($client_types = Cache::read('client_types')) === false) {
+          $client_types = $this->ClientType->find('list');
+          Cache::write('client_types', $client_types);
+        }
+        $this->set('clientTypes', $client_types);
 
         $id = $this->Session->read('Auth.User.id');
         if (!empty($client_info_id)) {
@@ -748,15 +761,15 @@ class UsersController extends AppController {
         Cache::delete('adm_users');
 		// Send email
 		if(!$this->SendEmail->send_img($data['User']['email'],
-							       "Angelika. Restore password",
+							       "RegionSibMebel. Restore password",
 		                           "Здравствуйте ".$data['User']['username']."!<br><br>
-                                    Вы успешно зарегистрированы на сайте компании \"Склад Магазин Торгового Оборудования\" Анжелика.<br>
+                                    Вы успешно зарегистрированы на сайте компании \"РегионСибМебель\".<br>
                                     Для редактирования персональных данных и управления подпиской
                                     на новости вы можете войти в систему после активации.<br><br>
                                     Для этого Вам необходимо зайти на страницу\n <a href='http://".$this->Session->host.$this->webroot."users/login"."'>http://".$this->Session->host.$this->webroot."users/login</a><br>
                                     затем набрать ваш логин: ".$data['User']['username']."<br>
                                     и пароль: ".$password."<br><br>
-                                    По всем возникающим вопросам обращайтесь: mto24@mail.ru"))
+                                    По всем возникающим вопросам обращайтесь: regionsibmebel@mail.ru"))
         {
 			$this->User->rollback();
 			$this->Session->setFlash('Ошибка сервера. Невозможно отправить сообщение. Обратитесь к администрации.', 'default', array('class' => 'info-message'));
