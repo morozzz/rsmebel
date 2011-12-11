@@ -50,7 +50,7 @@
     echo "<font color=red size=5> * </font><font color=yellow><b> Поля, отмеченные звездочкой, обязательны для заполнения </b> </font>";
     echo "</div>";
 
-    echo "<div class=\"caption\" id=\"register-caption\">ПОКУПАТЕЛЬ</div>";
+    echo "<div class=\"caption\" id=\"register-caption\">    КЛИЕНТ   </div>";
     echo "<div>";
 
     echo "<div class=\"body-input div-input-registr\">";
