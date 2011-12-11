@@ -386,13 +386,13 @@ class UsersController extends AppController {
 
               if($this->User->save($this->data, $validate = true, $fieldList = array('password'))) {
 
-                App::import('Core', 'HttpSocket');
-                $forumroot = str_replace('cake', 'forum', $this->Session->host.$this->webroot);
-                $HttpSocket = new HttpSocket();
-                $results = $HttpSocket->post('http://'.$forumroot.'phpbb_password_restore.php', array(
-                    'username' => $username,
-                    'password' => $password
-                ));
+//                App::import('Core', 'HttpSocket');
+//                $forumroot = str_replace('cake', 'forum', $this->Session->host.$this->webroot);
+//                $HttpSocket = new HttpSocket();
+//                $results = $HttpSocket->post('http://'.$forumroot.'phpbb_password_restore.php', array(
+//                    'username' => $username,
+//                    'password' => $password
+//                ));
 
                 Cache::delete('u_users');
                 Cache::delete('adm_users');

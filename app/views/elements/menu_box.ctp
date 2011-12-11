@@ -12,27 +12,31 @@ $links = array(
         'label' => 'новости',
         'url' => $html->url('/cnews/index/')
     ),
-    array(
-        'label' => 'статьи',
-        'url' => $html->url('/articles/index/')
-    ),
+//    array(
+//        'label' => 'статьи',
+//        'url' => $html->url('/articles/index/')
+//    ),
     array(
         'label' => 'каталог - заказ online',
         'url' => $html->url('/catalogs/index/')
+    ),
+    array(
+        'label' => 'спецпредложения',
+        'url' => $html->url('/specials/')
     ),
 //    array(
 //        'type' => 'forum',
 //        'label' => 'форум',
 //        'url' => str_replace('/cake/', '', $this->webroot.'/forum/index.php')
 //    ),
-    array(
-        'label' => 'дизайн',
-        'url' => $html->url('/design_infos/index/')
-    ),
-    array(
-        'label' => 'портфолио',
-        'url' => $html->url('/projects/index/')
-    ),
+//    array(
+//        'label' => 'дизайн',
+//        'url' => $html->url('/design_infos/index/')
+//    ),
+//    array(
+//        'label' => 'портфолио',
+//        'url' => $html->url('/projects/index/')
+//    ),
 //    array(
 //        'label' => 'вход',
 //        'url' => $html->url('/users/login/')
@@ -66,7 +70,7 @@ $links = array(
                     echo $form->hidden('article_on', array('value' => 1));
                     echo $form->hidden('project_on', array('value' => 1));
                     echo $form->hidden('news_on', array('value' => 1));
-                    echo $form->hidden('forum_on', array('value' => 1));
+//                    echo $form->hidden('forum_on', array('value' => 1));
 
                     echo $form->hidden('limitNews', array('value' => 10));
                     echo $form->hidden('limitCatalog', array('value' => 10));

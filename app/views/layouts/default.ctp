@@ -207,7 +207,6 @@ if(isset($page_css)) {
 
     <script type="text/javascript">
         var webroot = "<?php echo $this->webroot;?>";
-        var forumroot = webroot.replace('cake', 'forum');
         jQuery(document).ready(function() {
 
             jQuery('.input-search').focus(function() {

@@ -9,12 +9,12 @@ class Auth2Component extends AuthComponent {
 
         function login($data = null) {
             //авторизация на форуме
-            App::import('Vendor', '/phpbb_login/phpbb_login');
-            $phpbb_login = new PHPBB_Login();
-            if($phpbb_login->login($this->ForumData['username'], $this->ForumData['password']) != 1) {
-//                $this->Session->setFlash($this->loginError, 'default', array(), 'auth');
-//                $this->controller->redirect($this->controller->referer());die;
-            }
+//            App::import('Vendor', '/phpbb_login/phpbb_login');
+//            $phpbb_login = new PHPBB_Login();
+//            if($phpbb_login->login($this->ForumData['username'], $this->ForumData['password']) != 1) {
+////                $this->Session->setFlash($this->loginError, 'default', array(), 'auth');
+////                $this->controller->redirect($this->controller->referer());die;
+//            }
             
             $login = parent::login($data);
             if($login == 1) {
@@ -35,14 +35,14 @@ class Auth2Component extends AuthComponent {
             return $login;
         }
 
-        function logout() {
-            //выход из форума
-            App::import('Vendor', '/phpbb_login/phpbb_login');
-            $phpbb_login = new PHPBB_Login();
-            $phpbb_login->logout();
-
-            return parent::logout();
-        }
+//        function logout() {
+//            //выход из форума
+//            App::import('Vendor', '/phpbb_login/phpbb_login');
+//            $phpbb_login = new PHPBB_Login();
+//            $phpbb_login->logout();
+//
+//            return parent::logout();
+//        }
 
 	//
 	// Initialize component 
@@ -51,8 +51,8 @@ class Auth2Component extends AuthComponent {
 	//
 	function initialize(&$controller) {
             $this->controller = $controller;
-            if(!empty($controller->data['User']))
-                $this->ForumData = $controller->data['User'];
+//            if(!empty($controller->data['User']))
+//                $this->ForumData = $controller->data['User'];
 		//
 	    $controller_reflection = new ReflectionObject($controller);
 	    $controller_properties = $controller_reflection->getProperties();
