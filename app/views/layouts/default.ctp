@@ -11,21 +11,10 @@
 <meta content="<?php echo $url_description;?>" name="description"/>
 <?php echo $scripts_for_layout ?>
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery-1.4.2.min.js"> </script>
-<script type="text/javascript" src="<?php echo $this->webroot; ?>js/iepngfix_tilebg.js"> </script>
-<?php
-//<script type="text/javascript" src="<?php echo $this->webroot; ? >js/jquery.textshadow.js"> </script>
-?>
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery.cookie.js"> </script>
-<?php foreach($page_js as $js) {
-    $src = $this->webroot."js/".$js.".js";
-?>
-<script type="text/javascript" src="<?php echo $src; ?>"> </script>
-<?php } ?>
+<?php foreach($page_js as $js) {echo $html->script($src);}?>
 <?php
-echo $html->css("mto.css");
-//echo $html->css("jquery.treeview.css");
-//echo $html->css("fumodal.css");
-//echo $html->css("jquery-ui-1.8.2.custom.css");
+echo $html->css("all.css");
 if(isset($page_css)) {
     foreach($page_css as $css) {
         $filename = 'css/'.$css.'.css';
@@ -34,109 +23,10 @@ if(isset($page_css)) {
     }
 }
 ?>
-<style type="text/css">
-.iepngfix {
-    behavior: url("<?php echo $this->webroot;?>htc/iepngfix.htc");
-}
-.pie {
-    position: relative;
-    behavior: url("<?php echo $this->webroot;?>htc/PIE.htc");
-}
-.div-header-center {
-    -pie-background: url(<?php echo $this->webroot;?>img/caption-left-background.png) no-repeat right,
-        url(<?php echo $this->webroot;?>img/caption-right-background.png) no-repeat left,
-        url(<?php echo $this->webroot;?>img/caption-center-background-repeat.png) repeat;
-}
-/*body {
-    behavior: url("<?php echo $this->webroot;?>/htc/csshover3.htc");
-}*/
-</style>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-7317393-5']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 </head>
 <body>
-
-<!-- Yandex.Metrika counter -->
-<div style="display:none;"><script type="text/javascript">
-(function(w, c) {
-    (w[c] = w[c] || []).push(function() {
-        try {
-            w.yaCounter9436525 = new Ya.Metrika({id:9436525, enableAll: true});
-        }
-        catch(e) { }
-    });
-})(window, "yandex_metrika_callbacks");
-</script></div>
-<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/9436525" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
-    <div id = "top-hd" style="display:none;"><?php echo $strs[1];?></div>
-
-    <div id="top-lg">
-        <?php echo $html->div('div-top-caption', $html->tag('h1', $strs[12]));?>
-        <?php /*echo $html->image('top-background.jpg', array('id' => 'img-top-background'));*/?>
-        <div class="div-top-left">
-            <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="327" height="116" id="Лого2" align="middle">
-                <param name="allowScriptAccess" value="sameDomain" />
-                <param name="movie" value="<?php echo $logo_path;?>" />
-                <param name="wmode" value="transparent"/>
-                <param name="quality" value="high" />
-                <param name="bgcolor" value="#ffffff" />
-                <embed src="<?php echo $logo_path;?>" wmode="transparent" quality="high" bgcolor="#ffffff" width="327" height="116" name="Лого5" align="middle" allowscriptaccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-            </object>
-        </div>
-        <div id="div-top-left-flash-link">
-            <a href="<?php echo $html->url('/');?>">
-                <?php echo $html->image('329-116-transparent.gif');?>
-            </a>
-        </div>
-        <?php
-        echo $html->image('top-left.png', array(
-            'id' => 'img-top-left',
-            'class' => 'iepngfix'
-        ));
-        echo $html->image('top-right.png', array(
-            'id' => 'img-top-right',
-            'class' => 'iepngfix'
-        ));
-        ?>
-        <div id="div-banners">
-            <table width="100%">
-                <tr align="center">
-                    <?php foreach($banners as $banner) { ?>
-                    <td>
-                        <?php
-                        echo $html->image($banner['Image']['url'], array(
-                            'url' => $banner['Banner']['link'],
-                            'class' => 'img-banner-top'
-                        ));
-                        echo $html->image('banner-reflex.png', array(
-                            'class' => 'img-banner-top-reflex iepngfix'
-                        ));
-                        ?>
-                    </td>
-                    <?php } ?>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div id="top-menu" class="h-menu">
-       <?php
-         echo $this->element('menu_box');
-       ?>
-    </div>
+    <div id="div-top"><?php echo $this->element('top');?></div>
+    <div id="div-top-menu" class="h-menu"><?php echo $this->element('menu_box');?></div>
 
 <div id="div-content-for-layout">
     <?php echo $content_for_layout ?>

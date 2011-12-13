@@ -13,8 +13,8 @@ class HomeNewsController extends AppController {
     );
 
     var $helpers = array('Cache');
-    var $cacheAction = array('index' => '1 week',
-                             'list_home_news' => '1 week');
+//    var $cacheAction = array('index' => '1 week',
+//                             'list_home_news' => '1 week');
     var $commonCss = array();
     var $actionJs = array("jquery.cycle.min");
 
