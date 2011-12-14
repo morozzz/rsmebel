@@ -1,0 +1,3 @@
+2011-12-14 18:47:39 Warning: Warning (512): Method HtmlHelper::script does not exist in [CORE\cake\libs\view\helper.php, line 143]
+2011-12-14 18:47:58 Warning: Warning (512): Method HtmlHelper::script does not exist in [CORE\cake\libs\view\helper.php, line 143]
+2011-12-14 18:48:18 Warning: Warning (512): Method HtmlHelper::script does not exist in [CORE\cake\libs\view\helper.php, line 143]
