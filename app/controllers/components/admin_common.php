@@ -118,19 +118,6 @@ class AdminCommonComponent extends Object {
                 Cache::delete($ch);
             }
         }
-
-        //удаляем сформированные ексель-файлы
-        $handle = opendir('xls');
-        if($handle) {
-            while(($file = readdir($handle)) !== false) {
-                if($file!='.' && $file!='..') {
-                    $info = pathinfo($file);
-                    if($info['extension'] == 'xls') {
-                        unlink("xls/$file");
-                    }
-                }
-            }
-        }
     }
 }
 

@@ -226,6 +226,12 @@ $menu = array(
         'role_id' => 3,
         'group' => 6
     ),
+    'Настройки' => array(
+        'li_id' => 'admin-menu-url-setting',
+        'link' => '/setting/admin_index',
+        'role_id' => 3,
+        'group' => 6
+    ),
 //    'Информационное сообщение' => array(
 //        'li_id' => 'admin-menu-alerts',
 //        'link' => '/alerts/adm_index',
