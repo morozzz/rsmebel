@@ -1,8 +1,8 @@
 <script type="text/javascript">
 
-    jQuery(document).ready(function() {
-        jQuery('#UserCaptcha').val('');
-    });
+//    jQuery(document).ready(function() {
+//        jQuery('#UserCaptcha').val('');
+//    });
 
    function setAddress() {
      jQuery("#ClientInfoJurIndex").attr('value', jQuery("#ClientInfoPostIndex").attr('value'));
@@ -56,6 +56,7 @@
     echo "<div class=\"body-input div-input-registr\">";
       echo $form->input('ClientInfo.client_type_id', array('label' => 'Тип клиента:'));
     echo "</div>";
+    echo "<hr color = '#A3A3D3'> </hr>";
 
     echo "<div class=\"caption\" id=\"register-caption\">ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ(обязательно для заполнения)</div>";
 
@@ -95,6 +96,23 @@
             echo "<div class=\"body-input div-input-registr\">";
                 echo $form->input('ClientInfo.fio', array('label' => 'ФИО:'));
             echo "</div>";
+
+            echo "<div class=\"body-input\">";
+              echo "<table width = 100%> <tr>";
+              echo "<td width = 45% align=right>";
+                echo $form->input('ClientInfo.phone_kod', array('label' => 'Телефон:(', 'size' => '10', 'style' => 'width: 50px;', 'div' => 'div-phone-kod'));
+              echo "</td>";
+              echo "<td style='text-align: left;' valign = center>";
+                echo "<div class = 'input text'>";
+                  echo $form->label(')');
+                echo "</div>";
+              echo "</td>";
+              echo "<td>";
+                echo $form->input('ClientInfo.phone', array('label' => '', 'size' => '50'));
+              echo "</td>";
+              echo "</table>";
+            echo "</div>";
+
             echo "<div class=\"body-input div-input-registr\">";
               echo "<table width = 100%> <tr>";
               echo "<td width = 128>";
@@ -161,21 +179,21 @@
                 echo $form->input('ClientInfo.OKPO', array('label' => 'ОКПО:', 'size' => '50'));
                 echo $form->input('ClientInfo.OKVED', array('label' => 'ОКВЭД(ОКОНХ):', 'size' => '50'));
             echo "</div>";
-            echo "<div class=\"body-input\">";
-              echo "<table width = 100%> <tr>";
-              echo "<td width = 45% align=right>";
-                echo $form->input('ClientInfo.phone_kod', array('label' => 'Телефон:(', 'size' => '10', 'style' => 'width: 50px;', 'div' => 'div-phone-kod'));
-              echo "</td>";
-              echo "<td style='text-align: left;' valign = center>";
-                echo "<div class = 'input text'>";
-                  echo $form->label(')');
-                echo "</div>";
-              echo "</td>";
-              echo "<td>";
-                echo $form->input('ClientInfo.phone', array('label' => '', 'size' => '50'));
-              echo "</td>";
-              echo "</table>";
-            echo "</div>";
+//            echo "<div class=\"body-input\">";
+//              echo "<table width = 100%> <tr>";
+//              echo "<td width = 45% align=right>";
+//                echo $form->input('ClientInfo.phone_kod', array('label' => 'Телефон:(', 'size' => '10', 'style' => 'width: 50px;', 'div' => 'div-phone-kod'));
+//              echo "</td>";
+//              echo "<td style='text-align: left;' valign = center>";
+//                echo "<div class = 'input text'>";
+//                  echo $form->label(')');
+//                echo "</div>";
+//              echo "</td>";
+//              echo "<td>";
+//                echo $form->input('ClientInfo.phone', array('label' => '', 'size' => '50'));
+//              echo "</td>";
+//              echo "</table>";
+//            echo "</div>";
             echo "<div class=\"body-input\">";
               echo "<table width = 100%> <tr>";
               echo "<td width = 45% align=right>";
@@ -237,24 +255,24 @@
             echo "</div>";
         echo "</div>";
     echo "</div>";
-    echo "<hr color = '#A3A3D3'> </hr>";
+//    echo "<hr color = '#A3A3D3'> </hr>";
 
-    echo "<div class=\"caption\" id=\"register-caption\">ЗАЩИТА ОТ АВТОМАТИЧЕСКИХ РЕГИСТРАЦИЙ</div>";
-      echo "<div>";    
-            echo "<div class=\"body-input\">";
-              echo $form->error('User/captcha');
-              //echo "<a id = 'captcha_link' href='#'> сменить код на картинке </a>";
-              echo "<br>";
-             // echo $html->image($this->requestAction('/users/captcha'), array('id' => 'captcha_img'));
-              //echo $ajax->link('сменить код на картинке', array('controller'=>'users','action'=>'captcha'), array('update' => 'captcha_img', 'id' => 'cap_link'));
-              echo $html->link('сменить код на картинке', '#', array('id' => 'cap_link', 'onclick' => 'return false;'));
-              echo $html->image('/users/captcha', array('id' => 'captcha_img'));
-              //echo $html->link('dfgdsg', '#', array('id' => 'cap_link'));
-              echo $form->input('User.captcha', array('label' => 'Введите код с картинки в это поле <font size=4 color = red> * </font>:', 'div' => 'input text div-required'));
-            echo "</div>";
-      echo "</div>";
-        
-    echo "<hr color = '#A3A3D3'> </hr>";
+//    echo "<div class=\"caption\" id=\"register-caption\">ЗАЩИТА ОТ АВТОМАТИЧЕСКИХ РЕГИСТРАЦИЙ</div>";
+//      echo "<div>";
+//            echo "<div class=\"body-input\">";
+//              echo $form->error('User/captcha');
+//              //echo "<a id = 'captcha_link' href='#'> сменить код на картинке </a>";
+//              echo "<br>";
+//             // echo $html->image($this->requestAction('/users/captcha'), array('id' => 'captcha_img'));
+//              //echo $ajax->link('сменить код на картинке', array('controller'=>'users','action'=>'captcha'), array('update' => 'captcha_img', 'id' => 'cap_link'));
+//              echo $html->link('сменить код на картинке', '#', array('id' => 'cap_link', 'onclick' => 'return false;'));
+//              echo $html->image('/users/captcha', array('id' => 'captcha_img'));
+//              //echo $html->link('dfgdsg', '#', array('id' => 'cap_link'));
+//              echo $form->input('User.captcha', array('label' => 'Введите код с картинки в это поле <font size=4 color = red> * </font>:', 'div' => 'input text div-required'));
+//            echo "</div>";
+//      echo "</div>";
+//
+//    echo "<hr color = '#A3A3D3'> </hr>";
 
     if($userid <> -1) {
       echo $form->submit('Сохранить изменения');
@@ -295,6 +313,25 @@
    jQuery('#ClientInfoClientTypeId').change(function(){
      if (jQuery('#ClientInfoClientTypeId').attr('value') == 1) {
        jQuery("#register-opt-client").hide();
+       jQuery("#ClientInfoCompanyTypeId").attr('value', null);
+       jQuery("#ClientInfoProfilTypeId").attr('value', null);
+       jQuery("#ClientInfoName").attr('value', '');
+       jQuery("#ClientInfoRegNum").attr('value', '');
+       jQuery("#ClientInfoINN").attr('value', '');
+       jQuery("#ClientInfoOperatingAccount").attr('value', '');
+       jQuery("#ClientInfoBank").attr('value', '');
+       jQuery("#ClientInfoCorrespondentAccount").attr('value', '');
+       jQuery("#ClientInfoBIK").attr('value', '');
+       jQuery("#ClientInfoOKPO").attr('value', '');
+       jQuery("#ClientInfoOKVED").attr('value', '');
+       jQuery("#ClientInfoFaxKod").attr('value', '');
+       jQuery("#ClientInfoFax").attr('value', '');
+       jQuery("#ClientInfoJurIndex").attr('value', '');
+       jQuery("#ClientInfoJurRegion").attr('value', '');
+       jQuery("#ClientInfoJurCity").attr('value', '');
+       jQuery("#ClientInfoJurStreet").attr('value', '');
+       jQuery("#ClientInfoJurHnumber").attr('value', '');
+       jQuery("#ClientInfoJurOffice").attr('value', '');
      }
      else {
        jQuery("#register-opt-client").show();
@@ -307,37 +344,37 @@
 
 
 
-    jQuery('#captcha_link').click(function() {
-        jQuery.ajax({
-            url: webroot+'users/captcha',
-            type: 'post',
-            success: function(responseText) {
-                //var obj = eval(responseText);
-                jQuery('#captcha_img').attr('src', '');
-                jQuery('#captcha_img').attr('src', webroot+'/users/captcha');
-               // alert('111');
-            }
-        });
-     });
-
-     var captcha_index = 0;
-    jQuery(document).ready(function() {
-        jQuery('#cap_link').click(function() {
-              jQuery('#captcha_img').attr('src', '');
-              jQuery('#captcha_img').attr('src', webroot+'users/captcha/'+captcha_index);
-              captcha_index++;
-         });
-    });
-
-    jQuery('#user-register-form').submit(function() {
-       var password = jQuery('#UserPassword').val();
-
-       if(password != jQuery('#UserPasswordConfirm').val()) {
-           jQuery('#UserPassword').focus();
-           alert('Введенные пароль и подтверждение пароля не совпадают!');
-           return false;
-       }
-       return true;
-    });
+//    jQuery('#captcha_link').click(function() {
+//        jQuery.ajax({
+//            url: webroot+'users/captcha',
+//            type: 'post',
+//            success: function(responseText) {
+//                //var obj = eval(responseText);
+//                jQuery('#captcha_img').attr('src', '');
+//                jQuery('#captcha_img').attr('src', webroot+'/users/captcha');
+//               // alert('111');
+//            }
+//        });
+//     });
+//
+//     var captcha_index = 0;
+//    jQuery(document).ready(function() {
+//        jQuery('#cap_link').click(function() {
+//              jQuery('#captcha_img').attr('src', '');
+//              jQuery('#captcha_img').attr('src', webroot+'users/captcha/'+captcha_index);
+//              captcha_index++;
+//         });
+//    });
+//
+//    jQuery('#user-register-form').submit(function() {
+//       var password = jQuery('#UserPassword').val();
+//
+//       if(password != jQuery('#UserPasswordConfirm').val()) {
+//           jQuery('#UserPassword').focus();
+//           alert('Введенные пароль и подтверждение пароля не совпадают!');
+//           return false;
+//       }
+//       return true;
+//    });
 
 </script>

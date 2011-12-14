@@ -58,7 +58,7 @@
                  if (empty($id)) {
 
                      echo "<p> <b>";
-                     echo $html->link('Вход для пользователей ', '#', array('class' => 'link-user-login'));
+                     echo $html->link('Вход для пользователей ', '/users/login', array('class' => 'link-user-login'));
                      echo " / ";
                      echo $html->link('Регистрация', array('controller' => 'users', 'action' => 'register'));
                      echo "</b> </p>";
@@ -112,20 +112,20 @@
 </div>
 
 <script type="text/javascript">
-    jQuery(function() {
-        jQuery('#div-user-login-dialog').dialog({
-            autoOpen: false,
-            draggable: false,
-            height: 140,
-            modal: true,
-            resizable: true,
-            width: 250
-        });
-        jQuery('.link-user-login').click(function() {
-            jQuery('#div-user-login-dialog').dialog('open');
-            return false;
-        });
-    })
+//    jQuery(function() {
+//        jQuery('#div-user-login-dialog').dialog({
+//            autoOpen: false,
+//            draggable: false,
+//            height: 140,
+//            modal: true,
+//            resizable: true,
+//            width: 250
+//        });
+//        jQuery('.link-user-login').click(function() {
+//            jQuery('#div-user-login-dialog').dialog('open');
+//            return false;
+//        });
+//    })
 </script>
 
 <?php define('LOAD_USER_LOGIN_DIALOG', true);?>

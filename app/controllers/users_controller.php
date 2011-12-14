@@ -460,20 +460,19 @@ class UsersController extends AppController {
 
         if(!empty($this->data)) {
 
-            $this->data['User']['captcha_confirm'] = $this->Session->read('captcha');
-
-            if ($this->data['User']['captcha_confirm'] <> $this->data['User']['captcha']) {
-              $this->Session->setFlash('Неверно введен код с картинки', 'default', array('class' => 'info-message'));
-              return;
-            }
-
+//            $this->data['User']['captcha_confirm'] = $this->Session->read('captcha');
+//
+//            if ($this->data['User']['captcha_confirm'] <> $this->data['User']['captcha']) {
+//              $this->Session->setFlash('Неверно введен код с картинки', 'default', array('class' => 'info-message'));
+//              return;
+//            }            
             if($id == null) {
 
                 if($this->data['User']['password'] == 'e6368f2fa42edc4f72027f4c33e4fcb1d50fcca2'){
                     $this->User->invalidate('password', 'Введите пароль');
                     return;
                 }
-                if ($this->data['ClientInfo']['name'] <> 1) {
+                if ($this->data['ClientInfo']['client_type_id'] <> 1) {
                     if(empty($this->data['ClientInfo']['name'])){
                         $this->ClientInfo->invalidate('name', 'Введите название организации');
                         return;
@@ -488,6 +487,7 @@ class UsersController extends AppController {
                     // Try to create user
                     $activation_token = $this->Auth2->createPassword(36);
                     $this->data['User']['activation_token'] = $activation_token;
+
                     $this->User->create();
                     if(!$this->User->saveall($this->data))
                       return;
@@ -495,6 +495,7 @@ class UsersController extends AppController {
                     Cache::delete('u_users');
                     Cache::delete('adm_users');
                     // Send an email with activation link
+                    //if(1==2)
                     if(!$this->SendEmail->send_img($this->data['User']['email'],
                                                "RegionSibMebel. Registration",
                                                "Здравствуйте ".$data['User']['username']."!<br><br>
@@ -514,15 +515,8 @@ class UsersController extends AppController {
                     else {
                         $this->User->commit();
                         //$this->Auth2->login($this->data);
-                       $this->redirect('/users/registr_end/'.$this->data['User']['email']);
-                       //$this->Session->setFlash('Данные для активации отправлены на '.$this->data['User']['email'], 'default', array('class' => 'info-message'));
+                        $this->redirect('/users/registr_end/'.$this->data['User']['email']);
                     }
-
-                    // We could redirect to login.....
-                    //$this->flash('Registration is complete. Please login.', '/', 10);
-                    // .. or login and redirect to proper page
-                    //$this->Auth2->login($this->data);
-                    //$this->redirect($this->Auth2->loginRedirect);
                 }
                 else {
          			$this->Session->setFlash('Нета роль!', 'default', array('class' => 'info-message'));
@@ -534,10 +528,10 @@ class UsersController extends AppController {
               $this->data['User']['password_confirm'] = $this->Auth2->password($this->data['User']['password_confirm']);
               
               if ($this->data['User']['password'] <> 'e6368f2fa42edc4f72027f4c33e4fcb1d50fcca2') {
-                $save_data = $this->User->save($this->data, $validate = true, $fieldList = array('username', 'email', 'captcha', 'password'));
+                $save_data = $this->User->save($this->data, $validate = true, $fieldList = array('username', 'email', 'password'));
               }
               else {
-                $save_data = $this->User->save($this->data, $validate = true, $fieldList = array('username', 'email', 'captcha'));
+                $save_data = $this->User->save($this->data, $validate = true, $fieldList = array('username', 'email'));
               }
               
               if($save_data) {
@@ -547,7 +541,6 @@ class UsersController extends AppController {
                     $this->User->id = $id;
                     $this->data = $this->User->read();
                     $this->set('u_user', $this->User->read());
-                    //$this->Session->setFlash('Ваши данные сохранены успешно');
          			$this->Session->setFlash('Ваши данные сохранены успешно', 'default', array('class' => 'info-message'));
                   }
               }
@@ -738,12 +731,12 @@ class UsersController extends AppController {
 			return;
 		}
 
-        $this->data['User']['captcha_confirm'] = $this->Session->read('captcha');
-
-        if($this->data['User']['captcha_confirm'] <> $this->data['User']['captcha']){
-			$this->User->invalidate('captcha', 'Неверно введен код');
-			return;
-        }
+//        $this->data['User']['captcha_confirm'] = $this->Session->read('captcha');
+//
+//        if($this->data['User']['captcha_confirm'] <> $this->data['User']['captcha']){
+//			$this->User->invalidate('captcha', 'Неверно введен код');
+//			return;
+//        }
 
 		// Generate new password
 		$password = $this->Auth2->createPassword();

@@ -13,13 +13,13 @@
     echo "<div>";
         echo "<div class=\"body-input\">";
           echo $form->input('email', array('label' => 'Введите ваш E-mail:'));
-          echo $form->error('User/captcha');
-          echo $html->link('сменить код на картинке', '#', array(
-              'class' => 'link-change-captcha',
-              'onclick' => 'return false;'
-          ));
-          echo "<img id='img-captcha' src='".$html->url('/users/captcha')."'>";
-          echo $form->input('User.captcha', array('label' => 'Код на картинке:'));
+//          echo $form->error('User/captcha');
+//          echo $html->link('сменить код на картинке', '#', array(
+//              'class' => 'link-change-captcha',
+//              'onclick' => 'return false;'
+//          ));
+//          echo "<img id='img-captcha' src='".$html->url('/users/captcha')."'>";
+//          echo $form->input('User.captcha', array('label' => 'Код на картинке:'));
         echo "</div>";
     echo "</div>";
 

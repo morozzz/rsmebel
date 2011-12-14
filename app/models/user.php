@@ -70,62 +70,63 @@ class User extends AppModel {
                 'message' => 'Пароль и подтверждение не совпадают',
                 'last' => true
             )
-         ),
-
-        'captcha' => array(
-            'cap' => array(
-                'rule' => VALID_HAS_PAIR,
-                'message' => 'Неверно введен код',
-                'last' => true
-            )
          )
 
+//        'captcha' => array(
+//            'cap' => array(
+//                'rule' => VALID_HAS_PAIR,
+//                'message' => 'Неверно введен код',
+//                'last' => true
+//            )
+//         )
+
     );
+
 
     function beforeSave() {
         if(empty($this->id) && empty($this->data['User']['id'])) {
             //сохраняем IP
             $this->data['User']['ip_addr'] = $_SERVER['REMOTE_ADDR'];
 
-            //регистрация на форуме
-            App::import('Vendor', '/phpbb_login/phpbb_login');
-            $phpbb_login = new PHPBB_Login();
-            $username = $this->data['User']['username'];
-            $email = $this->data['User']['email'];
-            $password = $this->data['User']['clean_password'];
-            return $phpbb_login->register($username, $password, $email);
+//            //регистрация на форуме
+//            App::import('Vendor', '/phpbb_login/phpbb_login');
+//            $phpbb_login = new PHPBB_Login();
+//            $username = $this->data['User']['username'];
+//            $email = $this->data['User']['email'];
+//            $password = $this->data['User']['clean_password'];
+//            return $phpbb_login->register($username, $password, $email);
         } else {
-            if(!empty($this->data['User']['clean_password'])) {
-                //смена пароля на форуме
-                App::import('Vendor', '/phpbb_login/phpbb_login');
-                $phpbb_login = new PHPBB_Login();
-                $username = $this->data['User']['username'];
-                $password = $this->data['User']['clean_password'];
-                $query = $phpbb_login->change_password($username, $password);
-                $this->query($query);
-            }
+//            if(!empty($this->data['User']['clean_password'])) {
+//                //смена пароля на форуме
+//                App::import('Vendor', '/phpbb_login/phpbb_login');
+//                $phpbb_login = new PHPBB_Login();
+//                $username = $this->data['User']['username'];
+//                $password = $this->data['User']['clean_password'];
+//                $query = $phpbb_login->change_password($username, $password);
+//                $this->query($query);
+//            }
         }
         return true;
     }
 
-    function afterSave($created) {
-        if($created) {
-            //проверяем наличие информации о клиенте
-            if($created) {
-                $cnt = $this->ClientInfo->find('count', array(
-                    'conditions' => array(
-                        'ClientInfo.id' => $this->id
-                    )
-                ));
-                if($cnt==0) {
-                    $this->ClientInfo->create();
-                    $this->ClientInfo->save(array(
-                        'user_id' => $this->id
-                    ));
-                }
-            }
-        }
-    }
+//    function afterSave($created) {
+//        if($created) {
+//            //проверяем наличие информации о клиенте
+//            if($created) {
+//                $cnt = $this->ClientInfo->find('count', array(
+//                    'conditions' => array(
+//                        'ClientInfo.id' => $this->id
+//                    )
+//                ));
+//                if($cnt==0) {
+//                    $this->ClientInfo->create();
+//                    $this->ClientInfo->save(array(
+//                        'user_id' => $this->id
+//                    ));
+//                }
+//            }
+//        }
+//    }
 
     function afterFind($results, $primary) {
         foreach($results as &$result) {
