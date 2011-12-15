@@ -51,7 +51,7 @@ table.menu td a,table.menu td div.current-menu{font-size:21px;font-weight:bold;f
     height:41px;line-height:41px;margin:0 auto;text-align:center;width:208px;}
 table.menu td div.current-menu{background:url(../img/menu_item_current.jpg)no-repeat;color:white;}
 table.menu td a{background:url(../img/menu_item.jpg)no-repeat;color:#8a5400;display:block;}
-table.menu td a:hover{background:url(../img/menu_item_hover.jpg)no-repeat;text-decoration: none;}
+table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 
 /*footer*/
 #footer{height:180px;margin-top:20px;}
