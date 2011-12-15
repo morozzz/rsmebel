@@ -13,6 +13,7 @@ class PageController extends AppController {
         parent::beforeFilter();
 
         $this->Auth2->allow('get_menus');
+        $this->Auth2->allow('main');
     }
     
     function get_menus() {
@@ -54,6 +55,11 @@ class PageController extends AppController {
         } else {
             $this->set('menus', $menus);
         }
+    }
+    
+    function main() {
+        $this->pageTitle = 'РегионСибМебель. Магазин домашнего уюта';
+        $this->set('current_menu_name', 'main');
     }
 }
 
