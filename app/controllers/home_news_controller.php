@@ -180,6 +180,7 @@ class HomeNewsController extends AppController {
 
 	function index() {
       $this->pageTitle = "Торговое оборудование / Витрины, оборудование для магазинов, банкетки, рекламные стойки - Анжелика";
+      $this->set('current_menu_name', 'main');
 
       /*слайдшоу*/
       /***************************************************************/

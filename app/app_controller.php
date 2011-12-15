@@ -26,7 +26,8 @@ class AppController extends Controller{
         'Alert',
         'UrlKeyword',
         'UrlDescription',
-        'UrlTitle'
+        'UrlTitle',
+        'Setting'
     );
     var $helpers = array(
         'Common',
@@ -72,18 +73,8 @@ class AppController extends Controller{
         }
 
         //получение подвала на главной странице
-        if(($home_footers = Cache::read('home_footers')) === false) {
-          $home_footers = $this->HomeFooter->find('all');
-          Cache::write('home_footers', $home_footers);
-        }
-        $this->set('home_footers', $home_footers);
-
-        //верхние баннеры
-        if(($banners = Cache::read('banners')) === false) {
-          $banners = $this->Banner->find('all');
-          Cache::write('banners', $banners);
-        }
-        $this->set('banners', $banners);
+        $footer_text = $this->Setting->get_footer_text();
+        $this->set('footer_text', $footer_text);
 
         //тексты
         if(($strs = Cache::read('strs')) === false) {
@@ -94,44 +85,6 @@ class AppController extends Controller{
             Cache::write('strs', $strs);
         }
         $this->set('strs', $strs);
-
-        //logo
-        //удалить, когда определимся с логотипом
-        $logos = array(
-            1 => $this->webroot.'swf/logo1.swf',
-            2 => $this->webroot.'swf/logo2.swf',
-            3 => $this->webroot.'swf/logo3.swf',
-            4 => $this->webroot.'swf/logo4.swf',
-            5 => $this->webroot.'swf/logo5.swf',
-            6 => $this->webroot.'swf/logo6.swf',
-            7 => $this->webroot.'swf/logo7.swf',
-            8 => $this->webroot.'swf/logo8.swf',
-            9 => $this->webroot.'swf/logo9.swf',
-            10 => $this->webroot.'swf/logo10.swf',
-            11 => $this->webroot.'swf/logo11.swf',
-            12 => $this->webroot.'swf/logo12.swf'
-        );
-        $logo_num = 9;
-        if(!empty($this->params['named']) && !empty($this->params['named']['logo'])) {
-            $temp_logo_num = $this->params['named']['logo'];
-            if(!empty($logos[$temp_logo_num]))
-                $logo_num = $temp_logo_num;
-        }
-        $logo_path = $logos[$logo_num];
-        $this->set('logo_path', $logo_path);
-
-        $alert = $this->Alert->find('first', array(
-            'conditions' => array(
-                'Alert.enabled' => 1
-            ),
-            'contain' => array()
-        ));
-        $this->set('alert', $alert);
-
-        if(!empty($alert)) {
-            $this->actionJs[] = "jquery-ui-1.8.5.custom.min";
-            $this->commonCss[] = "jquery-ui-1.8.5.custom";
-        }
 
         $url_keywords = $this->UrlKeyword->get_all();
         $keyword = $strs[4];
