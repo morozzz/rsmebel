@@ -25,7 +25,7 @@ $menu = array(
 
     'Каталог' => array(
         'li_id' => 'admin-menu-catalog',
-        'link' => '/catalogs/adm_catalog',
+        'link' => $html->url(array('controller'=>'catalogs','action'=>'admin_index')),
         'role_id' => 3,
         'group' => 2
     ),

@@ -36,7 +36,7 @@
  * ...and connect the rest of 'Pages' controller's urls.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
-        Router::connect('/admin/*', array('controller' => 'catalogs', 'action' => 'adm_catalog'));
+        Router::connect('/admin/*', array('controller' => 'catalogs', 'action' => 'admin_index'));
         Router::connect('/manager/*', array('controller' => 'customs', 'action' => 'adm_custom'));
         Router::connect('/sitemap.xml', array('controller' => 'setting', 'action' => 'sitemap_xml'));
         Router::connect('/catalog.yml', array('controller' => 'setting', 'action' => 'catalog_yml'));

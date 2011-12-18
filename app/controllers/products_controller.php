@@ -121,24 +121,68 @@ class ProductsController extends AppController {
             $this->set('product_det_id', $product_det_id);
         }
     }
+    
+    function admin_index($catalog_id) {
+        $this->layout = 'admin';
+        
+        $catalog = $this->Catalog->find('first', array(
+            'conditions' => array(
+                'Catalog.id' => $catalog_id
+            ),
+            'contain' => array(
+                'SmallImage',
+                'BigImage'
+            )
+        ));
+        $this->set('catalog', $catalog);
+        $this->pageTitle = "Администрирование - {$catalog['Catalog']['name']} - товары";
+        
+        $catalog_list = $this->Catalog->get_list();
+        $this->set('catalog_list', $catalog_list);
+        
+        $products = $this->Product->find('all', array(
+            'conditions' => array(
+                'Product.catalog_id' => $catalog_id
+            ),
+            'contain' => array(
+                'SmallImage',
+                'BigImage'
+            )
+        ));
+        $products = Set::combine($products, '{n}.Product.id', '{n}');
+        $this->set('products', $products);
+    }
 
-    function save_all() {
+    function admin_save_all() {
         $this->AdminCommon->save_all($this->data, $this->Product);
         $this->redirect($this->referer());
         die;
     }
 
-    function add() {
+    function admin_add() {
         $this->AdminCommon->add($this->data, $this->Product);
         die;
     }
 
-    function delete() {
+    function admin_delete() {
         $this->AdminCommon->delete($this->data, $this->Product);
         die;
     }
 
-    function move_list() {
+    function admin_move() {
+        if(!empty($this->data)) {
+            $product_id = $this->data['product_id'];
+            $catalog_id = $this->data['catalog_id'];
+
+            $this->Product->id = $product_id;
+            $this->Product->changeCatalog($catalog_id);
+
+            $this->AdminCommon->clearModelCache($this->Product);
+        }
+        die;
+    }
+
+    function admin_move_list() {
         if(!empty($this->data)) {
             $products_id = $this->data['products_id'];
             $catalog_id = $this->data['catalog_id'];
@@ -243,19 +287,6 @@ class ProductsController extends AppController {
                     )
                 ));
             }
-
-            $this->AdminCommon->clearModelCache($this->Product);
-        }
-        die;
-    }
-
-    function change_catalog() {
-        if(!empty($this->data)) {
-            $product_id = $this->data['product_id'];
-            $catalog_id = $this->data['catalog_id'];
-
-            $this->Product->id = $product_id;
-            $this->Product->changeCatalog($catalog_id);
 
             $this->AdminCommon->clearModelCache($this->Product);
         }

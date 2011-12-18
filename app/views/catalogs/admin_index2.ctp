@@ -172,7 +172,7 @@ function add() {
 
 <script type="text/javascript">
 function go_to_catalog(row_id) {
-    var link = "<?php echo $html->url('/catalogs/adm_catalog/');?>";
+    var link = "<?php echo $html->url('/catalogs/admin_index/');?>";
     link += row_id;
     window.location = link;
 }

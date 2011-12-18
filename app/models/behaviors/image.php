@@ -10,11 +10,11 @@ class ImageBehavior extends ModelBehavior {
             'image_type_id' => 1,
             'images' => array()
         ), $setting);
-        $this->setting = $setting;
+        $Model->image_setting = $setting;
     }
 
     function afterFind(&$Model, $results, $primary) {
-        extract($this->setting);
+        extract($Model->image_setting);
 
         //для всех ненайденных изображений ставим изображение по умолчанию
         if($primary) {
@@ -36,7 +36,7 @@ class ImageBehavior extends ModelBehavior {
     }
 
     function beforeSave(&$Model) {
-        extract($this->setting);
+        extract($Model->image_setting);
         $row = null;
         if(!empty($Model->data[$Model->name]['id'])) {
             $row = $Model->find('first', array(
@@ -67,7 +67,7 @@ class ImageBehavior extends ModelBehavior {
     }
 
     function beforeDelete(&$Model) {
-        extract($this->setting);
+        extract($Model->image_setting);
         if(empty($Model->data)) {
             $Model->data = $Model->findById($Model->id);
         }

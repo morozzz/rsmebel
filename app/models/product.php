@@ -44,6 +44,7 @@ class Product extends AppModel {
 
     var $field_types = array(
         'name' => 'text',
+        'eng_name' => 'text',
         'catalog_id' => 'number',
         'short_about' => 'text',
         'long_about' => 'text',
@@ -53,6 +54,7 @@ class Product extends AppModel {
         'fix_price' => 'number',
         'fix_cnt' => 'number',
         'price' => 'number',
+        'opt_price' => 'number',
         'cnt' => 'number',
         'SmallImage' => 'file',
         'BigImage' => 'file'

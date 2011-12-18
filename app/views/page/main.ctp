@@ -3,5 +3,5 @@
     <div class="div-news"><?php echo $this->element('news');?></div>
 </div>
 <div class="div-right-column">
-    <div class="div-catalog"><?php echo $this->element('catalog');?></div>
+    <div class="div-catalogs"><?php echo $this->element('catalog');?></div>
 </div>
