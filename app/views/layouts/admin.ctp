@@ -43,7 +43,7 @@ $menu = array(
     ),
     'Спецпредложения' => array(
         'li_id' => 'admin-menu-spec',
-        'link' => '/specials/adm_index',
+        'link' => '/specials/admin_index',
         'role_id' => 3,
         'group' => 2
     ),

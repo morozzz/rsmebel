@@ -40,43 +40,20 @@ class SpecialsController extends AppController {
         $this->Auth2->allow('index');
     }
 
-    function adm_index() {
+    function admin_index() {
         $this->layout = 'admin';
         $this->pageTitle = 'Управление спецпредложениями';
 
         $specials = $this->Special->find('all', array(
           'contain' => array(
-              'Product',
-              'ProductDet' => array(
-                  'Product'
-              )
+              'Product'
           )
         ));
         $specials = Set::combine($specials, '{n}.Special.id', '{n}');
-        if(!empty($specials)) {
-            foreach($specials as &$special) {
-                $catalog_id = 0;
-                $product_id = 0;
-                $name = '';
-                if(empty($special['Special']['product_id'])) {
-                    $special['path'] = array($this->ProductDet->getPathLink(
-                            $special['Special']['product_det_id'], 'index', 'admin', 'adm_catalog'));
-                } else {
-                    $special['path'] = array($this->Product->getPathLink(
-                            $special['Special']['product_id'], 'admin', 'adm_catalog'));
-                }
-
-                if(empty($special['Product']['id'])) {
-                    $special['Special']['name'] = $special['ProductDet']['Product']['name'];
-                } else {
-                    $special['Special']['name'] = $special['Product']['name'];
-                }
-            }
-        }
         $this->set('specials', $specials);
     }
 
-    function save_all() {
+    function admin_save_all() {
         $this->AdminCommon->save_all($this->data, $this->Special);
         $this->redirect($this->referer());
         die;

@@ -18,30 +18,20 @@ echo $adminCommon->table(array(
         ),
         array(
             'header' => 'Товар',
-            'type' => 'function',
-            'path' => 'path',
-            'function' => array(
-                'object' => $common,
-                'name' => 'getPathStr'
-            )
+            'type' => 'label',
+            'path' => 'Product.name'
         ),
         array(
-            'header' => 'Дата с',
-            'type' => 'date',
-            'path' => 'Special.date1',
-            'name' => 'date1'
+            'header' => 'Изображение',
+            'type' => 'file',
+            'path' => 'Image.url',
+            'name' => 'Image'
         ),
         array(
-            'header' => 'Дата по',
-            'type' => 'date',
-            'path' => 'Special.date2',
-            'name' => 'date2'
-        ),
-        array(
-            'header' => 'Вероятность',
-            'type' => 'edit',
-            'path' => 'Special.prob',
-            'name' => 'prob'
+            'header' => 'Вкл',
+            'type' => 'checkbox',
+            'path' => 'Special.enabled',
+            'name' => 'enabled'
         )
     ),
     'model_name' => 'Special',
@@ -51,6 +41,9 @@ echo $adminCommon->table(array(
         'del' => 'Удалить'
     ),
     'buttons' => array(
+        'Добавить' => array(
+            'func_name' => 'add'
+        ),
         'Сохранить' => array(
             'type' => 'save'
         ),
