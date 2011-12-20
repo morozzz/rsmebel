@@ -122,6 +122,18 @@ class ProductsController extends AppController {
         }
     }
     
+    function admin_get_products($catalog_id) {
+        $this->layout = 'ajax';
+        $products = $this->Product->find('all', array(
+            'conditions' => array(
+                'Product.catalog_id' => $catalog_id
+            ),
+            'contain' => array()
+        ));
+        $products = Set::combine($products, '{n}.Product.id', '{n}');
+        $this->set('products', $products);
+    }
+    
     function admin_index($catalog_id) {
         $this->layout = 'admin';
         

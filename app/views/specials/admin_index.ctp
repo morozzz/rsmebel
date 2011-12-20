@@ -1,7 +1,6 @@
 <h1>Спецпредложения</h1>
 <?php
 echo $session->flash();
-
 echo $adminCommon->table(array(
     'columns' => array(
         array(
@@ -23,9 +22,16 @@ echo $adminCommon->table(array(
         ),
         array(
             'header' => 'Изображение',
-            'type' => 'file',
+            'type' => 'image',
             'path' => 'Image.url',
             'name' => 'Image'
+        ),
+        array(
+            'header' => 'Сортировка',
+            'type' => 'edit',
+            'path' => 'Special.sort_order',
+            'name' => 'sort_order',
+            'sort_column' => true
         ),
         array(
             'header' => 'Вкл',
@@ -36,7 +42,8 @@ echo $adminCommon->table(array(
     ),
     'model_name' => 'Special',
     'id_path' => 'Special.id',
-    'link_save_url' => '/specials/save_all',
+    'link_save_url' => '/specials/admin_save_all',
+    'sortable' => true,
     'actions' => array(
         'del' => 'Удалить'
     ),
@@ -56,6 +63,61 @@ echo $adminCommon->table(array(
 
 <script type="text/javascript">
 var specials = <?php echo $javascript->object($specials); ?>;
+</script>
+
+<?php
+echo $adminCommon->dialog_form(array(
+    'dialog_id' => 'dialog-add',
+    'model_name' => 'Special',
+    'form_action' => 'admin_add',
+    'title' => 'Добавление спецпредложения',
+    'ok_caption' => 'Добавить',
+    'fields' => array(
+        array(
+            'input_class' => 'select-catalog',
+            'type' => 'combo',
+            'label' => 'Каталог',
+            'list' => $catalog_list,
+            'name' => 'data[catalog_id]'
+        ),
+        array(
+            'input_class' => 'select-product',
+            'type' => 'combo',
+            'label' => 'Товар',
+            'list' => array(),
+            'name' => 'data[product_id]'
+        ),
+        array(
+            'type' => 'edit',
+            'label' => 'Сортировка',
+            'name' => 'data[sort_order]'
+        )
+    )
+));
+?>
+
+<script type="text/javascript">
+function add() {
+    $('#dialog-add .input-clear').val('');
+    $('#dialog-add').dialog('open');
+    $('#dialog-add .select-catalog').change(function() {
+        var catalog_id = $(this).val();
+        $.ajax({
+            url : webroot+'products/admin_get_products/'+catalog_id,
+            dataType : 'json',
+            success : function(products) {
+                var select_product = $('#dialog-add .select-product');
+                select_product.html('');
+                for(i in products) {
+                    var product = products[i];
+                    select_product.append("<option value='"+product['Product']['id']+
+                        "'>"+product['Product']['name']+"</option>");
+                }
+            }
+        })
+    });
+    $('#dialog-add .select-catalog').change();
+}
 </script>
 
 <?php

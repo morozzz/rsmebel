@@ -34,7 +34,6 @@ class HomeNewsController extends AppController {
         $this->Auth2->allow('index2');
         $this->Auth2->allow('cnews_box');
         $this->Auth2->allow('home_news_box');
-        $this->Auth2->allow('specials_box');
     }
 
     function cnews_box() {
@@ -72,110 +71,6 @@ class HomeNewsController extends AppController {
       } else {
         $this->set(compact('home_news'));
       }
-    }
-
-    function specials_box() {
-
-      //спецпредложения
-      /***************************************************************/
-
-        $specials;
-//      if(($specials = Cache::read('specials')) === false) {
-          $specials = $this->Special->find('all', array(
-              'conditions' => array(
-                  array(
-                      'or' => array(
-                          'Special.date2 >= ' => date('Y.m.d'),
-                          'Special.date2' => null
-                      )
-                  ),
-                  array(
-                      'or' => array(
-                          'Special.date1 <= ' => date('Y.m.d'),
-                          'Special.date1' => null
-                      )
-                  )
-              ),
-              'contain' => array(
-                  'Product' => array(
-                      'SmallImage'
-                  ),
-                  'ProductDet' => array(
-                      'SmallImage',
-                      'Product' => array(
-                          'SmallImage'
-                      ),
-                      'ProductDetParam' => array(
-                          'ProductParam' => array(
-                              'ProductParamType'
-                          ),
-                          'ProductDetParamValue'
-                      )
-                  )
-              )
-          ));
-          foreach($specials as &$special) {
-              $data = array('special_id' => $special['Special']['id']);
-              if(empty($special['Product']['id'])) {
-                  $data['name'] = $special['ProductDet']['Product']['name'];
-                  foreach($special['ProductDet']['ProductDetParam'] as $product_det_param) {
-                      $name = $product_det_param['ProductParam']['ProductParamType']['name'];
-                      $value = (empty($product_det_param['value']))
-                        ?$product_det_param['ProductDetParamValue']['name']
-                        :$product_det_param['value'];
-                      $data['name'] .= " $name:$value";
-                  }
-                  if(!empty($special['ProductDet']['small_image_id'])) {
-                      $data['image_url'] = $special['ProductDet']['SmallImage']['url'];
-                  } else if(!empty($special['ProductDet']['Product']['small_iamge_id'])) {
-                      $data['image_url'] = $special['ProductDet']['Product']['SmallImage']['url'];
-                  } else {
-                      $data['image_url'] = 'nopic.gif';
-                  }
-                  $data['product_id'] = $special['ProductDet']['product_id'];
-                  $data['price'] = $special['ProductDet']['price'];
-              } else {
-                  $data['name'] = $special['Product']['name'];
-                  if(empty($special['Product']['small_image_id'])) {
-                      $data['image_url'] = 'nopic.gif';
-                  } else {
-                      $data['image_url'] = $special['Product']['SmallImage']['url'];
-                  }
-                  $data['product_id'] = $special['Product']['id'];
-                  $data['price'] = $special['Product']['price'];
-              }
-              $data['prob'] = $special['Special']['prob'];
-              $special = $data;
-          }
-//          Cache::write('specials', $specials);
-//      }
-          $specials5 = array();
-          $spec_cnt = count($specials);
-          if($spec_cnt>5) $spec_cnt = 5;
-          for($i=0; $i<$spec_cnt; $i++) {
-              $temp_special_id = $this->_random_specials($specials);
-              $specials5[$temp_special_id] = $specials[$temp_special_id];
-              unset($specials[$temp_special_id]);
-          }
-      /***************************************************************/
-
-          if (isset($this->params['requested'])) {
-            return $specials5;
-          } else {
-            $this->set(compact('specials'));
-          }
-    }
-
-    function _random_specials($specials) {
-        $prob_sum = 0;
-        foreach($specials as $special)
-            $prob_sum += $special['prob'];
-        $rand_prob_sum = mt_rand(0, $prob_sum);
-        $cur_prob_sum = 0;
-        foreach($specials as $special_id => $special) {
-            $cur_prob_sum += $special['prob'];
-            if($cur_prob_sum>=$rand_prob_sum) return $special_id;
-        }
     }
 
 	function index() {

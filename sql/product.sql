@@ -5,7 +5,7 @@ DELETE FROM cake_images WHERE id IN (
 SELECT small_image_id FROM cake_catalogs UNION ALL
 SELECT big_image_id   FROM cake_catalogs UNION ALL
 SELECT small_image_id FROM cake_products UNION ALL
-SELECC big_image_id   FROM cake_products UNION ALL
+SELECT big_image_id   FROM cake_products UNION ALL
 SELECT small_image_id FROM cake_product_dets UNION ALL
 SELECT big_image_id   FROM cake_product_dets);
 
