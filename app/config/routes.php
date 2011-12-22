@@ -40,4 +40,7 @@
         Router::connect('/manager/*', array('controller' => 'customs', 'action' => 'adm_custom'));
         Router::connect('/sitemap.xml', array('controller' => 'setting', 'action' => 'sitemap_xml'));
         Router::connect('/catalog.yml', array('controller' => 'setting', 'action' => 'catalog_yml'));
+        
+        Router::connect('/new/*', array('controller' => 'cnews', 'action' => 'view'));
+        Router::connect('/news', array('controller' => 'cnews', 'action' => 'index'));
 ?>

@@ -132,7 +132,7 @@ $menu = array(
 //    ),
     'Новости' => array(
         'li_id' => 'admin-menu-news',
-        'link' => '/cnews/list_news',
+        'link' => '/cnews/admin_index',
         'role_id' => 2,
         'group' => 6
     ),
