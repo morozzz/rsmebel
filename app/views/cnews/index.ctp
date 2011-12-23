@@ -1,18 +1,24 @@
-<div class="div-news">
-<h1>Новости</h1>
-<?php echo $this->element('paginate');?>
-    <?php foreach($cnews as $cnew) { ?>
-    <div class="div-new">
-        <?php
-        echo $html->link($cnew['Cnew']['stamp'], array(
-            'controller' => 'cnews',
-            'action' => 'view',
-            $cnew['Cnew']['eng_name']
-        ), array(
-            'class' => 'link-new-stamp'
-        ));
-        echo $html->div('div-new-caption', $cnew['Cnew']['caption']);
-        ?>
+<div class="div-left-column">
+    <div class="div-specials"><?php echo $this->element('specials');?></div>
+    <div class="div-news"><?php echo $this->element('news');?></div>
+</div>
+<div class="div-right-column">
+    <div class="div-main-news">
+    <h1>Новости</h1>
+    <?php echo $this->element('paginate');?>
+        <?php foreach($cnews as $cnew) { ?>
+        <div class="div-main-new">
+            <?php
+            echo $html->link($cnew['Cnew']['stamp'], array(
+                'controller' => 'cnews',
+                'action' => 'view',
+                $cnew['Cnew']['eng_name']
+            ), array(
+                'class' => 'link-main-new-stamp'
+            ));
+            echo $html->div('div-main-new-caption', $cnew['Cnew']['caption']);
+            ?>
+        </div>
+        <?php } ?>
     </div>
-    <?php } ?>
 </div>

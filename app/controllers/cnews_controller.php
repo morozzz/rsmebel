@@ -71,6 +71,11 @@ class CnewsController extends AppController {
     
     function index() {
         $this->pageTitle = 'Новости';
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'cnews','action'=>'index'),'label'=>'Новости')
+        ));
+        
         $this->paginate = array(
             'Cnew' => array(
                 'conditions' => array(
@@ -101,8 +106,14 @@ class CnewsController extends AppController {
                 )
             ));
         }
-        $this->pageTitle = $cnew['Cnew']['caption'];
         $this->set('cnew', $cnew);
+        
+        $this->pageTitle = $cnew['Cnew']['caption'];
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'cnews','action'=>'index'),'label'=>'Новости'),
+            array('url'=>array('controller'=>'cnews','action'=>'view',$cnew['Cnew']['eng_name']),'label'=>'Новость за '.$cnew['Cnew']['stamp'])
+        ));
     }
 }
 ?>

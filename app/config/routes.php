@@ -43,4 +43,5 @@
         
         Router::connect('/new/*', array('controller' => 'cnews', 'action' => 'view'));
         Router::connect('/news', array('controller' => 'cnews', 'action' => 'index'));
+        Router::connect('/about/*', array('controller' => 'company_infos', 'action' => 'index'));
 ?>

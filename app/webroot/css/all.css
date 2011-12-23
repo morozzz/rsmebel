@@ -54,6 +54,9 @@ table.menu td div.current-menu{background-position:0 -82px;color:white;}
 table.menu td a{color:#8a5400;display:block;}
 table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 
+/*breadcrumb*/
+.div-breadcrumb{margin:0 30px 5px 15px;text-align:right;}
+
 /*footer*/
 #footer{height:180px;margin-top:20px;}
 .footer-left,.footer-right{height:100%;width:103px;}

@@ -29,6 +29,7 @@ if(isset($page_css)) {
 <body>
     <div id="div-top"><?php echo $this->element('top');?></div>
     <div id="top-menu"><?php echo $this->element('menu_box');?></div>
+    <?php echo $this->element('breadcrumb');?>
     <div id="div-content-for-layout"><?php echo $content_for_layout;?></div>
     <div id="bottom-menu"><?php echo $this->element('menu_box');?></div>
     <div id="footer"><?php echo $this->element('footer');?></div>

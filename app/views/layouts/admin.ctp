@@ -144,7 +144,7 @@ $menu = array(
 //    ),
     'О компании' => array(
         'li_id' => 'admin-menu-company-info',
-        'link' => '/company_infos/list_company_infos',
+        'link' => '/company_infos/admin_index',
         'role_id' => 3,
         'group' => 6
     ),
