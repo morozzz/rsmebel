@@ -148,6 +148,12 @@ $menu = array(
         'role_id' => 3,
         'group' => 6
     ),
+    'Гостевая книга' => array(
+        'li_id' => 'admin-menu-guestbook',
+        'link' => '/guestbooks/admin_index',
+        'role_id' => 3,
+        'group' => 6
+    ),
 //    'Фотоальбомы' => array(
 //        'li_id' => 'admin-menu-album',
 //        'link' => '/albums/adm_index',

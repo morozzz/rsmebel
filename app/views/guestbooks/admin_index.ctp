@@ -1,52 +1,74 @@
-<h2>Информация о компании</h2>
+<h2>Гостевая</h2>
 <?php
 echo $session->flash();
 
-//Configure::write('debug', 2);
-//debug($company_infos);
 echo $adminCommon->table(array(
     'columns' => array(
         array(
             'header' => 'ID',
             'type' => 'label',
-            'path' => 'CompanyInfo.id'
+            'path' => 'Guestbook.id'
         ),
         array(
             'header' => 'Вкл.',
             'type' => 'checkbox',
-            'path' => 'CompanyInfo.enabled',
+            'path' => 'Guestbook.enabled',
             'name' => 'enabled'
         ),
         array(
-            'header' => 'Англ. название',
+            'header' => 'Имя',
             'type' => 'edit',
-            'path' => 'CompanyInfo.eng_name',
-            'name' => 'eng_name'
+            'path' => 'Guestbook.name',
+            'name' => 'name'
         ),
         array(
-            'header' => 'Заголовок',
+            'header' => 'Город',
             'type' => 'edit',
-            'path' => 'CompanyInfo.caption',
-            'name' => 'caption'
+            'path' => 'Guestbook.city',
+            'name' => 'city'
         ),
         array(
-            'header' => 'Текст',
+            'header' => 'Email',
+            'type' => 'edit',
+            'path' => 'Guestbook.email',
+            'name' => 'email'
+        ),
+        array(
+            'header' => 'Отобр. email',
+            'type' => 'checkbox',
+            'path' => 'Guestbook.show_email',
+            'name' => 'show_email'
+        ),
+        array(
+            'header' => 'Адрес страницы',
+            'type' => 'edit',
+            'path' => 'Guestbook.site',
+            'name' => 'site'
+        ),
+        array(
+            'header' => 'Сообщение',
             'type' => 'text',
-            'path' => 'CompanyInfo.text',
+            'path' => 'Guestbook.text',
             'name' => 'text'
         ),
         array(
             'header' => 'Сортировка',
             'type' => 'edit',
-            'path' => 'CompanyInfo.sort_order',
+            'path' => 'Guestbook.sort_order',
             'name' => 'sort_order',
             'sort_column' => true
+        ),
+        array(
+            'header' => 'Дата',
+            'type' => 'date',
+            'path' => 'Guestbook.created',
+            'name' => 'created'
         )
     ),
-    'model_name' => 'CompanyInfo',
+    'model_name' => 'Guestbook',
+    'id_path' => 'Guestbook.id',
     'sortable' => true,
-    'id_path' => 'CompanyInfo.id',
-    'link_save_url' => '/company_infos/admin_save_all',
+    'link_save_url' => '/guestbooks/admin_save_all',
     'actions' => array(
         'del' => 'Удалить'
     ),
@@ -58,31 +80,46 @@ echo $adminCommon->table(array(
             'type' => 'save'
         )
     )
-), $company_infos);
+), $guestbooks);
 ?>
 
 <script type="text/javascript">
-var company_infos = <?php echo $javascript->object($company_infos); ?>;
+var guestbooks = <?php echo $javascript->object($guestbooks); ?>;
 </script>
 
 <?php
 echo $adminCommon->dialog_form(array(
     'dialog_id' => 'dialog-add',
     'width' => '600px',
-    'model_name' => 'CompanyInfo',
+    'model_name' => 'Guestbook',
     'form_action' => 'admin_add',
-    'title' => 'Добавление информации',
+    'title' => 'Добавление записи',
     'ok_caption' => 'Добавить',
     'fields' => array(
         array(
             'type' => 'edit',
-            'label' => 'Англ. название',
-            'name' => 'data[eng_name]'
+            'label' => 'Имя',
+            'name' => 'data[name]'
         ),
         array(
             'type' => 'edit',
-            'label' => 'Заголовок',
-            'name' => 'data[caption]'
+            'label' => 'Город',
+            'name' => 'data[city]'
+        ),
+        array(
+            'type' => 'edit',
+            'label' => 'Email',
+            'name' => 'data[email]'
+        ),
+        array(
+            'type' => 'checkbox',
+            'label' => 'Отобр. email',
+            'name' => 'data[show_email]'
+        ),
+        array(
+            'type' => 'edit',
+            'label' => 'Адрес страницы',
+            'name' => 'data[site]'
         ),
         array(
             'type' => 'edit',
@@ -103,9 +140,9 @@ function add() {
 <?php
 echo $adminCommon->dialog_form(array(
     'dialog_id' => 'dialog-delete',
-    'model_name' => 'CompanyInfo',
+    'model_name' => 'Guestbook',
     'form_action' => 'admin_delete',
-    'title' => 'Удаление информации',
+    'title' => 'Удаление записи',
     'ok_caption' => 'Удалить',
     'caption' => ' ',
     'fields' => array(
@@ -122,8 +159,8 @@ echo $adminCommon->dialog_form(array(
 <script type="text/javascript">
 function del(row_id) {
     var dialog = $('#dialog-delete');
-    var page = company_infos[row_id];
-    dialog.find('.dialog-caption').html(page.CompanyInfo.caption);
+    var page = guestbooks[row_id];
+    dialog.find('.dialog-caption').html(page.Guestbook.id);
     dialog.find('.input-row-id').val(row_id);
     dialog.dialog('open');
 }
