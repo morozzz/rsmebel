@@ -34,16 +34,10 @@ echo $adminCommon->table(array(
             'name' => 'email'
         ),
         array(
-            'header' => 'Отобр. email',
-            'type' => 'checkbox',
-            'path' => 'Guestbook.show_email',
-            'name' => 'show_email'
-        ),
-        array(
-            'header' => 'Адрес страницы',
+            'header' => 'Телефон',
             'type' => 'edit',
-            'path' => 'Guestbook.site',
-            'name' => 'site'
+            'path' => 'Guestbook.phone',
+            'name' => 'phone'
         ),
         array(
             'header' => 'Сообщение',
@@ -112,14 +106,9 @@ echo $adminCommon->dialog_form(array(
             'name' => 'data[email]'
         ),
         array(
-            'type' => 'checkbox',
-            'label' => 'Отобр. email',
-            'name' => 'data[show_email]'
-        ),
-        array(
             'type' => 'edit',
-            'label' => 'Адрес страницы',
-            'name' => 'data[site]'
+            'label' => 'Телефон',
+            'name' => 'data[phone]'
         ),
         array(
             'type' => 'edit',

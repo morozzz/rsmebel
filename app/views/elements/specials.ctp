@@ -1,6 +1,6 @@
 <?php $specials = $this->requestAction('/specials/get_specials'); ?>
 <?php if(!empty($specials)) { ?>
-<h1>Спец. предложения</h1>
+<h2>Спец. предложения</h2>
 <?php foreach($specials as $special) { ?>
 <div class="div-special" align="center">
     <?php

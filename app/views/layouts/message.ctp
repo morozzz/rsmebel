@@ -1,0 +1,1 @@
+<?php echo $html->div('div-message', $content_for_layout);?>

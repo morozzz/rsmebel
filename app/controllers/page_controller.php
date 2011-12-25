@@ -45,9 +45,12 @@ class PageController extends AppController {
                 'url' => '#'
             ),
             array(
-                'name' => 'quest',
+                'name' => 'guestbook',
                 'label' => 'Гостевая',
-                'url' => '#'
+                'url' => array(
+                    'controller' => 'guestbooks',
+                    'action' => 'index'
+                )
             )
         );
         if(isset($this->params['requested'])) {
@@ -60,6 +63,7 @@ class PageController extends AppController {
     function main() {
         $this->pageTitle = 'РегионСибМебель. Магазин домашнего уюта';
         $this->set('current_menu_name', 'main');
+//        debug($this->Session->read());
     }
 }
 

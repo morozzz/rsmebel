@@ -16,7 +16,12 @@ class AppController extends Controller{
         "fumodal",
         "jquery-ui-1.8.5.custom"
     );
-    var $components = array('Auth2', 'RequestHandler', 'Cookie');
+    var $components = array(
+        'Auth2',
+        'Cookie',
+        'RequestHandler',
+        'Session'
+    );
     var $uses = array(
         'User',
         'HomeFooter',
@@ -30,11 +35,12 @@ class AppController extends Controller{
         'Setting'
     );
     var $helpers = array(
+        'Cache',
         'Common',
         'Html',
         'Form',
         'Javascript',
-        'Cache'
+        'Session'
     );
 
     // Parameters for AuthComponent

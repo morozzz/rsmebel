@@ -1,8 +1,42 @@
 <?php if(!empty($paginator)) { ?>
-<div class="div-paginator">
+<table class="table-paginate" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+        <tr>
+            <td width="30%">
+                <?php
+                echo $paginator->prev('<- назад', array(
+                    'tag' => 'div',
+                    'class' => 'div-paginate-prev'
+                ), '<- назад', array(
+                    'tag' => 'div',
+                    'class' => 'div-paginate-prev div-paginate-disabled'
+                ));
+                ?>
+            </td>
+            <td width="40%">
+                <?php
+                echo $html->div('div-paginate-numbers', $paginator->numbers(array(
+                    'modulus' => '5',
+                    'separator' => '<span class="span-paginate-separator"> </span>',
+                    'tag' => 'span',
+                    'class' => 'link-number'
+                )));
+                ?>
+            </td>
+            <td width="30%">
+                <?php
+                echo $paginator->next('вперед ->', array(
+                    'tag' => 'div',
+                    'class' => 'div-paginate-next'
+                ), 'вперед ->', array(
+                    'tag' => 'div',
+                    'class' => 'div-paginate-next div-paginate-disabled'
+                ));
+                ?>
+            </td>
+        </tr>
+    </tbody>
     <?php
-    echo $paginator->prev('< < < Назад');
-    echo $paginator->next('Вперед > > >');
     ?>
-</div>
+</table>
 <?php } ?>

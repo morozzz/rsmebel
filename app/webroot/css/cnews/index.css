@@ -11,7 +11,7 @@
 
 /*news*/
 .div-news{padding:0 20px;}
-.div-news h1 a{color:inherit;}
+.div-news h2 a{color:inherit;}
 .div-new{margin:0 0 20px 0;}
 .link-new-stamp{font-weight:bold;}
 .div-new-caption{}

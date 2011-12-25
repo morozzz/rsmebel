@@ -1,0 +1,1 @@
+<?php echo $html->div('div-error', $content_for_layout);?>
