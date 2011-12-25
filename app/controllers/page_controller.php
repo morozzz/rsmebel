@@ -42,7 +42,10 @@ class PageController extends AppController {
             array(
                 'name' => 'partners',
                 'label' => 'Партнеры',
-                'url' => '#'
+                'url' => array(
+                    'controller' => 'partners',
+                    'action' => 'index'
+                )
             ),
             array(
                 'name' => 'guestbook',

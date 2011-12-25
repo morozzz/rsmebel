@@ -6,10 +6,10 @@
                 <?php
                 echo $paginator->prev('<- назад', array(
                     'tag' => 'div',
-                    'class' => 'div-paginate-prev'
+                    'class' => 'paginate-prev'
                 ), '<- назад', array(
                     'tag' => 'div',
-                    'class' => 'div-paginate-prev div-paginate-disabled'
+                    'class' => 'paginate-prev paginate-disabled'
                 ));
                 ?>
             </td>
@@ -27,10 +27,10 @@
                 <?php
                 echo $paginator->next('вперед ->', array(
                     'tag' => 'div',
-                    'class' => 'div-paginate-next'
+                    'class' => 'paginate-next'
                 ), 'вперед ->', array(
                     'tag' => 'div',
-                    'class' => 'div-paginate-next div-paginate-disabled'
+                    'class' => 'paginate-next paginate-disabled'
                 ));
                 ?>
             </td>

@@ -7,7 +7,8 @@ class Special extends AppModel {
         'Image' => array(
             'images' => array(
                 'image_id' => 'Image'
-            )
+            ),
+            'image_type_id' => 7
         )
     );
     var $belongsTo = array(

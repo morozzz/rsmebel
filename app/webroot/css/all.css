@@ -38,13 +38,13 @@ input[type=button],input[type=submit],input[type=reset]{background:#9e612d;
     -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 
 /*paginate*/
-.table-paginate{padding:0 20px;}
-.div-paginate-prev{text-align:left}
-.div-paginate-next{text-align:right;}
+.table-paginate{padding:10px 20px;}
+.paginate-prev{display:block;text-align:left}
+.paginate-next{display:block;text-align:right;}
 .div-paginate-numbers{text-align:center;}
 .div-paginate-numbers .span-paginate-separator{padding-right:5px;}
 .div-paginate-numbers .current{font-size:1.1em;font-weight:bold;}
-.div-paginate-disabled{color:#907D4B;font-size:0.9em;font-style:italic;}
+.paginate-disabled{color:#907D4B;font-size:0.9em;font-style:italic;}
 
 /*top*/
 #div-top{background:#4a2f18 url(../img/top_background.jpg) repeat-x;position:relative;

@@ -3,17 +3,23 @@
 echo $session->flash();
 echo $adminCommon->table(array(
     'columns' => array(
-        array(
-            'header' => '',
-            'type' => 'checkbox',
-            'value' => 0,
-            'class' => 'chb-special-select',
-            'saving_column' => false
-        ),
+//        array(
+//            'header' => '',
+//            'type' => 'checkbox',
+//            'value' => 0,
+//            'class' => 'chb-special-select',
+//            'saving_column' => false
+//        ),
         array(
             'header' => 'ID',
             'type' => 'label',
             'path' => 'Special.id'
+        ),
+        array(
+            'header' => 'Вкл',
+            'type' => 'checkbox',
+            'path' => 'Special.enabled',
+            'name' => 'enabled'
         ),
         array(
             'header' => 'Товар',
@@ -32,12 +38,6 @@ echo $adminCommon->table(array(
             'path' => 'Special.sort_order',
             'name' => 'sort_order',
             'sort_column' => true
-        ),
-        array(
-            'header' => 'Вкл',
-            'type' => 'checkbox',
-            'path' => 'Special.enabled',
-            'name' => 'enabled'
         )
     ),
     'model_name' => 'Special',
@@ -53,10 +53,10 @@ echo $adminCommon->table(array(
         ),
         'Сохранить' => array(
             'type' => 'save'
-        ),
-        'Удалить' => array(
-            'func_name' => 'delete_list'
         )
+//        'Удалить' => array(
+//            'func_name' => 'delete_list'
+//        )
     )
 ), $specials);
 ?>

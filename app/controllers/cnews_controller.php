@@ -81,7 +81,8 @@ class CnewsController extends AppController {
                 'conditions' => array(
                     'Cnew.enabled' => 1
                 ),
-                'contain' => array()
+                'contain' => array(),
+                'limit' => 10
             )
         );
         $cnews = $this->paginate('Cnew');
