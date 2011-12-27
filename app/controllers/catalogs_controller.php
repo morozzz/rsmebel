@@ -64,6 +64,8 @@ class CatalogsController extends AppController {
         $this->Auth2->allow('test_png');
         $this->Auth2->allow('test_pdf');
         $this->Auth2->allow('test_excel');
+        
+        $this->Auth2->allow('get_catalogs');
     }
 
     function get_basket() {
@@ -87,6 +89,49 @@ class CatalogsController extends AppController {
           } else {
             $this->set(compact('basket_info'));
           }
+    }
+    
+    function get_catalogs() {
+        $catalogs = $this->Catalog->find('all', array(
+            'conditions' => array(
+                'Catalog.catalog_type_id' => 1,
+                'Catalog.parent_id' => null
+            ),
+            'contain' => array()
+        ));
+        foreach($catalogs as &$catalog) {
+            $catalogs_id = $this->Catalog->find('all', array(
+                'conditions' => array(
+                    'Catalog.lft >=' => $catalog['Catalog']['lft'],
+                    'Catalog.rght <=' => $catalog['Catalog']['rght']
+                ),
+                'contain' => array()
+            ));
+            $catalogs_id = Set::combine($catalogs_id, '{n}.Catalog.id', '{n}.Catalog.id');
+            
+            $products = $this->Product->find('all', array(
+                'conditions' => array(
+                    'Product.catalog_id' => $catalogs_id
+                ),
+                'contain' => array(
+                    'SmallImage',
+                    'BigImage'
+                ),
+                'limit' => 3
+            ));
+            $catalog['Product'] = $products;
+            
+            $products_cnt = $this->Product->find('count', array(
+                'conditions' => array(
+                    'Product.catalog_id' => $catalogs_id
+                )
+            ));
+            $catalog['Catalog']['products_cnt'] = $products_cnt;
+        }
+
+        if (isset($this->params['requested'])) {
+            return $catalogs;
+        }
     }
 
     function index($id = 0) {
@@ -431,8 +476,38 @@ class CatalogsController extends AppController {
         $this->pageTitle = $catalog['Catalog']['name'].' (иллюстрации из проектов)';
         $this->actionCss = array('catalog_path_tree', 'basket');
     }
+    
+    function admin_index() {
+        $this->layout = 'admin';
+        $this->pageTitle = 'Администрирование - каталог';
+        
+        $catalog_list = $this->Catalog->get_list();
+        $this->set('catalog_list', $catalog_list);
+        
+        $catalogs = $this->Catalog->find('all', array(
+            'contain' => array()
+        ));
+        $catalogs = Set::combine($catalogs, '{n}.Catalog.id', '{n}');
+        $this->set('catalogs', $catalogs);
+    }
 
-    function adm_catalog($parent_id = null) {
+    function admin_save_all() {
+        $this->AdminCommon->save_all($this->data, $this->Catalog);
+        $this->redirect($this->referer());
+        die;
+    }
+
+    function admin_add() {
+        $this->AdminCommon->add($this->data, $this->Catalog);
+        die;
+    }
+
+    function admin_delete() {
+        $this->AdminCommon->delete($this->data, $this->Catalog);
+        die;
+    }
+
+    function admin_index2($parent_id = null) {
         $this->layout = 'admin';
 
         $catalog_list = $this->Catalog->get_list();
@@ -500,28 +575,12 @@ class CatalogsController extends AppController {
             $this->set('product_list', $product_list);
 
 //            $this->actionCss = array('catalogs/adm_products');
-            $this->render('adm_products2');
+            $this->render('admin_index_product');
         } else {
             $this->set('catalogs', $catalogs);
             //$this->actionCss = array('catalogs/adm_catalogs');
-            $this->render('adm_catalogs2');
+            $this->render('admin_index');
         }
-    }
-
-    function save_all() {
-        $this->AdminCommon->save_all($this->data, $this->Catalog);
-        $this->redirect($this->referer());
-        die;
-    }
-
-    function add() {
-        $this->AdminCommon->add($this->data, $this->Catalog);
-        die;
-    }
-
-    function delete() {
-        $this->AdminCommon->delete($this->data, $this->Catalog);
-        die;
     }
 
     function change_catalog() {
@@ -848,116 +907,6 @@ class CatalogsController extends AppController {
             $this->render('excel_all_pic', 'excel');
         else
             $this->render('excel_all_nopic', 'excel');
-    }
-
-    function test_excel() {
-        App::import('Vendor', '/phpexcel/PHPExcel', array('file' => 'PHPExcel.php'));
-        $objPHPExcel = new PHPExcel();
-        //$objPHPExcel = PHPExcel_IOFactory::load('xls/template.xls');
-        $this->set('objPHPExcel', $objPHPExcel);
-
-        $data = array(
-            1,
-            'fdsfsd',
-            3,
-            4,
-            'fff',
-            6,
-            7,
-            'ddd'
-        );
-        $this->set('data', $data);
-        $this->layout = 'test_excel';
-    }
-
-//    function pdf() {
-//        if(($catalogs = Cache::read('all_catalogs')) === false) {
-//            $catalogs = $this->Catalog->find('all', array(
-//                'conditions' => array(
-//                    'Catalog.catalog_type_id' => 1
-//                ),
-//                'contain' => array(
-//                    'Product' => array(
-//                        'ProductParam' => array(
-//                            'ProductDetParam' => array(
-//                                'ProductDetParamValue'
-//                            ),
-//                            'order' => 'ProductParam.sort_order'
-//                        ),
-//                        'ProductDet' => array(
-//                            'ProductDetParam' => array(
-//                                'ProductParam' => array(
-//                                    'ProductParamType',
-//                                    'ProductParamShowType'
-//                                ),
-//                                'ProductDetParamValue'
-//                            ),
-//                            'SmallImage',
-//                            'BigImage',
-//                            'Producer',
-//                            'Special',
-//                            'order' => 'ProductDet.sort_order'
-//                        ),
-//                        'ProductData' => array(
-//                            'ProductParamType',
-//                            'ProductDetParamValue',
-//                            'order' => 'ProductData.sort_order'
-//                        ),
-//                        'SmallImage',
-//                        'BigImage',
-//                        'Producer',
-//                        'Special'
-//                    )
-//                )
-//            ));
-//            foreach($catalogs as &$catalog) {
-//                foreach($catalog['Product'] as &$product) {
-//                    if(empty($product['Special']) || empty($product['Special']['id'])) {
-//                        $product['is_special'] = 0;
-//                    } else {
-//                        $product['is_special'] = 1;
-//                    }
-//
-//                    $this->ProductCommon->prepareProduct($product);
-//                }
-//            }
-//            Cache::write('all_catalogs', $catalogs);
-//        }
-//        $this->set('catalogs', $catalogs);
-//
-//        $this->set('url_to_image', 'http://'.$this->Session->host.$this->webroot.'img/');
-//
-//        $this->layout = 'pdf';
-//        $this->set('filename', 'angelika.pdf');
-//        set_time_limit(600);
-//        $this->render();
-//    }
-//
-//    function test_png() {
-//        //$this->layout = 'print';
-//    }
-//
-//    function test_pdf() {
-//        $this->layout = 'pdf';
-//        $this->set('filename', 'test_pdf.pdf');
-//        $this->render();
-//    }
-
-    function eng_name_migr() {
-        $catalogs = $this->Catalog->find('all', array(
-            'contain' => array()
-        ));
-        foreach($catalogs as $catalog) {
-            if($catalog['Catalog']['name'] != '') {
-                $this->Catalog->id = $catalog['Catalog']['id'];
-                $this->Catalog->save(array(
-                    'id' => $catalog['Catalog']['id'],
-                    'eng_name' => $this->translit($catalog['Catalog']['name'])
-                ));
-            }
-        }
-        echo 'success';
-        die;
     }
 }
 

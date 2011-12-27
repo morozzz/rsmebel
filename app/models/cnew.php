@@ -1,17 +1,24 @@
 <?php
 
-class CNew extends AppModel {
+class Cnew extends AppModel {
     var $name = 'Cnew';
-    var $belongsTo = array(
-        'SmallImage' => array(
-            'className' => 'Image',
-            'foreignKey' => 'small_image_id'
-        ),
-        'BigImage' => array(
-            'className' => 'Image',
-            'foreignKey' => 'big_image_id'
-        )
-    );
+    var $order = 'Cnew.sort_order';
+
+    function beforeSave() {
+        if(!empty($this->data['Cnew']['stamp']))
+                $this->data['Cnew']['stamp'] = date('Y.m.d',
+                        strtotime($this->data['Cnew']['stamp']));
+        return true;
+    }
+
+    function afterFind($results, $primary) {
+        foreach($results as &$result) {
+            if(!empty($result['Cnew']['stamp']))
+                $result['Cnew']['stamp'] =
+                    date('d.m.Y', strtotime($result['Cnew']['stamp']));
+        }
+        return $results;
+    }
 
 }
 

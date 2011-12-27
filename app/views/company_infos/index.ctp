@@ -1,42 +1,39 @@
-<?php echo $this->element('caption', array(
-    'caption_name' => 'О КОМПАНИИ',
-    'caption_tag' => 'h1'
-)); ?>
-
-<div id="news-wrapper">
-
-  <div id="news-container">
-
-    <div id="news-content">
-        <div class="news-cell" id="company-info-list">
-          <?php
-            foreach($company_infos as $com_order_num => $company_info) {
-                echo "<li class='text-shadow";
-                if($company_info['CompanyInfo']['id'] == $com_infos['CompanyInfo']['id']) {
-                    echo " li-current-company-info";
+<div class="div-left-column">
+    <div class="div-about-menus">
+        <ul>
+            <?php
+            $is_first = true;
+            foreach($company_infos as $company_info) {
+                $url = array(
+                    'controller' => 'company_infos',
+                    'action' => 'index',
+                    $company_info['CompanyInfo']['eng_name']
+                );
+                if($is_first) {
+                    $url = array(
+                        'controller' => 'company_infos',
+                        'action' => 'index'
+                    );
+                    $is_first = false;
                 }
-                echo "'> ";
-                if($com_order_num>0)
-                    echo $html->link($company_info['CompanyInfo']['news_header'], '/company_infos/index/'.$company_info['CompanyInfo']['id'])."</li>";
-                else
-                    echo $html->link($company_info['CompanyInfo']['news_header'], '/company_infos/index/')."</li>";
-            }
-          ?>
-        </div>
+                $link_str = $html->link($company_info['CompanyInfo']['caption'], $url);
 
-        <div id="company-info-body">
-            <?php echo $this->element('caption', array(
-                'caption_name' => $com_infos['CompanyInfo']['news_header'],
-                'caption_tag' => 'h2'
-            )); ?>
-            <?php $session->flash();?>
-           <div class="div-body">
-              <?php
-                 echo $html->div('company_info_body', $com_infos['CompanyInfo']['news_body']);
-              ?>
-           </div>
-        </div>
+                $is_current = $current_company_info['CompanyInfo']['id'] ==
+                              $company_info['CompanyInfo']['id'];
+
+                echo $html->tag('li', $link_str, array(
+                    'class' => ($is_current)?"current":""
+                ));
+            }
+            ?>
+        </ul>
     </div>
-    <div class="clear-div"></div>
-  </div>
+</div>
+<div class="div-right-column">
+    <div class="div-current-about">
+        <?php
+        echo $html->tag('h1', $current_company_info['CompanyInfo']['caption']);
+        echo $html->div('div-current-about-text', $current_company_info['CompanyInfo']['text']);
+        ?>
+    </div>
 </div>

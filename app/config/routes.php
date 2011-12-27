@@ -31,13 +31,18 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/views/pages/home.ctp)...
  */
-	Router::connect('/', array('controller' => 'home_news', 'action' => 'index'));
+	Router::connect('/', array('controller' => 'page', 'action' => 'main'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
-        Router::connect('/admin/*', array('controller' => 'catalogs', 'action' => 'adm_catalog'));
+        Router::connect('/admin/*', array('controller' => 'catalogs', 'action' => 'admin_index'));
         Router::connect('/manager/*', array('controller' => 'customs', 'action' => 'adm_custom'));
         Router::connect('/sitemap.xml', array('controller' => 'setting', 'action' => 'sitemap_xml'));
         Router::connect('/catalog.yml', array('controller' => 'setting', 'action' => 'catalog_yml'));
+        
+        Router::connect('/new/*', array('controller' => 'cnews', 'action' => 'view'));
+        Router::connect('/news', array('controller' => 'cnews', 'action' => 'index'));
+        Router::connect('/about/*', array('controller' => 'company_infos', 'action' => 'index'));
+        Router::connect('/guestbook/*', array('controller' => 'guestbooks', 'action' => 'index'));
 ?>

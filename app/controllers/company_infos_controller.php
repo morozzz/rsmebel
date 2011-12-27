@@ -2,7 +2,15 @@
 
 class CompanyInfosController extends AppController {
     var $name = 'CompanyInfos';
-    var $uses = array("CompanyInfo", 'Album');
+    var $uses = array(
+        'CompanyInfo'
+    );
+    var $helpers = array(
+        'AdminCommon'
+    );
+    var $components = array(
+        'AdminCommon'
+    );
 
     function isAuthorized() {
         if(!empty($this->curUser)) {
@@ -15,104 +23,77 @@ class CompanyInfosController extends AppController {
         parent::beforeFilter();
         $this->Auth2->allow('index');
     }
-
-	function index($id = null) {
-      $this->pageTitle = "О Компании";
-
-      if(($company_infos = Cache::read('company_infos')) === false) {
-          $company_infos = $this->CompanyInfo->find('all', array('order' => 'CompanyInfo.sort_order'));
-        Cache::write('company_infos', $company_infos);
-      }
-      $this->set('company_infos', $company_infos);
-
-      if (empty($id)) {
-        $id = $company_infos[0]['CompanyInfo']['id'];
-      }
-
-      $this->CompanyInfo->id = $id;
-      $com_infos = $this->CompanyInfo->read();
-      $this->set('com_infos', $com_infos);
-
-      if($com_infos['CompanyInfo']['news_header'] == 'Фотоальбом') {
-        $albums = $this->Album->find('all', array(
-            'contain' => array(
-                'SmallImage'
-            )
+    
+    function admin_index() {
+        $this->pageTitle = 'Администрирование - о компании';
+        $this->layout = 'admin';
+        
+        $company_infos = $this->CompanyInfo->find('all', array(
+            'contain' => array()
         ));
-        $this->set('albums', $albums);
-        $this->actionCss = array('albums/index');
-        $this->render('albums');
-      }
-
-      //debug($this->companyInfo->read());
+        $company_infos = Set::combine($company_infos, '{n}.CompanyInfo.id', '{n}');
+        $this->set('company_infos', $company_infos);
     }
 
-	function list_company_infos() {
-      $this->layout = 'admin';
-      $this->pageTitle = 'О Компании';
-      if(($company_infos = Cache::read('company_infos')) === false) {
-        $company_infos = $this->CompanyInfo->find('all');
-        Cache::write('company_infos', $company_infos);
-      }
-      $this->set('company_infos', $company_infos);
+    function admin_save_all() {
+        $this->AdminCommon->save_all($this->data, $this->CompanyInfo);
+        $this->redirect($this->referer());
+        die;
     }
 
-    function add() {
-      $this->layout = 'admin';
-      $this->pageTitle = 'О Компании - добавить';
-
-      if(!empty($this->data)) {
-
-        $this->CompanyInfo->save($this->data);
-        Cache::delete('company_infos');
-
-        $this->redirect(array(
-                    'controller' => 'company_infos',
-                    'action' => 'list_company_infos'
-                ));
-      }
+    function admin_add() {
+        $this->AdminCommon->add($this->data, $this->CompanyInfo);
+        die;
     }
 
-    function edit($id = null) {
-      $this->layout = 'admin';
-      $this->pageTitle = 'О Компании - редактирование';
-
-      if(!empty($this->data)) {
-        $company_infos = $this->CompanyInfo->id = $id;
-
-        $this->CompanyInfo->save($this->data);
-        Cache::delete('company_infos');
-
-        $this->redirect(array(
-                    'controller' => 'company_infos',
-                    'action' => 'list_company_infos'
-                ));
-      }
-      else {
-        $this->CompanyInfo->id = $id;
-        $this->data = $this->CompanyInfo->read();
-        $this->set('company_infos', $this->CompanyInfo->read());
-      }
+    function admin_delete() {
+        $this->AdminCommon->delete($this->data, $this->CompanyInfo);
+        die;
     }
-
-    function delete($id = 0) {
-      $this->layout = 'admin';
-      $this->pageTitle = 'О Компании - удалить';
-
-      $company_infos = $this->CompanyInfo->id = $id;
-      $this->set('company_infos', $this->CompanyInfo->read());
-
-      if(!empty($this->data)) {
-
-        $this->CompanyInfo->delete();
-        Cache::delete('company_infos'); 
-
-        $this->redirect(array(
-                    'controller' => 'company_infos',
-                    'action' => 'list_company_infos'
-                ));
-      }
+    
+    function index($name = null) {
+        $this->set('current_menu_name', 'company');
+        
+        $company_info = null;
+        if(!empty($name)) {
+            $company_info = $this->CompanyInfo->find('first', array(
+                'conditions' => array(
+                    'CompanyInfo.enabled' => 1,
+                    'CompanyInfo.eng_name' => $name
+                ),
+                'contain' => array()
+            ));
+        }
+        if(empty($company_info)) {
+            $this->set('breadcrumb', array(
+                array('url'=>'/','label'=>'Главная'),
+                array('url'=>array('controller'=>'company_infos','action'=>'index'),'label'=>'Компания')
+            ));
+            
+            $company_info = $this->CompanyInfo->find('first', array(
+                'conditions' => array(
+                    'CompanyInfo.enabled' => 1
+                ),
+                'contain' => array()
+            ));
+        } else {
+            $this->set('breadcrumb', array(
+                array('url'=>'/','label'=>'Главная'),
+                array('url'=>array('controller'=>'company_infos','action'=>'index'),'label'=>'Компания'),
+                array('url'=>array('controller'=>'company_infos','action'=>'index',$company_info['CompanyInfo']['eng_name']),
+                    'label'=>$company_info['CompanyInfo']['caption'])
+            ));
+        }
+        $this->set('current_company_info', $company_info);
+        $this->pageTitle = $company_info['CompanyInfo']['caption'];
+        
+        $company_infos = $this->CompanyInfo->find('all', array(
+            'conditions' => array(
+                'CompanyInfo.enabled' => 1
+            ),
+            'contain' => array()
+        ));
+        $this->set('company_infos', $company_infos);
     }
-
 }
 ?>

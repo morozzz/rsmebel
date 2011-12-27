@@ -25,7 +25,7 @@ $menu = array(
 
     'Каталог' => array(
         'li_id' => 'admin-menu-catalog',
-        'link' => '/catalogs/adm_catalog',
+        'link' => $html->url(array('controller'=>'catalogs','action'=>'admin_index')),
         'role_id' => 3,
         'group' => 2
     ),
@@ -35,15 +35,15 @@ $menu = array(
         'role_id' => 3,
         'group' => 2
     ),
-    'Производители' => array(
-        'li_id' => 'admin-menu-producer',
-        'link' => '/producers',
-        'role_id' => 3,
-        'group' => 2
-    ),
+//    'Производители' => array(
+//        'li_id' => 'admin-menu-producer',
+//        'link' => '/producers',
+//        'role_id' => 3,
+//        'group' => 2
+//    ),
     'Спецпредложения' => array(
         'li_id' => 'admin-menu-spec',
-        'link' => '/specials/adm_index',
+        'link' => '/specials/admin_index',
         'role_id' => 3,
         'group' => 2
     ),
@@ -80,24 +80,24 @@ $menu = array(
         'role_id' => 2,
         'group' => 4
     ),
-    'Статусы заказов' => array(
-        'li_id' => 'admin-menu-custom-status-type',
-        'link' => '/custom_status_types',
-        'role_id' => 3,
-        'group' => 4
-    ),
-    'Типы доставки' => array(
-        'li_id' => 'admin-menu-transport-type',
-        'link' => '/transport_types',
-        'role_id' => 3,
-        'group' => 4
-    ),
-    'Способы оплаты' => array(
-        'li_id' => 'admin-menu-pay-type',
-        'link' => '/pay_types/adm_index',
-        'role_id' => 3,
-        'group' => 4
-    ),
+//    'Статусы заказов' => array(
+//        'li_id' => 'admin-menu-custom-status-type',
+//        'link' => '/custom_status_types',
+//        'role_id' => 3,
+//        'group' => 4
+//    ),
+//    'Типы доставки' => array(
+//        'li_id' => 'admin-menu-transport-type',
+//        'link' => '/transport_types',
+//        'role_id' => 3,
+//        'group' => 4
+//    ),
+//    'Способы оплаты' => array(
+//        'li_id' => 'admin-menu-pay-type',
+//        'link' => '/pay_types/adm_index',
+//        'role_id' => 3,
+//        'group' => 4
+//    ),
 
 //    'Информация по дизайну' => array(
 //        'li_id' => 'admin-menu-design_info',
@@ -132,19 +132,31 @@ $menu = array(
 //    ),
     'Новости' => array(
         'li_id' => 'admin-menu-news',
-        'link' => '/cnews/list_news',
+        'link' => '/cnews/admin_index',
         'role_id' => 2,
         'group' => 6
     ),
-    'Инфо на главной' => array(
-        'li_id' => 'admin-menu-info',
-        'link' => '/home_news/list_home_news',
+//    'Инфо на главной' => array(
+//        'li_id' => 'admin-menu-info',
+//        'link' => '/home_news/list_home_news',
+//        'role_id' => 3,
+//        'group' => 6
+//    ),
+    'О компании' => array(
+        'li_id' => 'admin-menu-company-info',
+        'link' => '/company_infos/admin_index',
         'role_id' => 3,
         'group' => 6
     ),
-    'Информация о компании' => array(
-        'li_id' => 'admin-menu-company-info',
-        'link' => '/company_infos/list_company_infos',
+    'Партнеры' => array(
+        'li_id' => 'admin-menu-partners',
+        'link' => '/partners/admin_index',
+        'role_id' => 3,
+        'group' => 6
+    ),
+    'Гостевая книга' => array(
+        'li_id' => 'admin-menu-guestbook',
+        'link' => '/guestbooks/admin_index',
         'role_id' => 3,
         'group' => 6
     ),
@@ -154,48 +166,48 @@ $menu = array(
 //        'role_id' => 3,
 //        'group' => 6
 //    ),
-    'Заявки от поставщиков' => array(
-        'li_id' => 'admin-menu-diler',
-        'link' => '/diler',
-        'role_id' => 2,
-        'group' => 6,
-    ),
-    'Баннеры на главной' => array(
-        'li_id' => 'admin-menu-banners',
-        'link' => '/banners/adm_index',
-        'role_id' => 3,
-        'group' => 6
-    ),
-    'Слайдшоу на главной' => array(
-        'li_id' => 'admin-menu-slides',
-        'link' => '/slides/adm_index',
-        'role_id' => 3,
-        'group' => 6
-    ),
-    'Быстрые ссылки' => array(
-        'li_id' => 'admin-menu-short-links',
-        'link' => '/short_links/index',
-        'role_id' => 3,
-        'group' => 6
-    ),
-    'Подвал на главной' => array(
-        'li_id' => 'admin-menu-home-footer',
-        'link' => '/home_footers/edit',
-        'role_id' => 3,
-        'group' => 6
-    ),
+//    'Заявки от поставщиков' => array(
+//        'li_id' => 'admin-menu-diler',
+//        'link' => '/diler',
+//        'role_id' => 2,
+//        'group' => 6,
+//    ),
+//    'Баннеры на главной' => array(
+//        'li_id' => 'admin-menu-banners',
+//        'link' => '/banners/adm_index',
+//        'role_id' => 3,
+//        'group' => 6
+//    ),
+//    'Слайдшоу на главной' => array(
+//        'li_id' => 'admin-menu-slides',
+//        'link' => '/slides/adm_index',
+//        'role_id' => 3,
+//        'group' => 6
+//    ),
+//    'Быстрые ссылки' => array(
+//        'li_id' => 'admin-menu-short-links',
+//        'link' => '/short_links/index',
+//        'role_id' => 3,
+//        'group' => 6
+//    ),
+//    'Подвал на главной' => array(
+//        'li_id' => 'admin-menu-home-footer',
+//        'link' => '/home_footers/edit',
+//        'role_id' => 3,
+//        'group' => 6
+//    ),
     'Изображения' => array(
         'li_id' => 'admin-menu-image',
         'link' => '/images',
         'role_id' => 3,
         'group' => 6
     ),
-    'Шаблоны изображений' => array(
-        'li_id' => 'admin-menu-image-template',
-        'link' => '/image_templates',
-        'role_id' => 3,
-        'group' => 6
-    ),
+//    'Шаблоны изображений' => array(
+//        'li_id' => 'admin-menu-image-template',
+//        'link' => '/image_templates',
+//        'role_id' => 3,
+//        'group' => 6
+//    ),
     'Тексты' => array(
         'li_id' => 'admin-menu-strings',
         'link' => '/strings/index',
@@ -226,24 +238,30 @@ $menu = array(
         'role_id' => 3,
         'group' => 6
     ),
+    'Настройки' => array(
+        'li_id' => 'admin-menu-url-setting',
+        'link' => '/setting/admin_index',
+        'role_id' => 3,
+        'group' => 6
+    ),
 //    'Информационное сообщение' => array(
 //        'li_id' => 'admin-menu-alerts',
 //        'link' => '/alerts/adm_index',
 //        'role_id' => 3,
 //        'group' => 6
 //    ),
-    'Правила интернет-магазина' => array(
-        'li_id' => 'admin-menu-shop_rule',
-        'link' => '/shop_rules/edit/1',
-        'role_id' => 3,
-        'group' => 7
-    ),
-    'Как делать покупки в интернет-магазине' => array(
-        'li_id' => 'admin-menu-purchase_rule',
-        'link' => '/shop_rules/edit/2',
-        'role_id' => 3,
-        'group' => 7
-    ),
+//    'Правила интернет-магазина' => array(
+//        'li_id' => 'admin-menu-shop_rule',
+//        'link' => '/shop_rules/edit/1',
+//        'role_id' => 3,
+//        'group' => 7
+//    ),
+//    'Как делать покупки в интернет-магазине' => array(
+//        'li_id' => 'admin-menu-purchase_rule',
+//        'link' => '/shop_rules/edit/2',
+//        'role_id' => 3,
+//        'group' => 7
+//    ),
     'Сообщения/отзывы от пользователей' => array(
         'li_id' => 'admin-menu-questions',
         'link' => '/questions/adm_index',
@@ -277,7 +295,7 @@ $menu = array(
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery-ui-1.8.5.custom.min.all.js"> </script>
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery.ui.datepicker-ru.js"> </script>
 <?php
-echo $html->css("mto.css");
+//echo $html->css("all.css");
 echo $html->css("admin.css");
 echo $html->css("table_admin.css");
 echo $html->css("jquery.treeview.css");
@@ -307,7 +325,7 @@ if(isset($page_css)) {
     <div id="top-lg">
         <div id="admin-img-lg" class="div-image-lg">
             <?php
-                echo $html->image("admin_icon.jpg");
+//                echo $html->image("admin_icon.jpg");
             ?>
             <h1 id="admin-lg-text">Режим администрирования сайта</h1>
         </div>

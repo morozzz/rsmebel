@@ -7,7 +7,8 @@ class AdminCommonComponent extends Object {
     
     function save_all($rows, &$model, $model_name=null, $fields=null, $default_values = array()) {
         if($model_name==null) $model_name = $model->name;
-        if($fields==null) $fields = $model->field_types;
+//        if($fields==null) $fields = $model->field_types;
+        if($fields==null) $fields = $this->getModelFields($model);
         if(!empty($rows) && !empty($rows[$model_name])) {
             $rows = $rows[$model_name];
             foreach($rows as $model_id => $row) {
@@ -48,7 +49,8 @@ class AdminCommonComponent extends Object {
     }
 
     function add($row, &$model, $fields=null) {
-        if($fields == null) $fields = $model->field_types;
+//        if($fields == null) $fields = $model->field_types;
+        if($fields==null) $fields = $this->getModelFields($model);
         if(!empty($row)) {
             $data = array();
             foreach($row as $field => $value) {
@@ -120,17 +122,36 @@ class AdminCommonComponent extends Object {
         }
 
         //удаляем сформированные ексель-файлы
-        $handle = opendir('xls');
-        if($handle) {
-            while(($file = readdir($handle)) !== false) {
-                if($file!='.' && $file!='..') {
-                    $info = pathinfo($file);
-                    if($info['extension'] == 'xls') {
-                        unlink("xls/$file");
-                    }
-                }
+//        $handle = opendir('xls');
+//        if($handle) {
+//            while(($file = readdir($handle)) !== false) {
+//                if($file!='.' && $file!='..') {
+//                    $info = pathinfo($file);
+//                    if($info['extension'] == 'xls') {
+//                        unlink("xls/$file");
+//                    }
+//                }
+//            }
+//        }
+    }
+
+    function getModelFields(&$model) {
+        if(!empty($model->field_types)) return $model->field_types;
+        $fields = array();
+        foreach($model->_schema as $field_name => $field_param) {
+            if($field_param['type'] == 'integer') {
+                $fields[$field_name] = 'number';
+            } else if($field_param['type'] == 'float') {
+                $fields[$field_name] = 'text';
+            } else if($field_param['type'] == 'string') {
+                $fields[$field_name] = 'text';
+            } else if($field_param['type'] == 'date') {
+                $fields[$field_name] = 'text';
+            } else if($field_param['type'] == 'text') {
+                $fields[$field_name] = 'text';
             }
         }
+        return $fields;
     }
 }
 

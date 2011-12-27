@@ -64,13 +64,13 @@ class Image extends AppModel {
             move_uploaded_file($file['tmp_name'], $img_filename);
             copy($img_filename, $img_real_filename);
 
-            if(!empty($image_type['ImageTemplate'])) {
-                $this->ImageType->ImageTemplate->apply(
-                        $image_type['ImageTemplate']['Image']['url'],
-                        $real_filename,
-                        $filename,
-                        $image_type['ImageTemplate']['percent']);
-            }
+//            if(!empty($image_type['ImageTemplate'])) {
+//                $this->ImageType->ImageTemplate->apply(
+//                        $image_type['ImageTemplate']['Image']['url'],
+//                        $real_filename,
+//                        $filename,
+//                        $image_type['ImageTemplate']['percent']);
+//            }
             return $this->id;
         }
         return 0;
@@ -117,13 +117,13 @@ class Image extends AppModel {
             move_uploaded_file($file['tmp_name'], $img_filename);
             copy($img_filename, $img_real_filename);
 
-            if(!empty($image['ImageType']['ImageTemplate'])) {
-                $this->ImageType->ImageTemplate->apply(
-                        $image['ImageType']['ImageTemplate']['Image']['url'],
-                        $real_filename,
-                        $filename,
-                        $image['ImageType']['ImageTemplate']['percent']);
-            }
+//            if(!empty($image['ImageType']['ImageTemplate'])) {
+//                $this->ImageType->ImageTemplate->apply(
+//                        $image['ImageType']['ImageTemplate']['Image']['url'],
+//                        $real_filename,
+//                        $filename,
+//                        $image['ImageType']['ImageTemplate']['percent']);
+//            }
         }
     }
 
