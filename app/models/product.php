@@ -46,8 +46,7 @@ class Product extends AppModel {
         'name' => 'text',
         'eng_name' => 'text',
         'catalog_id' => 'number',
-        'short_about' => 'text',
-        'long_about' => 'text',
+        'about' => 'text',
         'sort_order' => 'number',
         'producer_id' => 'number',
         'article' => 'number',
@@ -61,24 +60,6 @@ class Product extends AppModel {
     );
 
     function beforeSave() {
-        //если обновился производитель - обновляем его у подтоваров
-        if(!empty($this->data['Product']['producer_id']) &&
-                !empty($this->id)) {
-            $product_dets = $this->ProductDet->find('all', array(
-                'conditions' => array(
-                    'ProductDet.product_id' => $this->id
-                ),
-                'contain' => array()
-            ));
-            foreach($product_dets as $product_det) {
-                $this->ProductDet->id = $product_det['ProductDet']['id'];
-                $this->ProductDet->save(array(
-                    'id' => $product_det['ProductDet']['id'],
-                    'producer_id' => $this->data['Product']['producer_id']
-                ));
-            }
-        }
-
         return true;
     }
 
@@ -223,6 +204,53 @@ class Product extends AppModel {
         $this->delete($moving_product_id);
 
         return $product_det_id;
+    }
+    
+    //получение товара по ID (с использованием кэша)
+    function get_product_by_id($product_id, $contain = array()) {
+        if(($product = Cache::read("product_$product_id")) === false) {
+            $product = $this->find('first', array(
+                'conditions' => array(
+                    'Product.id' => $product_id
+                ),
+                'contain' => $contain
+            ));
+            
+            if(($product_log = Cache::read('product_log'))===false) {
+                $product_log = array("product_$product_id");
+            } else {
+                $product_log[] = "product_$product_id";
+            }
+            Cache::write('product_log', $product_log);
+            Cache::write("product_$product_id", $product);
+        }
+        return $product;
+    }
+    
+    //возвращает текст ссылки на товар
+    function get_url($product_id) {
+        $product = $this->get_product_by_id($product_id);
+        $catalog_url = $this->Catalog->get_url(null, $product['Product']['catalog_id']);
+        return "$catalog_url/{$product['Product']['eng_name']}";
+    }
+
+    //возвращает массив хлебных крошек товара
+    function get_breadcrumb($product_id) {
+        $product = $this->get_product_by_id($product_id);
+        $catalog_breadcrumbs = $this->Catalog->get_breadcrumb(null, $product['Product']['catalog_id']);
+        $catalogs = $this->Catalog->get_parents(null, $product['Product']['catalog_id']);
+        $catalogs = Set::combine($catalogs, '{n}.Catalog.id', '{n}.Catalog.eng_name');
+        $product_breadcrumbs = array(
+            array(
+                'label' => $product['Product']['name'],
+                'url' => array(
+                    'controller' => 'products',
+                    'action' => 'index',
+                    implode('/', $catalogs).'/'.$product['Product']['eng_name']
+                )
+            )
+        );
+        return array_merge($catalog_breadcrumbs,$product_breadcrumbs);
     }
 
     function getPathLink($product_id, $product_action='index', $catalog_action='index') {

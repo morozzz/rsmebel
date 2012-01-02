@@ -1,0 +1,47 @@
+#div-content-for-layout{overflow:auto;}
+.div-left-column{float:left;width:250px;}
+.div-right-column{margin-left:250px;}
+.div-right-column h1{margin-left:10px;}
+
+/*specials*/
+.div-specials{padding:0 20px;}
+.div-special{margin:0 0 20px 0;position:relative;}
+.image-special{}
+.link-add-special-to-basket{bottom:10px;font-size:16px;font-weight:bold;
+    position:absolute;right:35px;}
+
+/*news*/
+.div-news{padding:0 20px;}
+.div-news h2 a{color:inherit;}
+.div-new{margin:0 0 20px 0;}
+.link-new-stamp{font-weight:bold;}
+.div-new-caption{}
+
+/*catalogs*/
+.div-catalogs{overflow:auto}
+.div-catalog{background:url(../../img/catalog_1.jpg)no-repeat top,
+                        url(../../img/catalog_2.jpg)no-repeat bottom,
+                        url(../../img/catalog_3.jpg)repeat-y;
+    -pie-background:url(../../img/catalog_1.jpg)no-repeat top,
+                    url(../../img/catalog_2.jpg)no-repeat bottom,
+                    url(../../img/catalog_3.jpg)repeat-y;
+    behavior:url(/htc/PIE.htc);
+    float:left;margin:0 15px 10px 0;min-height:142px;padding:30px 35px 15px 35px;width:395px;}
+.div-catalog h2{color:#4d3119;font-size:21px;font-weight:bold;font-style:italic;}
+.div-catalog h2 a{color:inherit;}
+.div-catalog .div-product{float:left;width:130px;}
+
+/*product*/
+#div-products{overflow:auto;}
+#div-products .div-product{background:url(../../img/product_1.jpg)no-repeat top,
+                                      url(../../img/product_2.jpg)no-repeat bottom,
+                                      url(../../img/product_3.jpg)repeat-y;
+    -pie-background:url(../../img/product_1.jpg) no-repeat top,
+                    url(../../img/product_2.jpg) no-repeat bottom,
+                    url(../../img/product_3.jpg) repeat-y;
+    behavior:url(/htc/PIE.htc);
+    float:left;margin:0 18px 10px 0;min-height:125px;padding:40px 30px 25px 30px;width:159px;}
+#div-products .link-product-name{color:#df6100;display:block;font-size:21px;
+    font-weight:bold;text-align:center;}
+#div-products .div-product-image{margin:0 auto;width:120px;}
+#div-products .image-product{}

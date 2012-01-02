@@ -45,81 +45,59 @@ class ProductsController extends AppController {
         $this->Auth2->allow('index');
     }
 
-    function index($product_id = 0, $product_det_id = 0) {
-        $this->actionCss = array('products', 'basket', 'catalog_path_tree');
-        $this->actionJs[] = "products";
-        if($product_id == 0) {
-            $this->redirect($this->referer());
+    function index() {
+        //получаем текущий товар по входящим параметрам
+        $args = func_get_args();
+        if(empty($args)) {
+            $this->http_error('Не указан товар', 404, 'Не указан товар');
         }
-
-        $product = $this->Product->find('first', array(
+        $product_name = array_pop($args);
+        //получаем текущий каталог по входящим параметрам
+        $catalog_args = $args;
+        $current_catalog = array(
+            'Catalog' => array(
+                'name' => 'Каталог',
+                'id' => null
+            )
+        );
+        foreach($catalog_args as $catalog_name) {
+            $current_catalog = $this->Catalog->find('first', array(
+                'conditions' => array(
+                    'Catalog.catalog_type_id' => 1,
+                    'Catalog.parent_id' => $current_catalog['Catalog']['id'],
+                    'Catalog.eng_name' => $catalog_name
+                ),
+                'contain' => array()
+            ));
+            if(empty($current_catalog)) {
+                $this->http_error('Неверный путь к каталогу', 404, 'Данный каталог отсутствует');
+            }
+        }
+        $this->set('current_catalog', $current_catalog);
+        
+        $current_product = $this->Product->find('first', array(
             'conditions' => array(
-                'Product.id' => $product_id
+                'Product.catalog_id' => $current_catalog['Catalog']['id'],
+                'Product.eng_name' => $product_name
             ),
             'contain' => array(
-                'ProductParam' => array(
-                    'ProductDetParam' => array(
-                        'ProductDetParamValue'
-                    ),
-                    'order' => 'ProductParam.sort_order'
-                ),
-                'ProductDet' => array(
-                    'ProductDetParam' => array(
-                        'ProductParam' => array(
-                            'ProductParamType',
-                            'ProductParamShowType'
-                        ),
-                        'ProductDetParamValue'
-                    ),
-                    'SmallImage',
-                    'BigImage',
-                    'Producer',
-                    'Special',
-                    'order' => 'ProductDet.sort_order'
-                ),
-                'ProductData' => array(
-                    'ProductParamType',
-                    'ProductDetParamValue',
-                    'order' => 'ProductData.sort_order'
-                ),
-                'SmallImage',
-                'BigImage',
-                'Producer',
-                'Special'
+                'BigImage'
             )
         ));
-        $this->ProductCommon->prepareProduct($product);
-        $this->set('product', $product);
-
-        $this->pageTitle = $product['Product']['name'];
-        $catalog_id = $product['Product']['catalog_id'];
-        
-        $neighbors = $this->Product->find('neighbors', array(
-            'conditions' => array(
-                'Product.catalog_id' => $catalog_id
-            ),
-            'contain' => array(
-                'SmallImage'
-            ),
-            'field' => 'Product.sort_order',
-            'value' => $product['Product']['sort_order']
-        ));
-        if(empty($neighbors['prev'])) unset($neighbors['prev']);
-        if(empty($neighbors['next'])) unset($neighbors['next']);
-        $this->Common->repairImage($neighbors);
-        $this->set('neighbors', $neighbors);
-
-        $catalog_tree = $this->CatalogCommon->GetCatalogTree(false);
-        $this->set('path_tree', $catalog_tree);
-
-        $this->set('cur_catalog_id', $catalog_id);
-
-        $path = $this->Product->getPathLink($product_id);
-        $this->set('path', $path);
-
-        if($product_det_id > 0) {
-            $this->set('product_det_id', $product_det_id);
+        if(empty($current_product)) {
+            $this->http_error('Неверный путь к товару', 404, 'Данный товар отсутствует');
         }
+        $this->set('current_product', $current_product);
+        
+        //title, current_menu, breadcrumb
+        $this->pageTitle = $current_product['Product']['name'];
+        $this->set('current_menu_name', 'catalog');
+        $breadcrumb = array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'catalogs','action'=>'index'),'label'=>'Каталог')
+        );
+        $breadcrumb = array_merge($breadcrumb, $this->Product->get_breadcrumb($current_product['Product']['id']));
+        $this->set('breadcrumb', $breadcrumb);
     }
     
     function admin_get_products($catalog_id) {

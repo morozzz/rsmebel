@@ -45,4 +45,6 @@
         Router::connect('/news', array('controller' => 'cnews', 'action' => 'index'));
         Router::connect('/about/*', array('controller' => 'company_infos', 'action' => 'index'));
         Router::connect('/guestbook/*', array('controller' => 'guestbooks', 'action' => 'index'));
+        Router::connect('/catalog/*', array('controller' => 'catalogs', 'action' => 'index'));
+        Router::connect('/product/*', array('controller' => 'products', 'action' => 'index'));
 ?>

@@ -1,13 +1,20 @@
-<h1>Каталог фирм-производителей</h1>
-<?php $catalogs = $this->requestAction('/catalogs/get_catalogs');?>
+<h1><?php echo $caption;?></h1>
+<?php
+if(empty($catalog_id)) $catalogs = $this->requestAction('/catalogs/get_catalogs');
+else $catalogs = $this->requestAction('/catalogs/get_catalogs/'.$catalog_id);
+?>
 
 <?php foreach($catalogs as $catalog) { ?>
 <div class="div-catalog">
-    <h2><?php echo $catalog['Catalog']['name'];?></h2>
+    <h2><?php echo $html->link($catalog['Catalog']['name'], array(
+        'controller' => 'catalogs',
+        'action' => 'index',
+        $catalog['Catalog']['url']
+    ));?></h2>
     <?php echo $html->link("смотреть все ({$catalog['Catalog']['products_cnt']})", array(
         'controller' => 'catalogs',
         'action' => 'index',
-        $catalog['Catalog']['eng_name']
+        $catalog['Catalog']['url']
     ), array(
         'class' => 'link-catalog-show-all'
     ));?>
@@ -19,13 +26,13 @@
                 'url' => array(
                     'controller' => 'products',
                     'action' => 'index',
-                    $product['Product']['eng_name']
+                    $product['Product']['url']
                 )
             ));?>
             <?php echo $html->link($product['Product']['name'], array(
                 'controller' => 'products',
                 'action' => 'index',
-                $product['Product']['eng_name']
+                $product['Product']['url']
             ), array(
                 'class' => 'link-product'
             ));?>

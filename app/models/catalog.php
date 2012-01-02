@@ -71,24 +71,6 @@ class Catalog extends AppModel {
     }
 
     function beforeSave() {
-        //если обновился производитель - обновляем его у товаров
-        if(!empty($this->data['Catalog']['producer_id']) &&
-                !empty($this->id)) {
-            $products = $this->Product->find('all', array(
-                'conditions' => array(
-                    'Product.catalog_id' => $this->id
-                ),
-                'contain' => array()
-            ));
-            foreach($products as $product) {
-                $this->Product->id = $product['Product']['id'];
-                $this->Product->save(array(
-                    'id' => $product['Product']['id'],
-                    'producer_id' => $this->data['Catalog']['producer_id']
-                ));
-            }
-        }
-
         return true;
     }
 
@@ -211,29 +193,66 @@ class Catalog extends AppModel {
             'field' => 'sort_order'
         ));
     }
-
-    function getPathLink($catalog_id, $action = 'index') {
-        $path = $this->getpath($catalog_id);
-        $path_links = array(
-            0 => array(
-                'id' => 0,
-                'name' => 'Анжелика - торговое оборудование',
-                'url' => "/catalogs/$action"
-            )
-        );
-        if(!empty($path)) {
-            foreach($path as $catalog) {
-                $id = $catalog['Catalog']['id'];
-                $name = $catalog['Catalog']['name'];
-
-                $path_links[$id] = array(
-                    'id' => $id,
-                    'name' => "$name",
-                    'url' => "/catalogs/$action/$id"
-                );
+    
+    //получение списка родителей каталога (с использование кэша)
+    function get_parents($catalog = null, $catalog_id = null) {
+        if(!empty($catalog)) $catalog_id = $catalog['Catalog']['id'];
+        if(($catalogs = Cache::read("catalog_parents_$catalog_id")) === false) {
+            if(empty($catalog)) {
+                $catalog = $this->find('first', array(
+                    'conditions' => array('Catalog.id' => $catalog_id),
+                    'contain' => array()
+                ));
             }
+            $catalogs = $this->find('all', array(
+                'conditions' => array(
+                    'Catalog.lft <= ' => $catalog['Catalog']['lft'],
+                    'Catalog.rght >= ' => $catalog['Catalog']['rght']
+                ),
+                'order' => 'Catalog.lft'
+            ));
+            
+            if(($catalog_parents_log = Cache::read('catalog_parents_log'))===false) {
+                $catalog_parents_log = array("catalog_parents_$catalog_id");
+            } else {
+                $catalog_parents_log[] = "catalog_parents_$catalog_id";
+            }
+            Cache::write('catalog_parents_log', $catalog_parents_log);
+            Cache::write("catalog_parents_$catalog_id", $catalogs);
         }
-        return $path_links;
+        return $catalogs;
+    }
+    
+    //возвращает текст ссылки на каталог
+    function get_url($catalog = null, $catalog_id = null) {
+        $catalogs = $this->get_parents($catalog, $catalog_id);
+        
+        $url = array();
+        foreach($catalogs as $catalog) {
+            $url[] = $catalog['Catalog']['eng_name'];
+        }
+        return implode('/',$url);
+    }
+
+    //возвращает массив хлебных крошек каталога
+    function get_breadcrumb($catalog = null, $catalog_id = null) {
+        $catalogs = $this->get_parents($catalog, $catalog_id);
+        
+        $breadcrumbs = array();
+        $breadcrumb_url = array();
+        foreach($catalogs as $catalog) {
+            $breadcrumb_str[] = $catalog['Catalog']['eng_name'];
+            $breadcrumbs[] = array(
+                'label' => $catalog['Catalog']['name'],
+                'url' => array(
+                    'controller' => 'catalogs',
+                    'action' => 'index',
+                    implode('/',$breadcrumb_str)
+                )
+            );
+        }
+        
+        return $breadcrumbs;
     }
 }
 
