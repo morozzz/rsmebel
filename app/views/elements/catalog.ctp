@@ -21,21 +21,31 @@ else $catalogs = $this->requestAction('/catalogs/get_catalogs/'.$catalog_id);
     <div class="div-products">
         <?php foreach($catalog['Product'] as $product) { ?>
         <div class="div-product">
-            <?php echo $html->image($product['SmallImage']['url'], array(
+            <?php
+            echo $html->image($product['SmallImage']['url'], array(
                 'class' => 'image-product',
                 'url' => array(
                     'controller' => 'products',
                     'action' => 'index',
                     $product['Product']['url']
                 )
-            ));?>
-            <?php echo $html->link($product['Product']['name'], array(
+            ));
+            echo $html->link($product['Product']['name'], array(
                 'controller' => 'products',
                 'action' => 'index',
                 $product['Product']['url']
             ), array(
                 'class' => 'link-product'
-            ));?>
+            ));
+            echo $html->link($html->image('icon_zoom.png'),
+                    $this->webroot.'img/'.$product['BigImage']['url'], array(
+                        'class' => 'link-product-zoom',
+                        'escape' => false,
+                        'title' => $product['Product']['name'],
+                        'rel' => 'lightbox_product'
+                    )
+            );
+            ?>
         </div>
         <?php } ?>
     </div>

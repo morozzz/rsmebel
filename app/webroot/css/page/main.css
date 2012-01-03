@@ -19,8 +19,15 @@
 /*catalogs*/
 .div-catalogs{overflow:auto}
 .div-catalogs h1{padding-left:40px;}
-.div-catalog{background:url(../../img/catalog.jpg)no-repeat;float:left;height:/*189*/144px;
-    margin:0 15px 10px 0;padding:30px 35px 15px 35px;width:/*465*/395px;}
+.div-catalog{background:url(../../img/catalog_1.jpg)no-repeat top,
+                        url(../../img/catalog_2.jpg)no-repeat bottom,
+                        url(../../img/catalog_3.jpg)repeat-y;
+    -pie-background:url(../../img/catalog_1.jpg)no-repeat top,
+                    url(../../img/catalog_2.jpg)no-repeat bottom,
+                    url(../../img/catalog_3.jpg)repeat-y;
+    behavior:url(/htc/PIE.htc);
+    float:left;margin:0 15px 10px 0;min-height:152px;padding:30px 35px 25px 35px;width:395px;}
 .div-catalog h2{color:#4d3119;font-size:21px;font-weight:bold;font-style:italic;}
 .div-catalog h2 a{color:inherit;}
-.div-product{float:left;width:130px;}
+.div-product{float:left;position:relative;width:130px;}
+.div-product .link-product-zoom{position:absolute;top:-5px;right:10px;}

@@ -26,10 +26,11 @@
                     url(../../img/catalog_2.jpg)no-repeat bottom,
                     url(../../img/catalog_3.jpg)repeat-y;
     behavior:url(/htc/PIE.htc);
-    float:left;margin:0 15px 10px 0;min-height:142px;padding:30px 35px 15px 35px;width:395px;}
+    float:left;margin:0 15px 10px 0;min-height:152px;padding:30px 35px 25px 35px;width:395px;}
 .div-catalog h2{color:#4d3119;font-size:21px;font-weight:bold;font-style:italic;}
 .div-catalog h2 a{color:inherit;}
-.div-catalog .div-product{float:left;width:130px;}
+.div-catalog .div-product{float:left;position:relative;width:130px;}
+.div-catalog .div-product .link-product-zoom{position:absolute;top:-5px;right:10px;}
 
 /*product*/
 #div-products{overflow:auto;}
@@ -43,5 +44,6 @@
     float:left;margin:0 18px 10px 0;min-height:125px;padding:40px 30px 25px 30px;width:159px;}
 #div-products .link-product-name{color:#df6100;display:block;font-size:21px;
     font-weight:bold;text-align:center;}
-#div-products .div-product-image{margin:0 auto;width:120px;}
+#div-products .div-product-image{margin:0 auto;position:relative;width:120px;}
+#div-products .div-product-image .link-product-zoom{position:absolute;top:-5px;right:-10px;}
 #div-products .image-product{}

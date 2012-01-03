@@ -26,6 +26,14 @@
                         $product['Product']['url']
                     )
                 ));
+                echo $html->link($html->image('icon_zoom.png'),
+                        $this->webroot.'img/'.$product['BigImage']['url'], array(
+                            'class' => 'link-product-zoom',
+                            'escape' => false,
+                            'title' => $product['Product']['name'],
+                            'rel' => 'lightbox_product'
+                        )
+                );
                 ?>
             </div>
         </div>
