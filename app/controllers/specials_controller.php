@@ -49,6 +49,9 @@ class SpecialsController extends AppController {
                 'Image'
             )
         ));
+        foreach($specials as &$special) {
+            $special['Special']['url'] = $this->Product->get_url($special['Special']['product_id']);
+        }
         
         if(isset($this->params['requested'])) {
             return $specials;

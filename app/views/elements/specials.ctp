@@ -9,7 +9,7 @@
         'url' => array(
             'controller' => 'products',
             'action' => 'index',
-            $special['Special']['product_id']
+            $special['Special']['url']
         )
     ));
     echo $html->link('в корзину', '#', array(

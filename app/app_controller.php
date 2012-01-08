@@ -151,6 +151,16 @@ class AppController extends Controller{
             "ы"=>"yi","ь"=>"","э"=>"e","ю"=>"yu","я"=>"ya"
         );
         return strtr($str,$tr);
+    } 
+    
+    function http_error($name, $code, $message) {
+        $opts = array(
+            'name' => $name,
+            'code' => $code,
+            'message' => $message,
+            'base' => $this->base
+        );
+        $this->cakeError('error', array($opts));
     }
 }
 ?>

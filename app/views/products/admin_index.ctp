@@ -39,16 +39,10 @@ echo $adminCommon->table(array(
             'name' => 'eng_name'
         ),
         array(
-            'header' => 'Краткое описание',
+            'header' => 'Описание',
             'type' => 'text',
-            'path' => 'Product.short_about',
-            'name' => 'short_about'
-        ),
-        array(
-            'header' => 'Полное описание',
-            'type' => 'text',
-            'path' => 'Product.long_about',
-            'name' => 'long_about'
+            'path' => 'Product.about',
+            'name' => 'about'
         ),
         array(
             'header' => 'Мал. изобр-е',

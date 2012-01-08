@@ -42,7 +42,7 @@ class CatalogsController extends AppController {
         "common"
     );
 
-    var $cacheAction = array('index' => '1 week');
+//    var $cacheAction = array('index' => '1 week');
 
     function isAuthorized() {
         if(!empty($this->curUser)) {
@@ -91,15 +91,17 @@ class CatalogsController extends AppController {
           }
     }
     
-    function get_catalogs() {
+    function get_catalogs($catalog_id = null) {
         $catalogs = $this->Catalog->find('all', array(
             'conditions' => array(
                 'Catalog.catalog_type_id' => 1,
-                'Catalog.parent_id' => null
+                'Catalog.parent_id' => $catalog_id
             ),
             'contain' => array()
         ));
         foreach($catalogs as &$catalog) {
+            $catalog['Catalog']['url'] = $this->Catalog->get_url($catalog);
+            
             $catalogs_id = $this->Catalog->find('all', array(
                 'conditions' => array(
                     'Catalog.lft >=' => $catalog['Catalog']['lft'],
@@ -119,6 +121,9 @@ class CatalogsController extends AppController {
                 ),
                 'limit' => 3
             ));
+            foreach($products as &$product) {
+                $product['Product']['url'] = $this->Product->get_url($product['Product']['id']);
+            }
             $catalog['Product'] = $products;
             
             $products_cnt = $this->Product->find('count', array(
@@ -134,313 +139,104 @@ class CatalogsController extends AppController {
         }
     }
 
-    function index($id = 0) {
-        /*path-tree*/
-        $catalog_tree = $this->CatalogCommon->GetCatalogTree(false);
-        $this->set('path_tree', $catalog_tree);
-
-        $this->set('cur_catalog_id', $id);
-        $this->actionJs[] = "jquery-ui-1.8.5.custom.min";
-
-        if($id == 0) {
-            $this->pageTitle = 'Анжелика - заказ онлайн';
-
-           if(($catalogs = Cache::read('catalogs')) === false) {
-
-                $catalogs = $this->Catalog->find('all', array(
-                    'conditions' => array(
-                        'parent_id' => null,
-                        'catalog_type_id' => 1
-                    ),
-                    'contain' => array()
-                ));
-                $catalogs = Set::combine($catalogs, '{n}.Catalog.id', '{n}');           
-
-
-                $catalogs_id = Set::combine($catalogs, '{n}.Catalog.id', '{n}.Catalog.id');
-                $catalogs2 = $this->Catalog->find('all', array(
-                    'conditions' => array(
-                        'parent_id' => $catalogs_id,
-                        'catalog_type_id' => 1
-                    ),
-                    'contain' => array(
-                        'SmallImage'
-                    )
-                ));
- 
-                foreach($catalogs as &$catalog) {
-                    $catalog['Catalogs'] = array();
-                }
-                foreach($catalogs2 as $catalog2) {
-                    $catalogs[$catalog2['Catalog']['parent_id']]['Catalogs'][] = $catalog2;
-                }
-
-              Cache::write('catalogs', $catalogs);
-            }
-            $this->set('catalogs', $catalogs);
-
-            $path = array();
-            $this->set('path', $path);
-
-            $catalog_news = $this->CatalogNew->find('all', array(
-                'contain' => array(
-                    'CatalogNewType',
-                    'Catalog'
-                ),
-                'limit' => 5
-            ));
-//            foreach($catalog_news as &$catalog_new) {
-//                $catalog_new['catalog_path'] = $this->Catalog->getPathLink(
-//                        $catalog_new['CatalogNew']['catalog_id']);
-//            }
-            $this->set('catalog_news', $catalog_news);
-
-            $this->actionCss = array('catalogs/catalogs0', 'catalog_path_tree', 'basket');
-            $this->render('catalogs0');
-        } else {
-            $path = $this->Catalog->getPathLink($id);
-            $this->set('path', $path);
-
-            $catalog = $this->Catalog->find('first', array(
+    function index() {
+        //получаем текущий каталог по входящим параметрам
+        $catalog_args = func_get_args();
+        $current_catalog = array(
+            'Catalog' => array(
+                'name' => 'Каталог',
+                'id' => null
+            )
+        );
+        foreach($catalog_args as $catalog_name) {
+            $current_catalog = $this->Catalog->find('first', array(
                 'conditions' => array(
-                    'Catalog.id' => $id,
-                    'Catalog.catalog_type_id' => 1
+                    'Catalog.catalog_type_id' => 1,
+                    'Catalog.parent_id' => $current_catalog['Catalog']['id'],
+                    'Catalog.eng_name' => $catalog_name
+                ),
+                'contain' => array()
+            ));
+            if(empty($current_catalog)) {
+                $this->http_error('Неверный путь к каталогу', 404, 'Данный каталог отсутствует');
+            }
+        }
+        $this->set('current_catalog', $current_catalog);
+        
+        //title, current_menu, breadcrumb
+        $this->pageTitle = $current_catalog['Catalog']['name'];
+        $this->set('current_menu_name', 'catalog');
+        $breadcrumb = array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'catalogs','action'=>'index'),'label'=>'Каталог')
+        );
+        if(!empty($current_catalog['Catalog']['id'])) {
+            $breadcrumb = array_merge($breadcrumb, $this->Catalog->get_breadcrumb($current_catalog));
+        }
+        $this->set('breadcrumb', $breadcrumb);
+        
+        $catalogs_cnt = $this->Catalog->find('count', array(
+            'conditions' => array(
+                'Catalog.catalog_type_id' => 1,
+                'Catalog.parent_id' => $current_catalog['Catalog']['id']
+            ),
+            'contain' => array()
+        ));
+        if($catalogs_cnt>0) {
+            $this->render('index_catalogs');
+        } else {
+            $products = $this->Product->find('all', array(
+                'conditions' => array(
+                    'Product.catalog_id' => $current_catalog['Catalog']['id']
                 ),
                 'contain' => array(
                     'SmallImage',
                     'BigImage'
                 )
             ));
-            $this->set('catalog', $catalog);
-            $this->pageTitle = $catalog['Catalog']['name'];
-            
-            $catalogs2 = $this->Catalog->find('all', array(
-                'conditions' => array(
-                    'parent_id' => $id,
-                    'catalog_type_id' => 1
-                ),
-                'contain' => array(
-                    'SmallImage'
-                )
-            ));
-
-            if(!empty($catalogs2)) {
-                $catalogs[$id] = $catalog;
-                $catalogs[$id]['Catalogs'] = $catalogs2;
-                $this->set('catalogs', $catalogs);
-
-                if($catalog_tree[$id]['level'] == 0) {
-                    $catalog_news = $this->CatalogNew->find('all', array(
-                        'contain' => array(
-                            'CatalogNewType',
-                            'Catalog'
-                        ),
-                        'limit' => 5
-                    ));
-                    $this->set('catalog_news', $catalog_news);
-
-                    $this->actionCss = array('catalogs/catalogs0', 'catalog_path_tree', 'basket');
-                    $this->render('catalogs0');
-                } else {
-                    $this->actionCss = array('catalogs/catalogs1', 'catalog_path_tree', 'basket');
-                    $this->render('catalogs1');
-                }
-            } else {
-                $projects = $this->ProjectCatalog->find('all', array(
-                    'conditions' => array(
-                        'ProjectCatalog.catalog_id' => $id
-                    ),
-                    'contain' => array(
-                        'Project'
-                    )
-                ));
-                $this->set('projects', $projects);
-
-                $project_slides = $this->ProjectSlideCatalog->find('all', array(
-                    'conditions' => array(
-                        'ProjectSlideCatalog.catalog_id' => $id
-                    ),
-                    'contain' => array(
-                        'ProjectSlide'
-                    )
-                ));
-                $this->set('project_slides', $project_slides);
-
-                $product_det_param_value_conditions = array(
-                    'or' => array(
-                        "ProductDetParamValue.id IN (".
-                            "SELECT pdp.product_det_param_value_id ".
-                            "FROM cake_product_det_params pdp, ".
-                                "cake_product_dets pd, ".
-                                "cake_products p ".
-                            "WHERE pdp.product_det_id = pd.id AND ".
-                                "pd.product_id = p.id AND ".
-                                "p.catalog_id = $id)",
-                        "ProductDetParamValue.id IN (".
-                            "SELECT pd.product_det_param_value_id ".
-                            "FROM cake_product_datas pd, ".
-                                "cake_products p ".
-                            "WHERE pd.product_id = p.id AND ".
-                                "p.catalog_id = $id)"
-                    )
-                );
-                $filters = $this->Filter->find('all', array(
-                    'conditions' => array(
-                        'Filter.catalog_id' => $id
-                    ),
-                    'contain' => array(
-                        'ProductParamType' => array(
-                            'ProductDetParamValue' => array(
-                                'conditions' => $product_det_param_value_conditions,
-                                'order' => 'ProductDetParamValue.name'
-                            )
-                        )
-                    )
-                ));
-
-                $params = $this->params['named'];
-                $filter_conditions = array();
-                $price_conditions = array();
-                foreach($filters as &$filter) {
-                    $product_param_type_id = $filter['ProductParamType']['id'];
-                    $cur_filter_conditions = array();
-                    if($filter['Filter']['filter_type_id'] == 1) {
-                        if(!empty($params['f_'.$product_param_type_id])) {
-                            $value = $params['f_'.$product_param_type_id];
-                            $cur_filter_conditions[] = ' AND pdpv.name>='.(int)$value;
-                            $filter['from'] = $value;
-                        }
-                        if(!empty($params['t_'.$product_param_type_id])) {
-                            $value = $params['t_'.$product_param_type_id];
-                            $cur_filter_conditions[] = ' AND pdpv.name<='.(int)$value;
-                            $filter['to'] = $value;
-                        }
-                    } else if($filter['Filter']['filter_type_id'] == 2) {
-                        if(!empty($params['e_'.$product_param_type_id])) {
-                            $value = $params['e_'.$product_param_type_id];
-                            $equals = explode('_', $value);
-
-                            $filter['ProductParamType']['ProductDetParamValue'] =
-                                Set::combine($filter['ProductParamType']['ProductDetParamValue'], '{n}.id', '{n}');
-                            foreach($equals as $equal) {
-                                if(!empty($filter['ProductParamType']['ProductDetParamValue'][$equal]))
-                                    $filter['ProductParamType']['ProductDetParamValue'][$equal]['checked'] = true;
-                            }
-                            $cur_filter_conditions[] = ' AND pdpv.id IN ('.implode(',', $equals).')';
-                        }
-                    } else if($filter['Filter']['filter_type_id'] == 3) {
-                        if(!empty($params['f_price'])) {
-                            $value = $params['f_price'];
-                            $price_conditions['from'] = (int)$value;
-                            $filter['from'] = $value;
-                        }
-                        if(!empty($params['t_price'])) {
-                            $value = $params['t_price'];
-                            $price_conditions['to'] = (int)$value;
-                            $filter['to'] = $value;
-                        }
-                    }
-                    if(!empty($cur_filter_conditions))
-                        $filter_conditions[$product_param_type_id] = $cur_filter_conditions;
-                }
-                $this->set('filters', $filters);
-                $conditions = array();
-                foreach($filter_conditions as $product_param_type_id => $cur_filter_conditions) {
-                    $conditions[] = array(
-                        'or' => array(
-                            "Product.id IN (SELECT pd.product_id
-                                         FROM cake_product_det_params pdp,
-                                              cake_product_params pp,
-                                              cake_product_dets pd,
-                                              cake_product_det_param_values pdpv
-                                         WHERE pdp.product_param_id = pp.id
-                                           AND pdp.product_det_id = pd.id
-                                           AND pdp.product_det_param_value_id = pdpv.id
-                                           AND pp.product_param_type_id = $product_param_type_id".
-                                        implode("", $cur_filter_conditions).")",
-                            "Product.id IN (SELECT pd.product_id
-                                         FROM cake_product_datas pd,
-                                              cake_product_det_param_values pdpv
-                                         WHERE pd.product_det_param_value_id = pdpv.id
-                                           AND pd.product_param_type_id = $product_param_type_id".
-                                        implode("", $cur_filter_conditions).")"
-                        )
-                    );
-                }
-                if(!empty($price_conditions['from'])) {
-                    $price_from = $price_conditions['from'];
-                    $conditions[] = array(
-                        'or' => array(
-                            "Product.price >= $price_from",
-                            "EXISTS(SELECT * FROM cake_product_dets pd
-                                WHERE pd.product_id = Product.id
-                                AND pd.price >= $price_from)"
-                        )
-                    );
-                }
-                if(!empty($price_conditions['to'])) {
-                    $price_to = $price_conditions['to'];
-                    $conditions[] = array(
-                        'or' => array(
-                            "Product.price <= $price_to",
-                            "EXISTS(SELECT * FROM cake_product_dets pd
-                                WHERE pd.product_id = Product.id
-                                AND pd.price <= $price_to)"
-                        )
-                    );
-                }
-                $conditions['Product.catalog_id'] = $id;
-
-                $this->paginate = array(
-                    'Product' => array(
-                        'conditions' => $conditions,
-                        'contain' => array(
-                            'ProductParam' => array(
-                                'ProductDetParam' => array(
-                                    'ProductDetParamValue'
-                                ),
-                                'order' => 'ProductParam.sort_order'
-                            ),
-                            'ProductDet' => array(
-                                'ProductDetParam' => array(
-                                    'ProductParam' => array(
-                                        'ProductParamType',
-                                        'ProductParamShowType'
-                                    ),
-                                    'ProductDetParamValue'
-                                ),
-                                'SmallImage',
-                                'BigImage',
-                                'Producer',
-                                'Special',
-                                'order' => 'ProductDet.sort_order'
-                            ),
-                            'ProductData' => array(
-                                'ProductParamType',
-                                'ProductDetParamValue',
-                                'order' => 'ProductData.sort_order'
-                            ),
-                            'SmallImage',
-                            'BigImage',
-                            'Producer',
-                            'Special'
-                        )
-                    )
-                );
-
-                $products = $this->paginate('Product');
-                foreach($products as &$product) {
-                    $this->ProductCommon->prepareProduct($product);
-                }
-                $this->set('products', $products);
-
-                $this->actionCss = array('catalogs/products', 'products', 'catalog_path_tree', 'basket');
-                //$this->actionJs[] = "jquery-ui-1.8.4.custom.tabs.min";
-                $this->actionJs[] = "products";
-                $this->render('products');
-                /*****************************************/
+            foreach($products as &$product) {
+                $product['Product']['url'] = $this->Product->get_url($product['Product']['id']);
             }
+            $this->set('products', $products);
+            $this->render('index_products');
         }
+//        $catalogs = $this->Catalog->find('all', array(
+//            'conditions' => array(
+//                'Catalog.catalog_type_id' => 1,
+//                'Catalog.parent_id' => null
+//            ),
+//            'contain' => array()
+//        ));
+//        foreach($catalogs as &$catalog) {
+//            $catalogs_id = $this->Catalog->find('all', array(
+//                'conditions' => array(
+//                    'Catalog.lft >=' => $catalog['Catalog']['lft'],
+//                    'Catalog.rght <=' => $catalog['Catalog']['rght']
+//                ),
+//                'contain' => array()
+//            ));
+//            $catalogs_id = Set::combine($catalogs_id, '{n}.Catalog.id', '{n}.Catalog.id');
+//            
+//            $products = $this->Product->find('all', array(
+//                'conditions' => array(
+//                    'Product.catalog_id' => $catalogs_id
+//                ),
+//                'contain' => array(
+//                    'SmallImage',
+//                    'BigImage'
+//                ),
+//                'limit' => 3
+//            ));
+//            $catalog['Product'] = $products;
+//            
+//            $products_cnt = $this->Product->find('count', array(
+//                'conditions' => array(
+//                    'Product.catalog_id' => $catalogs_id
+//                )
+//            ));
+//            $catalog['Catalog']['products_cnt'] = $products_cnt;
+//        }
+//        $this->set('catalogs', $catalogs);
     }
 
     function project_slides($catalog_id) {

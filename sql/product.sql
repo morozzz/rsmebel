@@ -51,3 +51,6 @@ INSERT INTO `cake_products` (`id`, `catalog_id`, `name`, `sort_order`, `price`, 
 (10665, 100000243, 'Агат угол', 2, 90, NULL, 5878, 5879, NULL, 'S_10665', NULL, NULL, NULL, NULL, 0, 0, '2011-12-18 19:02:01', '2011-12-18 19:02:51', 'agat_ygol', 80),
 (10666, 100000243, 'Герда', 3, 550, NULL, 5880, 5881, NULL, 'S_10666', NULL, NULL, NULL, NULL, 0, 0, '2011-12-18 19:02:19', '2011-12-18 19:02:51', 'gerda', 520),
 (10661, 100000242, 'Пион-1 мини-диван', 1, 100, NULL, 5870, 5871, NULL, 'S_10661', NULL, NULL, NULL, NULL, 0, 0, '2011-12-18 18:16:22', '2011-12-18 20:06:28', 'pion_1_mini_divan', 90);
+
+ALTER TABLE cake_products DROP long_about;
+ALTER TABLE cake_products CHANGE COLUMN short_about about TEXT;

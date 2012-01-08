@@ -81,11 +81,3 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 .footer-right{background:url(../img/footer_right.jpg)no-repeat;float:right;}
 .footer-center{background:url(../img/footer.jpg)repeat-x;font-size:14px;
     margin:0 103px;padding:20px 30px;}
-
-/*catalogs*/
-.div-catalogs{overflow:auto}
-.div-catalogs h1{padding-left:40px;}
-.div-catalog{background:url(../img/catalog.jpg)no-repeat;float:left;height:/*189*/144px;
-    margin:0 15px 10px 0;padding:30px 35px 15px 35px;width:/*465*/395px;}
-.div-catalog h2{color:#4d3119;font-size:21px;font-weight:bold;font-style:italic;}
-.div-product{float:left;width:130px;}
