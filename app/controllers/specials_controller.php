@@ -8,13 +8,11 @@ class SpecialsController extends AppController {
         'Catalog',
         'Product',
         'ProductDet',
-        'ProductParam',
         'Image'
     );
 
     var $components = array(
-        'AdminCommon',
-        'ProductCommon'
+        'AdminCommon'
     );
 
     var $helpers = array(

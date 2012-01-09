@@ -13,12 +13,12 @@
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery-1.4.2.min.js"> </script>
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery.cookie.js"> </script>
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/slimbox2.js"> </script>
+<script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery.blockUI.js"> </script>
 <?php foreach($page_js as $js) { ?>
 <script type="text/javascript" src="<?php echo "{$this->webroot}js/$js.js";?>"> </script>
 <?php }?>
 <?php
 echo $html->css("all.css");
-echo $html->css("slimbox2/slimbox2.css");
 if(isset($page_css)) {
     foreach($page_css as $css) {
         $filename = 'css/'.$css.'.css';
@@ -27,6 +27,15 @@ if(isset($page_css)) {
     }
 }
 ?>
+<script type="text/javascript">
+    $(function() {
+        $.blockUI.defaults.message = '<?php echo $html->image('busy.gif');?>';
+        $.blockUI.defaults.css = {top:'50%',left:'50%',background:'transparent',cursor:'wait'};
+        $.blockUI.defaults.overlayCSS = {backgroundColor:'#fff',opacity:0.8};
+        
+        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+    });
+</script>
 </head>
 <body>
     <div id="div-top"><?php echo $this->element('top');?></div>

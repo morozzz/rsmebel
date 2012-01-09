@@ -1,1 +1,0 @@
-<?php echo $shop_rule['ShopRule']['body_text'];?>

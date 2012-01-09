@@ -4,22 +4,11 @@ class CatalogsController extends AppController {
     var $name = 'Catalogs';
     var $uses = array(
         "Catalog",
-        "CatalogNew",
-        "Filter",
         "SmallImage",
         "BigImage",
         "Image",
         "Product",
-        "ProductParam",
-        "ProductParamType",
-        "ProductDet",
-        "ProductDetParam",
-        "ProductDetParamValue",
-        "Producer",
-        "Project",
-        "ProjectCatalog",
-        "ProjectSlide",
-        "ProjectSlideCatalog");
+        "ProductDet",);
     var $helpers = array(
         'AdminCommon',
         'Javascript',
@@ -31,9 +20,6 @@ class CatalogsController extends AppController {
     );
     var $components = array(
         'AdminCommon',
-        'Common',
-        'CatalogCommon',
-        'ProductCommon',
         'Cookie'
     );
     var $actionJs = array(
@@ -191,11 +177,18 @@ class CatalogsController extends AppController {
                 ),
                 'contain' => array(
                     'SmallImage',
-                    'BigImage'
+                    'BigImage',
+                    'ProductDet'
                 )
             ));
             foreach($products as &$product) {
                 $product['Product']['url'] = $this->Product->get_url($product['Product']['id']);
+                if(!empty($product['ProductDet'])) {
+                    $product['Product']['product_det_list'] = array();
+                    foreach($product['ProductDet'] as $product_det) {
+                        $product['Product']['product_det_list'][$product_det['id']] = $product_det['name'];
+                    }
+                }
             }
             $this->set('products', $products);
             $this->render('index_products');
