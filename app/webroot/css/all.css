@@ -111,8 +111,10 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 
 /*basket*/
 #div-basket{padding:0 20px 20px;}
-#div-basket h2 a{color:inherit;}
+#div-basket h2 a.link-basket-header{color:inherit;}
+#div-basket h2 #link-clear-basket{font-size:0.6em;margin-left:10px;}
 #div-basket .div-basket-products{font-style:italic;}
+#div-basket .link-custom-order{display:block;font-size:1.2em;text-align:center;}
 
 /*specials*/
 .div-specials{padding:0 20px;}
@@ -175,6 +177,7 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 .div-catalog h2 a{color:inherit;}
 .div-catalog .div-product{float:left;position:relative;width:130px;}
 .div-catalog .div-product .link-product-zoom{position:absolute;top:-5px;right:10px;}
+.div-catalog .div-product .image-product{width:120px;}
 
 /*products*/
 #div-products{overflow:auto;}

@@ -62,8 +62,17 @@ class AppController extends Controller{
 
         if($this->Auth2->user()) {
             //$this->set('curUser', $this->User->findById($this->Auth2->user('id')));
-            $this->set('curUser', $this->Session->read('Auth'));
-            $this->curUser = $this->Session->read('Auth');
+            $user = $this->Session->read('Auth');
+            $user = $this->User->find('first', array(
+                'conditions' => array(
+                    'User.id' => $user['User']['id']
+                ),
+                'contain' => array(
+                    'ClientInfo'
+                )
+            ));
+            $this->set('curUser', $user);
+            $this->curUser = $user;
             $client_info = $this->ClientInfo->find('first', array(
                 'conditions' => array(
                     'ClientInfo.user_id' => $this->curUser['User']['id']
@@ -104,7 +113,12 @@ class AppController extends Controller{
         $this->set('url_description', $description);
         
         /*получаем тип цены (оптовую или розничную)*/
-        $this->set('is_opt_price', true);
+        if(empty($this->curUser) || empty($this->curUser['ClientInfo'])) $is_opt_price = false;
+        else {
+            if($this->curUser['ClientInfo']['client_type_id']==2) $is_opt_price = true;
+            else $is_opt_price = false;
+        }
+        $this->set('is_opt_price', $is_opt_price);
     }
 
     function beforeRender() {

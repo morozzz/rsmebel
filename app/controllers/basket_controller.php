@@ -33,6 +33,17 @@ class BasketController extends AppController {
         $this->redirect($this->referer());
     }
     
+    function index() {
+        $this->pageTitle = 'Корзина';
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'basket','action'=>'index'),'label'=>'Корзина')
+        ));
+        
+        $basket = $this->Basket->get();
+        $this->set('basket', $basket);
+    }
+    
     function add() {
         if(empty($this->params['url']['count'])) $count = 1;
         else $count = $this->params['url']['count'];
@@ -68,6 +79,25 @@ class BasketController extends AppController {
             $this->Cookie->write("BasketProduct.$product_id", array(
                 'cnt' => $cnt
             ));
+        }
+        
+        if($this->params['isAjax'] == 1) {
+            $this->layout = 'ajax';
+            $this->set('basket', $this->Basket->get());
+            $this->render('basket');
+        } else {
+            $this->redirect($this->referer());
+        }
+    }
+    
+    function clear() {
+        $basket = $this->Cookie->read("BasketProduct");
+        foreach($basket as $product_id => $b) {
+            $this->Cookie->del("BasketProduct.$product_id");
+        }
+        $basket = $this->Cookie->read("BasketProductDet");
+        foreach($basket as $product_id => $b) {
+            $this->Cookie->del("BasketProductDet.$product_id");
         }
         
         if($this->params['isAjax'] == 1) {

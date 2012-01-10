@@ -1,3 +1,4 @@
 /app/tmp/*
+/app/config/database.php
 Thumbs.db
 Thumbs.db

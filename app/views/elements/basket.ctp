@@ -3,7 +3,17 @@
 <h2><?php echo $html->link('Корзина', array(
     'controller' => 'basket',
     'action' => 'index'
-));?></h2>
+), array(
+    'class' => 'link-basket-header'
+));
+if(!empty($products) || !empty($product_dets)) {
+    echo $html->link('(очистить)', array(
+        'controller' => 'basket',
+        'action' => 'clear'
+    ), array(
+        'id' => 'link-clear-basket'
+    ));
+}?></h2>
 <div class="div-basket-products">
     <?php if(empty($products) && empty($product_dets)) { ?>
     <div class="div-basket-clear">Ваша корзина пуста</div>
@@ -29,5 +39,19 @@
         
         $word_end = $common->getWordEnd($all_cnt);
         echo "В вашей корзине $all_cnt товар$word_end на $all_price руб.";
+        
+        echo $html->link('оформить заказ', array(
+            'controller' => 'basket',
+            'action' => 'index'
+        ), array(
+            'class' => 'link-custom-order'
+        ));
     } ?>
 </div>
+
+<script type="text/javascript">
+    $('#link-clear-basket').click(function() {
+        $('#div-basket').load($(this).attr('href'));
+        return false;
+    });
+</script>

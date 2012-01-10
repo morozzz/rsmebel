@@ -7,7 +7,7 @@ class DATABASE_CONFIG {
                 'encoding' => 'utf8',
 		'persistent' => false,
 		'host' => '127.0.0.1',
-		'login' => 'root',
+		'login' => 'rsmebel',
 		'password' => 'vfrfhjys',
 		'database' => 'rsmebel',
 		'prefix' => 'cake_',

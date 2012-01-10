@@ -12,7 +12,11 @@
             $special['Special']['url']
         )
     ));
-    echo $html->link('в корзину', '#', array(
+    echo $html->link('в корзину', array(
+        'controller' => 'basket',
+        'action' => 'add',
+        '?product_id='.$special['Special']['product_id']
+    ), array(
         'class' => 'link-add-special-to-basket'
     ));
     ?>

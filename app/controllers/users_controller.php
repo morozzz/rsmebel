@@ -7,9 +7,9 @@ class UsersController extends AppController {
     var $uses = array("User", "UserLog", "CompanyType", "ClientType", "ProfilType", "ClientInfo", "Role");
     var $helpers = array('Form', 'Session', 'Ajax', 'Javascript', 'AdminCommon');
     var $actionJs = array(
-        "jquery-ui-1.8.5.custom.min",
-        "prototype",
-        "scriptaculous.js?load=effects"
+        "jquery-ui-1.8.5.custom.min"
+//        "prototype",
+//        "scriptaculous.js?load=effects"
     );
 
     function isAuthorized() {
@@ -50,6 +50,10 @@ class UsersController extends AppController {
 
     //
     function login() {
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'users','action'=>'login'),'label'=>'Авторизация')
+        ));
         $this->pageTitle = "Авторизация пользователей";
         if($this->referer() == '/users/confirm_end')
             $this->Session->write('Auth.redirect', 'catalogs/index');
@@ -432,9 +436,8 @@ class UsersController extends AppController {
 
     function register() {
 
-        $this->actionCss = array('basket');
+//        $this->actionCss = array('basket');
 
-        $this->pageTitle = "Персональные данные пользователя";
 
         if(($company_types = Cache::read('company_types')) === false) {
           $company_types = $this->CompanyType->find('list');
@@ -458,6 +461,14 @@ class UsersController extends AppController {
         $id = $this->Session->read('Auth.User.id');
         if (empty($id)) { $id = null; }
 
+        $pageTitle = (empty($id))?"Регистрация":"Персональные данные пользователя";
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'users','action'=>'register'),'label'=>$pageTitle)
+        ));
+        $this->pageTitle = $pageTitle;
+        $this->set('pageTitle', $pageTitle);
+        
         if(!empty($this->data)) {
         
             if($id == null) {
@@ -517,7 +528,6 @@ class UsersController extends AppController {
                 }
             }
             else {
-              
               $this->User->id = $id;
               $this->data['User']['password_confirm'] = $this->Auth2->password($this->data['User']['password_confirm']);
 
@@ -720,6 +730,10 @@ class UsersController extends AppController {
 	// Restore user password
     function restore() {
 
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'users','action'=>'restore'),'label'=>'Восстановление пароля')
+        ));
         $this->pageTitle = "Восстановление пароля пользователя";
 
     	if(empty($this->data))

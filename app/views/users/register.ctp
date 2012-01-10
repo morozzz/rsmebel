@@ -10,17 +10,9 @@
    }
 </script>
 
-<cake:nocache>
-<div class="top-header hide-menu">
-   <?php
-     echo $this->element('basket_menu_box');
-   ?>
-</div>
-</cake:nocache>
-
 <?php
 
-    echo $html->tag('h1', 'ПЕРСОНАЛЬНЫЕ ДАННЫЕ');
+    echo $html->tag('h1', mb_strtoupper($pageTitle));
 
     echo "<div style = 'text-align: center;'>";
     echo "<font color=red size=5> * </font><b> Поля, отмеченные звездочкой, обязательны для заполнения </b>";
