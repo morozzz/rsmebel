@@ -68,12 +68,6 @@ echo $adminCommon->table(array(
             'path' => 'Product.opt_price',
             'name' => 'opt_price'
         ),
-//        array(
-//            'header' => 'Кол-во',
-//            'type' => 'edit',
-//            'path' => 'Product.cnt',
-//            'name' => 'cnt'
-//        ),
         array(
             'header' => 'Сорт-ка',
             'type' => 'edit',
@@ -86,31 +80,18 @@ echo $adminCommon->table(array(
     'id_path' => 'Product.id',
     'sortable' => true,
     'link_save_url' => '/products/admin_save_all',
-//    'top_paginator' => $paginator,
     'actions' => array(
-//        'go_to_param' => 'К параметрам',
         'move' => 'Сменить каталог',
-//        'product_to_param' => 'Товар в параметры',
-//        'params_to_products' => 'Параметры в товары',
-//        'add_to_special' => 'Добавить в спецпредложения',
+        'go_to_det' => 'Детализация товара',
         'del' => 'Удалить'
     ),
     'buttons' => array(
         'Перенести в другой каталог' => array(
             'func_name' => 'move_list'
         ),
-//        'Объединить' => array(
-//            'func_name' => 'concat'
-//        ),
         'Добавить' => array(
             'func_name' => 'add'
         ),
-//        '.CSV' => array(
-//            'func_name' => 'get_csv'
-//        ),
-//        'Фильтр' => array(
-//            'func_name' => 'go_to_filter'
-//        ),
         'Сохранить' => array(
             'type' => 'save'
         )
@@ -153,16 +134,6 @@ echo $adminCommon->dialog_form(array(
             'label' => 'Англ. название',
             'name' => 'data[eng_name]'
         ),
-//        array(
-//            'type' => 'file',
-//            'label' => 'Мал. изображение',
-//            'name' => 'data[SmallImage]'
-//        ),
-//        array(
-//            'type' => 'file',
-//            'label' => 'Бол. изображение',
-//            'name' => 'data[BigImage]'
-//        ),
         array(
             'type' => 'edit',
             'label' => 'Розн. цена',
@@ -226,81 +197,6 @@ function move(row_id) {
 </script>
 
 <?php
-//echo $adminCommon->dialog_form(array(
-//    'dialog_id' => 'dialog-product-to-param',
-//    'model_name' => 'Product',
-//    'form_action' => 'move_to_param',
-//    'title' => 'Перемещение товара в параметры другого товара',
-//    'ok_caption' => 'Перенести',
-//    'caption' => ' ',
-//    'fields' => array(
-//        array(
-//            'type' => 'combo',
-//            'label' => 'Перенести в',
-//            'name' => 'data[product_id]',
-//            'list' => $product_list
-//        ),
-//        array(
-//            'type' => 'hidden',
-//            'name' => 'data[moving_product_id]',
-//            'input_class' => 'input-row-id',
-//            'clear_class' => false
-//        )
-//    )
-//))
-?>
-
-<?php
-//<script type="text/javascript">
-//function product_to_param(row_id) {
-//    var dialog = $('#dialog-product-to-param');
-//    var page = products[row_id];
-//    dialog.find('.dialog-caption').html(page.Product.name);
-//    dialog.find('.input-row-id').val(row_id);
-//    dialog.dialog('open');
-//}
-//</script>
-?>
-
-<?php
-//echo $adminCommon->dialog_form(array(
-//    'dialog_id' => 'dialog-params-to-products',
-//    'model_name' => 'ProductDet',
-//    'form_action' => 'move_all_to_product',
-//    'title' => 'Перемещение параметров товара в товары',
-//    'ok_caption' => 'Перенести',
-//    'caption' => ' ',
-//    'fields' => array(
-//        array(
-//            'type' => 'combo',
-//            'label' => 'Перенести в',
-//            'name' => 'data[catalog_id]',
-//            'list' => $catalog_list,
-//            'value' => $catalog['Catalog']['id']
-//        ),
-//        array(
-//            'type' => 'hidden',
-//            'name' => 'data[product_id]',
-//            'input_class' => 'input-row-id',
-//            'clear_class' => false
-//        )
-//    )
-//))
-?>
-
-<?php
-//<script type="text/javascript">
-//function params_to_products(row_id) {
-//    var dialog = $('#dialog-params-to-products');
-//    var page = products[row_id];
-//    dialog.find('.dialog-caption').html(page.Product.name);
-//    dialog.find('.input-row-id').val(row_id);
-//    dialog.dialog('open');
-//}
-//</script>
-?>
-
-<?php
 echo $adminCommon->dialog_form(array(
     'dialog_id' => 'dialog-move-list',
     'model_name' => 'Product',
@@ -349,62 +245,6 @@ function move_list() {
 </script>
 
 <?php
-//echo $adminCommon->dialog_form(array(
-//    'dialog_id' => 'dialog-concat',
-//    'model_name' => 'Product',
-//    'form_action' => 'concat_products',
-//    'form_class' => 'form-concat',
-//    'title' => 'Объединение товаров',
-//    'ok_caption' => 'Объединить',
-//    'caption' => 'Объединение товаров',
-//    'fields' => array(
-//        array(
-//            'type' => 'combo',
-//            'label' => 'Поместить в',
-//            'name' => 'data[catalog_id]',
-//            'list' => $catalog_list,
-//            'value' => $catalog['Catalog']['id']
-//        ),
-//        array(
-//            'type' => 'edit',
-//            'label' => 'Название',
-//            'name' => 'data[name]',
-//            'value' => ''
-//        )
-//    )
-//));
-?>
-
-<?php
-//<script type="text/javascript">
-//function concat() {
-//    var dlg = $('#dialog-concat');
-//    var form_concat = dlg.find('.form-concat:first');
-//    form_concat.find('.input-products_id').remove();
-//    form_concat.find('.list-concat-products').remove();
-//
-//    var list = $("<ul style='margin:0;padding:0px 20px;'></ul>");
-//    $('input[type=checkbox].chb-product-select:checked').each(function() {
-//        var tr = $(this).parent().parent();
-//        var row_id = tr.attr('row_id');
-//        var page = products[row_id];
-//
-//        form_concat.append("<input class='input-products_id' type='hidden' "+
-//            "name='data[products_id][]' value='"+row_id+"'>");
-//        list.append("<li>"+row_id+": "+page.Product.name+"</li>");
-//    });
-//    var div = $("<div class='list-concat-products'></div>");
-//    div.append("<h4 style='margin:0;padding:5px;'>Объединяемые товары:</h4>");
-//    div.append(list);
-//
-//    form_concat.append(div);
-//
-//    dlg.dialog('open');
-//}
-//</script>
-?>
-
-<?php
 echo $adminCommon->dialog_form(array(
     'dialog_id' => 'dialog-delete',
     'model_name' => 'Product',
@@ -430,5 +270,9 @@ function del(row_id) {
     dialog.find('.dialog-caption').html(page.Product.name);
     dialog.find('.input-row-id').val(row_id);
     dialog.dialog('open');
+}
+
+function go_to_det(row_id) {
+    window.location = webroot+'product_dets/admin_index/'+row_id;
 }
 </script>

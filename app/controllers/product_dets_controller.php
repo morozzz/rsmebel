@@ -7,25 +7,16 @@ class ProductDetsController extends AppController {
         'ProductDet',
         'Catalog',
         'Product',
-        'Producer',
         'Image',
-        'ProductParam',
-        'ProductDetParam',
-        'ProductParamType',
-        'ProductDetParamValue',
         'Special'
     );
 
     var $components = array(
-        'AdminCommon',
-        'CatalogCommon',
-        'ProductCommon',
-        'Common'
+        'AdminCommon'
     );
 
     var $helpers = array(
-        'AdminCommon',
-        'CatalogCommon'
+        'AdminCommon'
     );
 
     var $cacheAction = array(
@@ -37,6 +28,48 @@ class ProductDetsController extends AppController {
             return $this->curUser['User']['role_id'] == 3;
         }
         return true;
+    }
+    
+    function admin_index($product_id) {
+        $this->layout = 'admin';
+        
+        $product = $this->Product->find('first', array(
+            'conditions' => array(
+                'Product.id' => $product_id
+            ),
+            'contain' => array()
+        ));
+        $this->set('current_product', $product);
+        
+        $this->pageTitle = "Администрирование - {$product['Product']['name']} - детали товара";
+        
+        $product_dets = $this->ProductDet->find('all', array(
+            'conditions' => array(
+                'ProductDet.product_id' => $product_id
+            ),
+            'contain' => array(
+                'SmallImage',
+                'BigImage'
+            )
+        ));
+        $product_dets = Set::combine($product_dets, '{n}.ProductDet.id', '{n}');
+        $this->set('product_dets', $product_dets);
+    }
+
+    function admin_save_all() {
+        $this->AdminCommon->save_all($this->data, $this->ProductDet);
+        $this->redirect($this->referer());
+        die;
+    }
+
+    function admin_add() {
+        $this->AdminCommon->add($this->data, $this->ProductDet);
+        die;
+    }
+
+    function admin_delete() {
+        $this->AdminCommon->delete($this->data, $this->ProductDet);
+        die;
     }
 
     function index($product_id) {

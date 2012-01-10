@@ -36,6 +36,15 @@
                 );
                 ?>
             </div>
+            <?php if(false && !empty($product['Product']['product_det_list'])) { ?>
+            <div class="div-product-det">
+                <?php
+                echo $form->select('', $product['Product']['product_det_list'], null, array(
+                    'class' => 'select-product-det'
+                ), false);
+                ?>
+            </div>
+            <?php } ?>
         </div>
         <?php } ?>
     </div>

@@ -12,9 +12,6 @@ class AppController extends Controller{
 //        "jquery-ui-1.8.4.custom.tabs.min"
     );
     var $commonCss = array(
-        "jquery.treeview",
-        "fumodal",
-        "jquery-ui-1.8.5.custom"
     );
     var $components = array(
         'Auth2',
@@ -24,11 +21,8 @@ class AppController extends Controller{
     );
     var $uses = array(
         'User',
-        'HomeFooter',
-        'Banner',
         'Str',
         'ClientInfo',
-        'Alert',
         'UrlKeyword',
         'UrlDescription',
         'UrlTitle',
@@ -108,6 +102,9 @@ class AppController extends Controller{
             }
         }
         $this->set('url_description', $description);
+        
+        /*получаем тип цены (оптовую или розничную)*/
+        $this->set('is_opt_price', true);
     }
 
     function beforeRender() {

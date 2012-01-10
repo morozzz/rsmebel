@@ -11,8 +11,7 @@ class Product extends AppModel {
             'image_type_id' => 7
         ),
         'SortOrder',
-        'Code1c',
-        'Special'
+        'Code1c'
     );
     var $belongsTo = array(
         'Catalog',
@@ -23,16 +22,13 @@ class Product extends AppModel {
         'BigImage' => array(
             'className' => 'Image',
             'foreignKey' => 'big_image_id'
-        ),
-        'Producer'
+        )
     );
     var $hasOne = array(
         'Special'
     );
     var $hasMany = array(
         'ProductDet',
-        'ProductParam',
-        'ProductData'
     );
     var $order = 'Product.sort_order';
     var $caches = array(
@@ -48,7 +44,6 @@ class Product extends AppModel {
         'catalog_id' => 'number',
         'about' => 'text',
         'sort_order' => 'number',
-        'producer_id' => 'number',
         'article' => 'number',
         'fix_price' => 'number',
         'fix_cnt' => 'number',
@@ -118,16 +113,16 @@ class Product extends AppModel {
         }
 
         //удаляем связанные столбцы
-        $product_params = $this->ProductParam->find('all', array(
-            'conditions' => array(
-                'ProductParam.product_id' => $this->id
-            ),
-            'contain' => array()
-        ));
-        foreach($product_params as $product_param) {
-            $this->ProductParam->delete(
-                    $product_param['ProductParam']['id'], false);
-        }
+//        $product_params = $this->ProductParam->find('all', array(
+//            'conditions' => array(
+//                'ProductParam.product_id' => $this->id
+//            ),
+//            'contain' => array()
+//        ));
+//        foreach($product_params as $product_param) {
+//            $this->ProductParam->delete(
+//                    $product_param['ProductParam']['id'], false);
+//        }
 
         //удаляем связанные спецпредложения
         $specials = $this->Special->find('all', array(
@@ -177,7 +172,6 @@ class Product extends AppModel {
             'name_1c' => $product_to_move['Product']['name_1c'],
             'price' => $product_to_move['Product']['price'],
             'cnt' => $product_to_move['Product']['cnt'],
-            'producer_id' => $product_to_move['Product']['producer_id'],
             'sort_order' => $min_sort_order-1,
             'short_about' => $product_to_move['Product']['short_about'],
             'long_about' => $product_to_move['Product']['long_about'],

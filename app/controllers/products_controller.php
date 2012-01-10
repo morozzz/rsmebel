@@ -7,23 +7,14 @@ class ProductsController extends AppController {
         'Catalog',
         'Image',
         'Special',
-        'ProductParam',
-        'ProductDet',
-        'ProductDetParam',
-        'ProductParamType',
-        'ProductDetParamValue'
+        'ProductDet'
     );
     var $components = array(
-        'AdminCommon',
-        'CatalogCommon',
-        'ProductCommon',
-        'Common'
+        'AdminCommon'
     );
     var $helpers = array(
         'AdminCommon',
-        'Javascript',
-        'CatalogCommon',
-        'ProductCommon'
+        'Javascript'
     );
     var $actionJs = array(
         "jquery.treeview.min",
@@ -81,11 +72,20 @@ class ProductsController extends AppController {
                 'Product.eng_name' => $product_name
             ),
             'contain' => array(
-                'BigImage'
+                'BigImage',
+                'ProductDet' => array(
+                    'BigImage'
+                )
             )
         ));
         if(empty($current_product)) {
             $this->http_error('Неверный путь к товару', 404, 'Данный товар отсутствует');
+        }
+        if(!empty($current_product['ProductDet'])) {
+            $current_product['Product']['product_det_list'] = array();
+            foreach($current_product['ProductDet'] as $product_det) {
+                $current_product['Product']['product_det_list'][$product_det['id']] = $product_det['name'];
+            }
         }
         $this->set('current_product', $current_product);
         

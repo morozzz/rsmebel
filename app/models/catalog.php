@@ -26,8 +26,7 @@ class Catalog extends AppModel {
         'BigImage' => array(
             'className' => 'Image',
             'foreignKey' => 'big_image_id'
-        ),
-        'Producer'
+        )
     );
     var $order = 'Catalog.lft';
     var $caches = array(
@@ -41,7 +40,6 @@ class Catalog extends AppModel {
         'name' => 'text',
         'eng_name' => 'text',
         'parent_id' => 'number',
-        'producer_id' => 'number',
         'sort_order' => 'number',
         'short_about' => 'text',
         'long_about' => 'text',
