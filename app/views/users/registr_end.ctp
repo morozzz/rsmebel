@@ -1,6 +1,6 @@
 <?php
 
-  echo $common->caption('РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ');
+  echo $html->tag('h1', 'Регистрация пользователя');
 
   echo "<div> ";
    $session->flash();

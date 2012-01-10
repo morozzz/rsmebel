@@ -22,6 +22,9 @@
                 'action' => 'restore'
             ))
         );
+    echo "<font color = red>"; $session->flash(); echo "</font>";
+    echo "<font color = red>"; $session->flash('auth'); $session->flash('login'); echo "</font>";
+
     echo $form->submit('Войти');
     
     echo $form->end();?>

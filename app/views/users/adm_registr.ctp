@@ -9,6 +9,7 @@
 
     echo $form->hidden('User.id');
     echo $form->hidden('ClientInfo.id');
+    echo $form->hidden('ClientInfo.client_type_id', array('value' => '1'));
 
     echo "<div> ";
       $session->flash();

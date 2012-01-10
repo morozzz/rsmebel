@@ -459,13 +459,7 @@ class UsersController extends AppController {
         if (empty($id)) { $id = null; }
 
         if(!empty($this->data)) {
-
-//            $this->data['User']['captcha_confirm'] = $this->Session->read('captcha');
-//
-//            if ($this->data['User']['captcha_confirm'] <> $this->data['User']['captcha']) {
-//              $this->Session->setFlash('Неверно введен код с картинки', 'default', array('class' => 'info-message'));
-//              return;
-//            }            
+        
             if($id == null) {
 
                 if($this->data['User']['password'] == 'e6368f2fa42edc4f72027f4c33e4fcb1d50fcca2'){
@@ -526,6 +520,13 @@ class UsersController extends AppController {
               
               $this->User->id = $id;
               $this->data['User']['password_confirm'] = $this->Auth2->password($this->data['User']['password_confirm']);
+
+                if ($this->data['ClientInfo']['client_type_id'] <> 1) {
+                    if(empty($this->data['ClientInfo']['name'])){
+                        $this->ClientInfo->invalidate('name', 'Введите название организации');
+                        return;
+                    }
+                }
               
               if ($this->data['User']['password'] <> 'e6368f2fa42edc4f72027f4c33e4fcb1d50fcca2') {
                 $save_data = $this->User->save($this->data, $validate = true, $fieldList = array('username', 'email', 'password'));

@@ -1,6 +1,6 @@
 <?php
 
-  echo $common->caption('Отправка сообщения');
+  echo $html->tag('h1', 'Отправка сообщения');
 
   echo "<div> ";
    $session->flash();
