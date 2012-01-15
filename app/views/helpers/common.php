@@ -12,6 +12,10 @@ class CommonHelper extends AppHelper {
             return 'ов';
         }
     }
+    
+    function getMoneyFormat($money) {
+        return number_format($money, 2, '.', '')." руб.";
+    }
 }
 
 ?>

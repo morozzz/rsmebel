@@ -13,8 +13,8 @@ input{}
 p{text-indent:20px;}
 h1{font-size:18px;font-weight:bold;font-style:italic;padding:3px 0 10px 0;}
 h2{font-size:18px;font-weight:normal;font-style:italic;padding:3px 0 8px 0;}
-h3{font-size:16px;font-weight:bold;font-style:italic;}
-h3{font-size:16px;font-weight:normal;font-style:italic;}
+h3{font-size:16px;font-weight:bold;font-style:italic;padding:3px 0 5px 0;}
+h4{font-size:16px;font-weight:normal;font-style:italic;}
 .div-message{background:#e2d49a;color:#9c4c05;font-weight:bold;margin:0 auto 10px;
     padding:5px;width:800px;text-align:center;
     -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
@@ -23,7 +23,7 @@ h3{font-size:16px;font-weight:normal;font-style:italic;}
     -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 .div-form{background:#714723;
     -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;
-    margin:0 auto;padding:10px;width:50%;}
+    margin:5px auto 0 auto;padding:10px;width:50%;}
 div.input{padding-bottom:10px;overflow:auto;}
 label{display:block;float:left;width:20%;}
 input[type=text],input[type=password],select,textarea{background:#7d502a;
@@ -196,10 +196,10 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 #div-products .image-product{width:120px;}
 /*#div-products .div-product .select-product-det{margin:10px 0 0 0;width:100%;}*/
 
-#div-product .div-product-image{}
+#div-product h1{margin-left:40px;}
+#div-product .div-product-image{margin-left:40px;}
 #div-product .div-product-about{padding:20px;text-align:justify;text-indent:20px;}
-
-#div-product .div-product-order{font-size:1.1em;margin:0 auto;;width:300px;}
+#div-product .div-product-order{font-size:1.1em;margin:0 0 0 40px;width:300px;}
 #div-product .label{float:left;text-align:left;width:200px;}
 #div-product .value{margin-left:200px;text-align:right;}
 #div-product .div-product-det{overflow:auto;}
@@ -215,3 +215,25 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 #div-product .div-product-count #input-product-count{margin:0;text-align:right;width:100%;}
 #div-product .div-product-order div.submit{padding:0;text-align:center;}
 #div-product .div-product-order div.submit input[type=submit]{font-size:1.1em;}
+
+/*basket*/
+#div-custom-order .div-form{margin:5px 0 0 10px;width:700px;}
+#div-custom-order .table-basket{font-size:1.1em;}
+#div-custom-order .table-basket td{padding-bottom:10px;}
+#div-custom-order .table-basket .td-name{width:55%}
+#div-custom-order .table-basket .td-price{text-align:center;width:17%}
+#div-custom-order .table-basket .td-count{text-align:center;width:10%;}
+#div-custom-order .table-basket .td-count input{display:inline;margin:0;width:50%;text-align:right;}
+#div-custom-order .table-basket .td-sum{text-align:right;width:18%;}
+#div-custom-order .table-basket .link-product-name{font-size:1.2em;font-weight:bold;}
+#div-custom-order .table-basket .div-catalog-breadcrumbs{font-size:0.7em;}
+#div-custom-order .div-all-sum{font-size:1.2em;padding:3px 20px;text-align:right;}
+#div-custom-order .div-all-sum .span-all-sum{font-size:1.1em;font-weight:bold;}
+#div-custom-order .table-person-info td{padding-bottom:10px;}
+#div-custom-order .table-person-info input{margin:0;width:100%;}
+#div-custom-order .table-person-info div.input{padding:0 10px 0 0;}
+#div-custom-order .div-company-info label{width:26%;}
+#div-custom-order .div-company-info input[type=text],select{margin-left:26%;width:73%;}
+#div-custom-order .table-company-info td{padding-bottom:10px;}
+#div-custom-order .table-company-info input[type=text]{margin:0;width:100%;}
+#div-custom-order .table-company-info div.input{padding:0 10px 0 0;}

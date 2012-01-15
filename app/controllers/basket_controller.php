@@ -40,8 +40,60 @@ class BasketController extends AppController {
             array('url'=>array('controller'=>'basket','action'=>'index'),'label'=>'Корзина')
         ));
         
+        if(!empty($this->data)) {
+            $this->_clear();
+            if(!empty($this->data['Product'])) {
+                foreach($this->data['Product'] as $product_id => $count) {
+                    $this->_add($product_id, null, $count);
+                }
+            }
+            if(!empty($this->data['ProductDet'])) {
+                foreach($this->data['ProductDet'] as $product_det_id => $count) {
+                    $this->_add(null, $product_det_id, $count);
+                }
+            }
+        }
+        
         $basket = $this->Basket->get();
+        foreach($basket['products'] as &$product) {
+            $product['Product']['url'] = $this->Product->get_url($product['Product']['id']);
+            $product['Product']['catalog_breadcrumbs'] = $this->Catalog->get_breadcrumb(null, $product['Product']['catalog_id']);
+            $price = ($this->is_opt_price)?$product['Product']['opt_price']:$product['Product']['price'];
+            $product['Product']['cur_price'] = $price;
+            $product['Product']['sum'] = $price*$product['Basket']['cnt'];
+        }
+        foreach($basket['product_dets'] as &$product_det) {
+            $product_det['Product']['url'] = $this->Product->get_url($product_det['Product']['id']);
+            $product_det['Product']['catalog_breadcrumbs'] = $this->Catalog->get_breadcrumb(null, $product_det['Product']['catalog_id']);
+            $price = ($this->is_opt_price)?$product_det['ProductDet']['opt_price']:$product_det['ProductDet']['price'];
+            $product_det['Product']['cur_price'] = $price;
+            $product_det['Product']['sum'] = $price*$product_det['Basket']['cnt'];
+        }
         $this->set('basket', $basket);
+        
+        if(!empty($this->curUser)) {
+            $u_user = $this->User->find('first', array(
+                'conditions' => array(
+                    'User.id' => $this->curUser['User']['id']
+                ),
+                'contain' => array(
+                    'ClientInfo'
+                )
+            ));
+            $this->data = $u_user;
+            
+            if(($company_types = Cache::read('company_types')) === false) {
+                $company_types = $this->CompanyType->find('list');
+                Cache::write('company_types', $company_types);
+            }
+            $this->set('companyTypes', $company_types);
+
+            if(($profil_types = Cache::read('profil_types')) === false) {
+                $profil_types = $this->ProfilType->find('list');
+                Cache::write('profil_types', $profil_types);
+            }
+            $this->set('profilTypes', $profil_types);
+        }
     }
     
     function add() {
@@ -57,29 +109,7 @@ class BasketController extends AppController {
         if(!empty($this->params['url']['product_id']))
                 $product_id = $this->params['url']['product_id'];
         
-        if(!empty($product_det_id)) {
-            $basket = $this->Cookie->read('BasketProductDet');
-            $cnt = 1;
-            if(!empty($basket[$product_det_id])) {
-                $cnt = $basket[$product_det_id]['cnt'];
-                if($cnt<0) $cnt=0;
-                $cnt+=$count;
-            }
-            $this->Cookie->write("BasketProductDet.$product_det_id", array(
-                'cnt' => $cnt
-            ));
-        } else if(!empty($product_id)) {
-            $basket = $this->Cookie->read('BasketProduct');
-            $cnt = 1;
-            if(!empty($basket[$product_id])) {
-                $cnt = $basket[$product_id]['cnt'];
-                if($cnt<0) $cnt=0;
-                $cnt+=$count;
-            }
-            $this->Cookie->write("BasketProduct.$product_id", array(
-                'cnt' => $cnt
-            ));
-        }
+        $this->_add($product_id, $product_det_id, $count);
         
         if($this->params['isAjax'] == 1) {
             $this->layout = 'ajax';
@@ -90,15 +120,38 @@ class BasketController extends AppController {
         }
     }
     
+    function _add($product_id, $product_det_id, $count) {
+        if(!empty($product_det_id)) {
+            $basket = $this->Cookie->read('BasketProductDet');
+            $cnt = 0;
+            if(!empty($basket[$product_det_id])) {
+                $cnt = $basket[$product_det_id]['cnt'];
+                if($cnt<0) $cnt=0;
+            }
+            $cnt+=$count;
+            if($cnt>0) {
+                $this->Cookie->write("BasketProductDet.$product_det_id", array(
+                    'cnt' => $cnt
+                ));
+            }
+        } else if(!empty($product_id)) {
+            $basket = $this->Cookie->read('BasketProduct');
+            $cnt = 0;
+            if(!empty($basket[$product_id])) {
+                $cnt = $basket[$product_id]['cnt'];
+                if($cnt<0) $cnt=0;
+            }
+            $cnt+=$count;
+            if($cnt>0) {
+                $this->Cookie->write("BasketProduct.$product_id", array(
+                    'cnt' => $cnt
+                ));
+            }
+        }
+    }
+    
     function clear() {
-        $basket = $this->Cookie->read("BasketProduct");
-        foreach($basket as $product_id => $b) {
-            $this->Cookie->del("BasketProduct.$product_id");
-        }
-        $basket = $this->Cookie->read("BasketProductDet");
-        foreach($basket as $product_id => $b) {
-            $this->Cookie->del("BasketProductDet.$product_id");
-        }
+        $this->_clear();
         
         if($this->params['isAjax'] == 1) {
             $this->layout = 'ajax';
@@ -106,6 +159,21 @@ class BasketController extends AppController {
             $this->render('basket');
         } else {
             $this->redirect($this->referer());
+        }
+    }
+    
+    function _clear() {
+        $basket = $this->Cookie->read("BasketProduct");
+        if(!empty($basket)) {
+            foreach($basket as $product_id => $b) {
+                $this->Cookie->del("BasketProduct.$product_id");
+            }
+        }
+        $basket = $this->Cookie->read("BasketProductDet");
+        if(!empty($basket)) {
+            foreach($basket as $product_id => $b) {
+                $this->Cookie->del("BasketProductDet.$product_id");
+            }
         }
     }
 

@@ -118,6 +118,7 @@ class AppController extends Controller{
             if($this->curUser['ClientInfo']['client_type_id']==2) $is_opt_price = true;
             else $is_opt_price = false;
         }
+        $this->is_opt_price = $is_opt_price;
         $this->set('is_opt_price', $is_opt_price);
     }
 

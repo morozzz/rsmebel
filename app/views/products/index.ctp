@@ -6,7 +6,7 @@
 <div class="div-right-column">
     <div id="div-product">
         <h1><?php echo $current_product['Product']['name'];?></h1>
-        <div class="div-product-image" align="center">
+        <div class="div-product-image">
             <?php echo $html->image($current_product['BigImage']['url'], array(
                 'class' => 'image-product'
             ));?>

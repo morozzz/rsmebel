@@ -12,8 +12,6 @@ class CustomsController extends AppController {
         'TransportData',
         'TransportType',
         'TransportTypeAbout',
-        'ProductParamType',
-        'ProductDetParamValue',
         'ProductDet',
         'Product',
         'Catalog',
@@ -51,6 +49,9 @@ class CustomsController extends AppController {
     }
     
     function order($client_info_id = null) {
+        if(!empty($this->data)) {
+            debug($this->data);die;
+        }
         $this->pageTitle = 'Оформление заказа';
         $basket_data = $this->Basket->prepareBasketData();
         if(empty($basket_data)) {
