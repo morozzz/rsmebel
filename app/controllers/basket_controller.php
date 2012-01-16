@@ -4,8 +4,10 @@ class BasketController extends AppController {
     var $name = "Basket";
     var $uses = array(
         'Catalog',
+        'CompanyType',
         'Product',
-        'ProductDet'
+        'ProductDet',
+        'ProfilType'
     );
     var $components = array(
         "Cookie",
@@ -41,15 +43,15 @@ class BasketController extends AppController {
         ));
         
         if(!empty($this->data)) {
-            $this->_clear();
+            $this->Basket->clear();
             if(!empty($this->data['Product'])) {
                 foreach($this->data['Product'] as $product_id => $count) {
-                    $this->_add($product_id, null, $count);
+                    $this->Basket->add($product_id, null, $count);
                 }
             }
             if(!empty($this->data['ProductDet'])) {
                 foreach($this->data['ProductDet'] as $product_det_id => $count) {
-                    $this->_add(null, $product_det_id, $count);
+                    $this->Basket->add(null, $product_det_id, $count);
                 }
             }
         }
@@ -109,7 +111,7 @@ class BasketController extends AppController {
         if(!empty($this->params['url']['product_id']))
                 $product_id = $this->params['url']['product_id'];
         
-        $this->_add($product_id, $product_det_id, $count);
+        $this->Basket->add($product_id, $product_det_id, $count);
         
         if($this->params['isAjax'] == 1) {
             $this->layout = 'ajax';
@@ -117,41 +119,11 @@ class BasketController extends AppController {
             $this->render('basket');
         } else {
             $this->redirect($this->referer());
-        }
-    }
-    
-    function _add($product_id, $product_det_id, $count) {
-        if(!empty($product_det_id)) {
-            $basket = $this->Cookie->read('BasketProductDet');
-            $cnt = 0;
-            if(!empty($basket[$product_det_id])) {
-                $cnt = $basket[$product_det_id]['cnt'];
-                if($cnt<0) $cnt=0;
-            }
-            $cnt+=$count;
-            if($cnt>0) {
-                $this->Cookie->write("BasketProductDet.$product_det_id", array(
-                    'cnt' => $cnt
-                ));
-            }
-        } else if(!empty($product_id)) {
-            $basket = $this->Cookie->read('BasketProduct');
-            $cnt = 0;
-            if(!empty($basket[$product_id])) {
-                $cnt = $basket[$product_id]['cnt'];
-                if($cnt<0) $cnt=0;
-            }
-            $cnt+=$count;
-            if($cnt>0) {
-                $this->Cookie->write("BasketProduct.$product_id", array(
-                    'cnt' => $cnt
-                ));
-            }
         }
     }
     
     function clear() {
-        $this->_clear();
+        $this->Basket->clear();
         
         if($this->params['isAjax'] == 1) {
             $this->layout = 'ajax';
@@ -159,21 +131,6 @@ class BasketController extends AppController {
             $this->render('basket');
         } else {
             $this->redirect($this->referer());
-        }
-    }
-    
-    function _clear() {
-        $basket = $this->Cookie->read("BasketProduct");
-        if(!empty($basket)) {
-            foreach($basket as $product_id => $b) {
-                $this->Cookie->del("BasketProduct.$product_id");
-            }
-        }
-        $basket = $this->Cookie->read("BasketProductDet");
-        if(!empty($basket)) {
-            foreach($basket as $product_id => $b) {
-                $this->Cookie->del("BasketProductDet.$product_id");
-            }
         }
     }
 

@@ -48,183 +48,93 @@ class CustomsController extends AppController {
         return false;
     }
     
-    function order($client_info_id = null) {
-        if(!empty($this->data)) {
-            debug($this->data);die;
+    function order() {
+        if(empty($this->data)) {
+            $this->Session->setFlash('Не заполнены данные для оформления заказа', 'error');
+            $this->redirect($this->referer());
         }
-        $this->pageTitle = 'Оформление заказа';
-        $basket_data = $this->Basket->prepareBasketData();
-        if(empty($basket_data)) {
+        $basket = $this->Basket->get();
+        if(empty($basket) || (empty($basket['products']) && empty($basket['product_dets']))) {
             $this->Session->setFlash('Нельзя оформить заказ при пустой корзине');
-            $this->redirect('/basket/index/');
+            $this->redirect($this->referer());
         }
+        
+        if($this->is_opt_price && empty($this->data['ClientInfo']['name'])) {
+            $this->Session->setFlash('Введите название фирмы', 'error');
+            $this->redirect($this->referer());
+        }
+        
+        $this->Custom->create();
+        $this->Custom->save(array(
+            'user_id' => $this->curUser['User']['id'],
+            'custom_status_type_id' => 1
+        ));
+        $custom_id = $this->Custom->id;
+        
+        $this->CustomClientInfo->create();
+        $this->CustomClientInfo->save(array(
+            'custom_id'             => $custom_id,
+            'fio'                   => $this->data['ClientInfo']['fio'],
+            'phone_kod'             => $this->data['ClientInfo']['phone_kod'],
+            'phone'                 => $this->data['ClientInfo']['phone'],
+            'post_index'            => $this->data['ClientInfo']['post_index'],
+            'post_region'           => $this->data['ClientInfo']['post_region'],
+            'post_city'             => $this->data['ClientInfo']['post_city'],
+            'post_street'           => $this->data['ClientInfo']['post_street'],
+            'post_hnumber'          => $this->data['ClientInfo']['post_hnumber'],
+            'post_office'           => $this->data['ClientInfo']['post_office'],
+            'company_type_id'       => $this->data['ClientInfo']['company_type_id'],
+            'name'                  => $this->data['ClientInfo']['name'],
+            'reg_num'               => $this->data['ClientInfo']['reg_num'],
+            'INN'                   => $this->data['ClientInfo']['INN'],
+            'KPP'                   => $this->data['ClientInfo']['KPP'],
+            'operating_account'     => $this->data['ClientInfo']['operating_account'],
+            'bank'                  => $this->data['ClientInfo']['bank'],
+            'correspondent_account' => $this->data['ClientInfo']['correspondent_account'],
+            'BIK'                   => $this->data['ClientInfo']['BIK'],
+            'OKPO'                  => $this->data['ClientInfo']['OKPO'],
+            'OKVED'                 => $this->data['ClientInfo']['OKVED'],
+            'fax_kod'               => $this->data['ClientInfo']['fax_kod'],
+            'fax'                   => $this->data['ClientInfo']['fax'],
+            'jur_index'             => $this->data['ClientInfo']['jur_index'],
+            'jur_region'            => $this->data['ClientInfo']['jur_region'],
+            'jur_city'              => $this->data['ClientInfo']['jur_city'],
+            'jur_street'            => $this->data['ClientInfo']['jur_street'],
+            'jur_hnumber'           => $this->data['ClientInfo']['jur_hnumber'],
+            'jur_office'            => $this->data['ClientInfo']['jur_office']
+        ));
+        
+        $this->CustomStatus->create();
+        $this->CustomStatus->save(array(
+            'custom_id' => $custom_id,
+            'user_id' => $this->curUser['User']['id'],
+            'custom_status_type_id' => 1
+        ));
+        
+        foreach(array_merge($basket['products'],$basket['product_dets']) as $product) {
+            $price = ($this->is_opt_price)?
+                    $product['Product']['opt_price']:
+                    $product['Product']['price'];
+            $name = $product['Product']['name'];
+            if(!empty($product['ProductDet'])) $name .= " ({$product['ProductDet']['name']})";
 
-        if(!empty($this->data)) {
-            
-            // -- сначала проверяем данные
-            if (empty($this->data['ClientInfo']['name'])) {
-              $this->Session->setFlash('Введите наименование покупателя(фирмы)');
-              $this->redirect($this->referer());
-            }
-            if (empty($this->data['User']['email'])) {
-              $this->Session->setFlash('Введите E-mail');
-              $this->redirect($this->referer());
-            }
-            if (empty($this->data['ClientInfo']['fio'])) {
-              $this->Session->setFlash('Введите контактное лицо');
-              $this->redirect($this->referer());
-            }
-
-            //custom
-            $data = array(
-                'user_id' => $this->curUser['User']['id'],
-                'custom_status_type_id' => 1,
-                'note' => $this->data['note'],
-                'created' => date('Y.m.d H:i:s'),
-                'pay_type_id' => $this->data['pay_type_id']
-            );
-            $this->Custom->create();
-            $this->Custom->save($data);
-            Cache::delete('customs');
-
-            $custom_id = $this->Custom->id;
-
-            //custom_client_info
-            if (empty($this->data['ClientInfo']['reg_num'])) { $reg_num = ''; }
-              else { $reg_num = $this->data['ClientInfo']['reg_num']; }
-            if (empty($this->data['ClientInfo']['KPP'])) { $KPP = '';  }
-              else { $KPP = $this->data['ClientInfo']['KPP']; }
-
-            $data = array(
+            $this->CustomDet->create();
+            $this->CustomDet->save(array(
                 'custom_id' => $custom_id,
-                'fio' => $this->data['ClientInfo']['fio'],
-                'email' => $this->data['User']['email'],
-                'post_index' => '',
-                'post_region' => '',
-                'post_city' => '',
-                'post_street' => '',
-                'post_hnumber' => '',
-                'post_office' => '',
-                'name' => $this->data['ClientInfo']['name'],
-                'company_type_id' => $this->data['ClientInfo']['company_type_id'],
-                'reg_num' => $reg_num,
-                'profil_type_id' => null,
-                'activity' => '',
-                'phone_kod' => $this->data['ClientInfo']['phone_kod'],
-                'phone' => $this->data['ClientInfo']['phone'],
-                'fax_kod' => $this->data['ClientInfo']['fax_kod'],
-                'fax' => $this->data['ClientInfo']['fax'],
-                'jur_index' => $this->data['ClientInfo']['jur_index'],
-                'jur_region' => $this->data['ClientInfo']['jur_region'],
-                'jur_city' => $this->data['ClientInfo']['jur_city'],
-                'jur_street' => $this->data['ClientInfo']['jur_street'],
-                'jur_hnumber' => $this->data['ClientInfo']['jur_hnumber'],
-                'jur_office' => $this->data['ClientInfo']['jur_office'],
-                'INN' => $this->data['ClientInfo']['INN'],
-                'KPP' => $KPP,
-                'operating_account' => $this->data['ClientInfo']['operating_account'],
-                'correspondent_account' => $this->data['ClientInfo']['correspondent_account'],
-                'BIK' => $this->data['ClientInfo']['BIK'],
-                'OKPO' => $this->data['ClientInfo']['OKPO'],
-                'OKVED' => $this->data['ClientInfo']['OKVED'],
-                'on_news' => 0
-            );
-            $this->CustomClientInfo->create();
-            $this->CustomClientInfo->save($data);
-                                 
-            //custom_status
-            $data = array(
-                'custom_id' => $custom_id,
-                'user_id' => $this->curUser['User']['id'],
-                'custom_status_type_id' => 1,
-                'created' => date('Y.m.d H:i:s')
-            );
-            $this->CustomStatus->create();
-            $this->CustomStatus->save($data);
-            Cache::delete('custom_statuses');
-
-            //custom_det
-            if(!empty($basket_data)) {
-                foreach($basket_data as $product) {
-                    $product_id = (empty($product['product_id']))?null:$product['product_id'];
-                    $product_det_id = (empty($product['product_det_id']))?null:$product['product_det_id'];
-                    $code_1c = (empty($product['code_1c']))?null:$product['code_1c'];
-                    $name_1c = (empty($product['name_1c']))?null:$product['name_1c'];
-                    $data = array(
-                        'custom_id' => $custom_id,
-                        'product_id' => $product_id,
-                        'product_det_id' => $product_det_id,
-                        'code_1c' => $code_1c,
-                        'name_1c' => $name_1c,
-                        'name' => $product['name'],
-                        'cnt' => $product['cnt'],
-                        'price' => (!empty($product['price']))?$product['price']:0
-                    );
-                    $this->CustomDet->create();
-                    $this->CustomDet->save($data);
-                }
-            }
-
-            //transport_data
-            $data = array(
-                'custom_id' => $custom_id,
-                'transport_type_id' => $this->data['transport_type_id']
-            );
-            $this->TransportData->create();
-            $this->TransportData->save($data);
-            $transport_data_id = $this->TransportData->id;
-
-            //transport_address
-            $data = array(
-                'transport_data_id' => $transport_data_id,
-                'post_index' => $this->data['TransportAddress']['post_index'],
-                'region'     => $this->data['TransportAddress']['region'],
-                'city'       => $this->data['TransportAddress']['city'],
-                'street'     => $this->data['TransportAddress']['street'],
-                'house'      => $this->data['TransportAddress']['house'],
-                'flat'       => $this->data['TransportAddress']['flat'],
-            );
-            $this->TransportAddress->create();
-            $this->TransportAddress->save($data);
-
-            $this->Basket->clear();
-
-            $this->redirect(array(
-                'controller' => 'customs',
-                'action' => 'index'
+                'product_id' => $product['Product']['id'],
+                'product_det_id' => (empty($product['ProductDet']))?null:$product['ProductDet']['id'],
+                'name' => $name,
+                'cnt' => $product['Basket']['cnt'],
+                'price' => $price
             ));
-        } else {
-
-            $basket_data = $this->Basket->prepareBasketData();
-            $this->set('basket_data', $basket_data);
-
-            $transport_types = $this->TransportType->find('all');
-            $this->set('transport_types', $transport_types);
-
-            $pay_type_list = $this->PayType->find('list');
-            $this->set('pay_type_list', $pay_type_list);
-
-            if(($company_types = Cache::read('company_types')) === false) {
-              $company_types = $this->CompanyType->find('list');
-              Cache::write('company_types', $company_types);
-            }
-            $this->set('companyTypes', $company_types);
-
-            $id = $this->Session->read('Auth.User.id');
-            $client_infos = $this->ClientInfo->find('all', array('conditions' => array('ClientInfo.user_id' => $id),
-                                                                 'order' => array('ClientInfo.filial_type_id')));
-            $this->set('client_infos', $client_infos);
-
-            if (!empty($client_info_id)) {
-              $custom_client_infos = $this->User->find('first', array('conditions' => array('ClientInfo.id' => $client_info_id)));
-              $this->data = $custom_client_infos;
-              $this->set('client_info_id', $client_info_id);
-            }
-            else {
-              $this->set('client_info_id', $client_infos[0]['ClientInfo']['id']);
-              $this->redirect('/customs/order/'.$client_infos[0]['ClientInfo']['id']);
-            }
         }
+        
+        $this->Basket->clear();
+        $basket = $this->Basket->get();
+        $this->set('basket', $basket);
+        
+        $this->pageTitle = 'Заказ успешно оформлен';
+        $this->render('order_finish');
     }
 
     function index() {

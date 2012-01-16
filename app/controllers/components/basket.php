@@ -43,6 +43,51 @@ class BasketComponent extends Object {
             'product_dets' => $product_dets
         );
     }
+    
+    function add($product_id, $product_det_id, $count) {
+        if(!empty($product_det_id)) {
+            $basket = $this->Cookie->read('BasketProductDet');
+            $cnt = 0;
+            if(!empty($basket[$product_det_id])) {
+                $cnt = $basket[$product_det_id]['cnt'];
+                if($cnt<0) $cnt=0;
+            }
+            $cnt+=$count;
+            if($cnt>0) {
+                $this->Cookie->write("BasketProductDet.$product_det_id", array(
+                    'cnt' => $cnt
+                ));
+            }
+        } else if(!empty($product_id)) {
+            $basket = $this->Cookie->read('BasketProduct');
+            $cnt = 0;
+            if(!empty($basket[$product_id])) {
+                $cnt = $basket[$product_id]['cnt'];
+                if($cnt<0) $cnt=0;
+            }
+            $cnt+=$count;
+            if($cnt>0) {
+                $this->Cookie->write("BasketProduct.$product_id", array(
+                    'cnt' => $cnt
+                ));
+            }
+        }
+    }
+    
+    function clear() {
+        $basket = $this->Cookie->read("BasketProduct");
+        if(!empty($basket)) {
+            foreach($basket as $product_id => $b) {
+                $this->Cookie->del("BasketProduct.$product_id");
+            }
+        }
+        $basket = $this->Cookie->read("BasketProductDet");
+        if(!empty($basket)) {
+            foreach($basket as $product_id => $b) {
+                $this->Cookie->del("BasketProductDet.$product_id");
+            }
+        }
+    }
 }
 
 ?>
