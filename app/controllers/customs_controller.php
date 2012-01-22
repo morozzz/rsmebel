@@ -46,107 +46,74 @@ class CustomsController extends AppController {
     }
 
     function index() {
-        $this->pageTitle = 'Архив заказов';
-
-        $this->Custom->unbindModel(array(
-            'hasMany' => array(
-                'CustomStatus',
-                'CustomDet'
-            )
+        $this->pageTitle = 'Список заказов';
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'customs','action'=>'index'),'label'=>'Список заказов')
         ));
-
-        $this->paginate = array('Custom' => array('conditions' => array('Custom.user_id' => $this->curUser['User']['id']),
-                                                  'recursive' => 1, 'limit' => 20, 'order' => 'Custom.created'));
-
+        
+        $this->paginate = array(
+            'Custom' => array(
+                'conditions' => array(
+                    'Custom.user_id' => $this->curUser['User']['id']
+                ),
+                'contain' => array(
+                    'CustomClientInfo' => array(
+                        'CompanyType',
+                        'PayType',
+                        'TransportType'
+                    ),
+                    'CustomStatusType' => array(
+                        'Image'
+                    ),
+                    'User'
+                )
+            )
+        );
         $customs = $this->paginate('Custom');
-
-//        $customs = $this->Custom->find('all', array(
-//            'conditions' => array(
-//                'Custom.user_id' => $this->curUser['User']['id']
-//            ),
-//            'recursive' => 1
-//        ));
-
-        if(($custom_status_types = Cache::read('custom_status_types')) === false) {
-
-          $custom_status_types = $this->CustomStatusType->find('all');
-          Cache::write('custom_status_types', $custom_status_types);
-        }
-        $custom_status_types = Set::combine($custom_status_types, '{n}.CustomStatusType.id', '{n}');
-
-        if(($transport_types = Cache::read('transport_types')) === false) {
-          $transport_types = $this->TransportType->find('all', array(
-              'recursive' => -1
-          ));
-          Cache::write('transport_types', $transport_types);
-        }
-        $transport_types = Set::combine($transport_types, '{n}.TransportType.id', '{n}');
-
-        foreach($customs as $custom_key => $custom) {
-            $customs[$custom_key]['CustomStatusType']['Image'] = $custom_status_types[$custom['CustomStatusType']['id']]['Image'];
-            $customs[$custom_key]['TransportType'] = $transport_types[$custom['TransportData']['transport_type_id']]['TransportType'];
-        }
-
-        $customs = Set::combine($customs, '{n}.Custom.id', '{n}');
         $this->set('customs', $customs);
-        $limit_array = $this->params['named'];
-        $limit = (empty($limit_array['limit']))?20:$limit_array['limit'];
-        $this->set('limit', $limit);
     }
 
-    function view($id, $type='simple') {
-        //custom
-        $this->Custom->unbindModel(array(
-            'hasMany' => array(
-                'CustomStatus'
-            )
+    function view($custom_id, $type='simple') {
+        $this->pageTitle = 'Заказ № '.$custom_id;
+        $this->set('breadcrumb', array(
+            array('url'=>'/','label'=>'Главная'),
+            array('url'=>array('controller'=>'customs','action'=>'index'),'label'=>'Список заказов'),
+            array('url'=>array('controller'=>'customs','action'=>'view',$custom_id),'label'=>'Заказ №'.$custom_id)
         ));
+        
         $custom = $this->Custom->find('first', array(
             'conditions' => array(
-                'Custom.id' => $id,
-                'Custom.user_id' => $this->curUser['User']['id']
+                'Custom.id' => $custom_id
+            ),
+            'contain' => array(
+                'CustomClientInfo' => array(
+                    'CompanyType',
+                    'PayType',
+                    'TransportType'
+                ),
+                'User',
+                'CustomDet' => array(
+                    'Product',
+                    'ProductDet'
+                ),
+                'CustomStatus' => array(
+                    'CustomStatusType' => array(
+                        'Image'
+                    ),
+                    'User'
+                ),
+                'CustomStatusType'
             )
         ));
-
-        $company_types = $this->CompanyType->find('first', array('conditions' => array('CompanyType.id' => $custom['CustomClientInfo'][0]['company_type_id'])));
-
-        if(empty($custom)) {
-            $this->redirect(array(
-                'controller' => 'customs',
-                'action' => 'index'
-            ));
+        if($custom['User']['id'] != $this->curUser['User']['id']) {
+            $this->Session->setFlash('Нет доступа', 'error');
+            $this->redirect($this->referer());
         }
-        $this->pageTitle = 'Заказ №' . $custom['Custom']['id'];
-
-        //transport_data
-        $transport_data = $this->TransportData->find('first', array(
-            'conditions' => array(
-                'TransportData.id' => $custom['TransportData']['id']
-            )
-        ));
-        $custom += $transport_data;
-
-        //custom_statuses
-        $custom_statuses = $this->CustomStatus->find('all', array(
-            'conditions' => array(
-                'CustomStatus.custom_id' => $id
-            )
-        ));
-        $custom['CustomStatus'] = $custom_statuses;
-        
-        if(($custom_status_types = Cache::read('custom_status_types')) === false) {
-
-          $custom_status_types = $this->CustomStatusType->find('all');
-          Cache::write('custom_status_types', $custom_status_types);
+        foreach($custom['CustomDet'] as &$custom_det) {
+            $custom_det['Product']['url'] = $this->Product->get_url($custom_det['Product']['id']);
         }
-        $custom_status_types = Set::combine($custom_status_types, '{n}.CustomStatusType.id', '{n}');
-
-        foreach($custom['CustomStatus'] as $custom_status_key => $custom_status) {
-            $custom['CustomStatus'][$custom_status_key] += $custom_status_types[$custom_status['CustomStatus']['custom_status_type_id']];
-        }
-
         $this->set('custom', $custom);
-        $this->set('company_types', $company_types);
 
         if($type=='print') {
             $this->render('print', 'print');
@@ -192,11 +159,7 @@ class CustomsController extends AppController {
                     'CustomStatusType' => array(
                         'Image'
                     ),
-                    'User' => array(
-                        'ClientInfo' => array(
-                            'CompanyType'
-                        )
-                    )
+                    'User'
                 ),
                 'limit' => '20'
             )

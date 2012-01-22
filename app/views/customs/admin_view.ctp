@@ -24,7 +24,10 @@
             echo $html->div('div-info-value', $custom['CustomClientInfo']['PayType']['name'].' ');
             
             echo $html->div('div-info-label', 'Способ доставки');
-            echo $html->div('div-info-value', $custom['CustomClientInfo']['TransportType']['name'].' ');
+            $transport_price = $custom['CustomClientInfo']['TransportType']['price'];
+            if($transport_price>0) $transport_price = $common->getMoneyFormat($transport_price);
+            else $transport_price = 'бесплатно';
+            echo $html->div('div-info-value', $custom['CustomClientInfo']['TransportType']['name']." ($transport_price)");
 
             echo $html->div('div-info-label', 'Дата создания');
             echo $html->div('div-info-value', $custom['0']['created_date'].' ');

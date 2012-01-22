@@ -270,3 +270,21 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 #div-custom-order .div-price .div-itogo{overflow:auto;}
 #div-custom-order span.price{float:right;font-size:1.1em;font-weight:bold;
     width:130px;text-align:right;}
+
+/*customs*/
+#div-customs{}
+#div-customs .div-customs{margin:0 20px 0 0;width:740px;}
+
+/*custom*/
+#div-custom{}
+#div-custom .div-custom-info{margin:0 20px 0 0;overflow:auto;width:auto;}
+#div-custom .div-custom-info .div-company{float:right;width:50%;}
+#div-custom .div-custom-info .div-infos-general{}
+#div-custom .div-custom-info .div-person{margin-top:10px;}
+#div-custom .div-custom-info .div-info-label{float:left;width:200px;}
+#div-custom .div-custom-info .div-info-value{font-size:1.1em;font-weight:bold;
+    height:expression((documentElement.clientHeight)<20?'20px':'auto');
+    min-height:20px;margin-left:200px;}
+#div-custom .div-custom-dets{margin:20px 20px 0 0;}
+#div-custom .div-custom-dets tr.transport{font-size:1.2em;font-weight:bold;}
+#div-custom .div-custom-dets tr.itogo{font-size:1.2em;font-weight:bold;}
