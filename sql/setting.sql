@@ -7,3 +7,5 @@ CREATE TABLE cake_settings (
 );
 INSERT INTO cake_settings (id, name, image_id, value_str, value_text) VALUES
 (1, 'Подвал', null, '', '');
+INSERT INTO cake_settings (id, name, image_id, value_str, value_text) VALUES
+(2, 'Ссылка-email сверху', null, 'mailto:rsmebel@mail.ru', '');

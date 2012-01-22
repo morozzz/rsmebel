@@ -81,6 +81,17 @@ input[type=button],input[type=submit],input[type=reset]{background:#9e612d;
     font-style:italic;padding-top:40px;}
 #div-top-work-time{color:#ae8e62;font-size:16px;font-style:italic;font-weight:bold;}
 
+/*search*/
+#div-top-search{margin:15px 0 0 15px;overflow:auto;}
+#div-top-search .link-top-search{background:url(../img/icons.png) no-repeat;
+    height:13px;float:left;margin:3px 7px 0 0;width:13px;}
+#div-top-search .link-home{}
+#div-top-search .link-mailto{background-position:0 -13px;}
+#div-top-search .link-search{background-position:0 -26px;}
+#div-top-search #input-search-top-text{float:left;margin:0;width:140px;}
+#div-top-search #btn-search-top{display:none;}
+#div-top-search .link-top-search-submit{float:left;margin-left:8px;}
+
 /*menu*/
 #top-menu{padding-bottom:20px;}
 #bottom-menu{padding-top:20px;}

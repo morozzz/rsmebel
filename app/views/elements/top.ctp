@@ -18,4 +18,5 @@ echo $html->image('magazin_domashnego_yuta.jpg', array(
 <div id="div-top-right">
     <div id="div-top-phone">8(391)264-97-22</div>
     <div id="div-top-work-time">в будние дни, с 9.00 до 19.00</div>
+    <div id="div-top-search"><?php echo $this->element('top_search');?></div>
 </div>

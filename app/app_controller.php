@@ -82,6 +82,10 @@ class AppController extends Controller{
         $footer_text = $this->Setting->get_footer_text();
         $this->set('footer_text', $footer_text);
 
+        //получение ссылки-email сверху
+        $link_top_email = $this->Setting->get_link_top_email();
+        $this->set('link_top_email', $link_top_email);
+
         //тексты
         if(($strs = Cache::read('strs')) === false) {
             $strs = $this->Str->find('all', array(

@@ -39,6 +39,11 @@ class Setting extends AppModel {
         $value = $this->get_setting(1);
         if(empty($value)) return ''; else return $value['Setting']['value_text'];
     }
+    
+    function get_link_top_email() {
+        $value = $this->get_setting(2);
+        if(empty($value)) return ''; else return $value['Setting']['value_str'];
+    }
 }
 
 ?>
