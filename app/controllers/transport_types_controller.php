@@ -3,8 +3,7 @@
 class TransportTypesController extends AppController {
     var $name = 'TransportTypes';
     var $uses = array(
-        'TransportType',
-        'TransportTypeAbout'
+        'TransportType'
     );
 
     function isAuthorized() {

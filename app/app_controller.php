@@ -23,9 +23,6 @@ class AppController extends Controller{
         'User',
         'Str',
         'ClientInfo',
-        'UrlKeyword',
-        'UrlDescription',
-        'UrlTitle',
         'Setting'
     );
     var $helpers = array(
@@ -94,23 +91,6 @@ class AppController extends Controller{
             Cache::write('strs', $strs);
         }
         $this->set('strs', $strs);
-
-        $url_keywords = $this->UrlKeyword->get_all();
-        $keyword = $strs[4];
-        foreach($url_keywords as $url_keyword) {
-            if($this->here == $url_keyword['UrlKeyword']['url']) {
-                $keyword = $url_keyword['UrlKeyword']['keyword'];
-            }
-        }
-        $this->set('url_keyword', $keyword);
-        $url_descriptions = $this->UrlDescription->get_all();
-        $description = $strs[5];
-        foreach($url_descriptions as $url_description) {
-            if($this->here == $url_description['UrlDescription']['url']) {
-                $description = $url_description['UrlDescription']['description'];
-            }
-        }
-        $this->set('url_description', $description);
         
         /*получаем тип цены (оптовую или розничную)*/
         if(empty($this->curUser) || empty($this->curUser['ClientInfo'])) $is_opt_price = false;
@@ -130,17 +110,6 @@ class AppController extends Controller{
         $this->set('page_css', $pageCss);
 
         $this->set('page_js', $this->actionJs);
-
-        $url_titles = $this->UrlTitle->get_all();
-        $title = null;
-        foreach($url_titles as $url_title) {
-            if($this->here == $url_title['UrlTitle']['url']) {
-                $title = $url_title['UrlTitle']['title'];
-            }
-        }
-        if(!empty($title)) {
-            $this->set('main_title_for_layout', $title);
-        }
 
         parent::beforeRender();
     }

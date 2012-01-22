@@ -2,9 +2,7 @@
 
 class TransportType extends AppModel {
     var $name = 'TransportType';
-    var $hasMany = array(
-        'TransportTypeAbout'
-    );
+    var $order = 'TransportType.sort_order';
 }
 
 ?>

@@ -35,113 +35,42 @@ $menu = array(
         'role_id' => 3,
         'group' => 2
     ),
-//    'Производители' => array(
-//        'li_id' => 'admin-menu-producer',
-//        'link' => '/producers',
-//        'role_id' => 3,
-//        'group' => 2
-//    ),
     'Спецпредложения' => array(
         'li_id' => 'admin-menu-spec',
         'link' => '/specials/admin_index',
         'role_id' => 3,
         'group' => 2
     ),
-
-//    'Новости ассортимента' => array(
-//        'li_id' => 'admin-menu-catalog-news',
-//        'link' => '/catalog_news/adm_index/',
-//        'role_id' => 3,
-//        'group' => 2
-//    ),
-//    'Типы новостей ассортимента' => array(
-//        'li_id' => 'admin-menu-catalog-new-types',
-//        'link' => '/catalog_new_types/adm_index/',
-//        'role_id' => 3,
-//        'group' => 2
-//    ),
-//
-//    'Портфолио' => array(
-//        'li_id' => 'admin-menu-project',
-//        'link' => '/projects/adm_index',
-//        'role_id' => 3,
-//        'group' => 3
-//    ),
-//    'Профили портфолио' => array(
-//        'li_id' => 'admin-menu-project-profile',
-//        'link' => '/project_profiles',
-//        'role_id' => 3,
-//        'group' => 3
-//    ),
-
     'Заказы' => array(
         'li_id' => 'admin-menu-custom',
-        'link' => '/customs/adm_custom',
+        'link' => '/customs/admin_custom',
         'role_id' => 2,
         'group' => 4
     ),
-//    'Статусы заказов' => array(
-//        'li_id' => 'admin-menu-custom-status-type',
-//        'link' => '/custom_status_types',
-//        'role_id' => 3,
-//        'group' => 4
-//    ),
-//    'Типы доставки' => array(
-//        'li_id' => 'admin-menu-transport-type',
-//        'link' => '/transport_types',
-//        'role_id' => 3,
-//        'group' => 4
-//    ),
-//    'Способы оплаты' => array(
-//        'li_id' => 'admin-menu-pay-type',
-//        'link' => '/pay_types/adm_index',
-//        'role_id' => 3,
-//        'group' => 4
-//    ),
-
-//    'Информация по дизайну' => array(
-//        'li_id' => 'admin-menu-design_info',
-//        'link' => '/design_infos/list_design_infos',
-//        'role_id' => 2,
-//        'group' => 5
-//    ),
-//    'Заявки на дизайн' => array(
-//        'li_id' => 'admin-design-order',
-//        'link' => '/design_order_dets/adm_index',
-//        'role_id' => 2,
-//        'group' => 5
-//    ),
-//    'Настройка заявки на дизайн' => array(
-//        'li_id' => 'admin-design-order-tools',
-//        'link' => '/design_order_dets/adm_design_section',
-//        'role_id' => 3,
-//        'group' => 5
-//    ),
-
-//    'Статьи' => array(
-//        'li_id' => 'admin-menu-articles',
-//        'link' => '/articles/adm_index',
-//        'role_id' => 2,
-//        'group' => 6
-//    ),
-//    'Тематика статей' => array(
-//        'li_id' => 'admin-menu-article-types',
-//        'link' => '/article_types/adm_index',
-//        'role_id' => 2,
-//        'group' => 6
-//    ),
+    'Статусы заказов' => array(
+        'li_id' => 'admin-menu-custom-status-type',
+        'link' => '/custom_status_types',
+        'role_id' => 3,
+        'group' => 4
+    ),
+    'Типы доставки' => array(
+        'li_id' => 'admin-menu-transport-type',
+        'link' => '/transport_types',
+        'role_id' => 3,
+        'group' => 4
+    ),
+    'Способы оплаты' => array(
+        'li_id' => 'admin-menu-pay-type',
+        'link' => '/pay_types/adm_index',
+        'role_id' => 3,
+        'group' => 4
+    ),
     'Новости' => array(
         'li_id' => 'admin-menu-news',
         'link' => '/cnews/admin_index',
         'role_id' => 2,
         'group' => 6
     ),
-//    'Инфо на главной' => array(
-//        'li_id' => 'admin-menu-info',
-//        'link' => '/home_news/list_home_news',
-//        'role_id' => 3,
-//        'group' => 6
-//    ),
     'О компании' => array(
         'li_id' => 'admin-menu-company-info',
         'link' => '/company_infos/admin_index',
@@ -160,42 +89,6 @@ $menu = array(
         'role_id' => 3,
         'group' => 6
     ),
-//    'Фотоальбомы' => array(
-//        'li_id' => 'admin-menu-album',
-//        'link' => '/albums/adm_index',
-//        'role_id' => 3,
-//        'group' => 6
-//    ),
-//    'Заявки от поставщиков' => array(
-//        'li_id' => 'admin-menu-diler',
-//        'link' => '/diler',
-//        'role_id' => 2,
-//        'group' => 6,
-//    ),
-//    'Баннеры на главной' => array(
-//        'li_id' => 'admin-menu-banners',
-//        'link' => '/banners/adm_index',
-//        'role_id' => 3,
-//        'group' => 6
-//    ),
-//    'Слайдшоу на главной' => array(
-//        'li_id' => 'admin-menu-slides',
-//        'link' => '/slides/adm_index',
-//        'role_id' => 3,
-//        'group' => 6
-//    ),
-//    'Быстрые ссылки' => array(
-//        'li_id' => 'admin-menu-short-links',
-//        'link' => '/short_links/index',
-//        'role_id' => 3,
-//        'group' => 6
-//    ),
-//    'Подвал на главной' => array(
-//        'li_id' => 'admin-menu-home-footer',
-//        'link' => '/home_footers/edit',
-//        'role_id' => 3,
-//        'group' => 6
-//    ),
     'Изображения' => array(
         'li_id' => 'admin-menu-image',
         'link' => '/images',
@@ -220,48 +113,12 @@ $menu = array(
         'role_id' => 3,
         'group' => 6
     ),
-    'Keywords' => array(
-        'li_id' => 'admin-menu-url-keywords',
-        'link' => '/url_keywords/adm_index',
-        'role_id' => 3,
-        'group' => 6
-    ),
-    'Descriptions' => array(
-        'li_id' => 'admin-menu-url-descriptions',
-        'link' => '/url_descriptions/adm_index',
-        'role_id' => 3,
-        'group' => 6
-    ),
-    'Title' => array(
-        'li_id' => 'admin-menu-url-titles',
-        'link' => '/url_titles/adm_index',
-        'role_id' => 3,
-        'group' => 6
-    ),
     'Настройки' => array(
         'li_id' => 'admin-menu-url-setting',
         'link' => '/setting/admin_index',
         'role_id' => 3,
         'group' => 6
     ),
-//    'Информационное сообщение' => array(
-//        'li_id' => 'admin-menu-alerts',
-//        'link' => '/alerts/adm_index',
-//        'role_id' => 3,
-//        'group' => 6
-//    ),
-//    'Правила интернет-магазина' => array(
-//        'li_id' => 'admin-menu-shop_rule',
-//        'link' => '/shop_rules/edit/1',
-//        'role_id' => 3,
-//        'group' => 7
-//    ),
-//    'Как делать покупки в интернет-магазине' => array(
-//        'li_id' => 'admin-menu-purchase_rule',
-//        'link' => '/shop_rules/edit/2',
-//        'role_id' => 3,
-//        'group' => 7
-//    ),
     'Сообщения/отзывы от пользователей' => array(
         'li_id' => 'admin-menu-questions',
         'link' => '/questions/adm_index',

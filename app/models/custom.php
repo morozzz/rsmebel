@@ -4,18 +4,20 @@ class Custom extends AppModel {
     var $name = 'Custom';
     var $belongsTo = array(
         'CustomStatusType',
-        'User',
-        'PayType'
+        'User'
     );
     var $hasOne = array(
-        'TransportData'
-    );
-    var $hasMany = array(
-        'CustomStatus',
-        'CustomDet',
         'CustomClientInfo'
     );
+    var $hasMany = array(
+        'CustomStatus' => array(
+            'order' => 'CustomStatus.created, CustomStatus.id'
+        ),
+        'CustomDet'
+    );
     var $order = 'Custom.created desc';
+
+    var $transactional = true;
 
     function beforeFind($queryData) {
         //добавляем к полям количество и стоимость товаров

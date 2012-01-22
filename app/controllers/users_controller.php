@@ -435,7 +435,6 @@ class UsersController extends AppController {
     }
 
     function register() {
-
 //        $this->actionCss = array('basket');
 
 

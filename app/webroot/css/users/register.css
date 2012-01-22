@@ -12,7 +12,10 @@ label {
 }
 
 .error-message {
-  color: red;
+  color: yellow;
+  margin-left:30%;
+  text-align:center;
+  width:60%;
 }
 
 input[type="text"], input[type="password"], select, textarea {

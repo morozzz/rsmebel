@@ -47,45 +47,7 @@
 </div>
 </div>
 
-<?php
-    //pagination table
-    echo "<table class=\"admin-pagination ui-state-default ui-corner-all\"><tr>";
-    echo "<td id=\"pagination-count\">";
-    echo $paginator->counter('Всего заказов %count% '.
-        $paginator->link("(Показать все)", array(
-            'limit' => $paginator->params['paging']['Custom']['count']
-        )).
-        ', показано с %start% по %end%');
-    echo "</td>";
-    echo "<td id=\"pagination-prev\">";
-    echo $paginator->prev(' < < < Назад');
-    echo "</td>";
-    echo "<td id=\"pagination-pages\">";
-    echo $paginator->numbers(array(
-                'before' => 'Страницы ',
-                'modulus' => 0,
-                'separator' => ' '
-            ));
-    echo "</td>";
-    echo "<td id=\"pagination-next\">";
-    echo $paginator->next('Вперед > > > ');
-    echo "</td>";
-    echo "<td id=\"pagination-limit\">";
-    echo "Количество на странице<BR>";
-    echo $form->select('', array(
-        6 => '6',
-        10 => '10',
-        20 => '20',
-        30 => '30',
-        100 => '100',
-        $paginator->params['paging']['Custom']['count'] => 'Все'
-    ), $limit, array(
-        'id' => 'pagination-input-limit'
-    ), false);
-    echo "</td>";
-    echo "</tr></table>";
-    //*****************************************************
-?>
+<?php echo $this->element('paginate');?>
 
 <div class="div-custom_status_types">
     <ul style="height: 33px;">
@@ -111,33 +73,36 @@
                     <th>ID</th>
                     <th>Клиент</th>
                     <th>Тип</th>
-<?php
-//                    <th>Тип доставки</th>
-?>
+                    <th>Способ доставки</th>
                     <th>Способ оплаты</th>
                     <th>Кол-во товаров (штук)</th>
                     <th>Стоимость товаров (руб)</th>
-<?php
-//                    <th>Стоимость (с доставкой) (руб)</th>
-?>
+                    <th>Стоимость (с доставкой) (руб)</th>
                     <th>Дата создания</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($custom_status_type['customs'] as $custom) { ?>
+                <?php
+                $username = (empty($custom['User']))?'':$custom['User']['username'];
+                $transport_type_name = (empty($custom['CustomClientInfo']['TransportType']))?
+                        '':$custom['CustomClientInfo']['TransportType']['name'];
+                $pay_type_name = (empty($custom['CustomClientInfo']['PayType']))?
+                        '':$custom['CustomClientInfo']['PayType']['name'];
+                $transport_price = (empty($custom['CustomClientInfo']['TransportType']))?
+                        0:$custom['CustomClientInfo']['TransportType']['price'];
+                $company_name = (empty($custom['CustomClientInfo']['CompanyType']))?
+                        '':$custom['CustomClientInfo']['CompanyType']['type_name'];
+                ?>
                 <tr custom_id="<?php echo $custom['Custom']['id'];?>">
                     <td align="center"><?php echo $custom['Custom']['id'];?></td>
-                    <td align="center"><?php echo $custom['User']['username'];?></td>
-                    <td align="center"><?php echo $custom['User']['ClientInfo']['CompanyType']['type_name'];?></td>
-<?php
-//                    <td align="center"><?php echo $custom['TransportData']['TransportType']['name'];? ></td>
-?>
-                    <td align="left"><?php echo $custom['PayType']['name'];?></td>
+                    <td align="center"><?php echo $username;?></td>
+                    <td align="center"><?php echo $company_name;?></td>
+                    <td align="center"><?php echo $transport_type_name;?></td>
+                    <td align="left"><?php echo $pay_type_name;?></td>
                     <td align="right"><?php echo $custom[0]['sum_cnt'];?></td>
-                    <td align="right"><?php echo number_format($custom[0]['sum_price'], 2, '.', '');?></td>
-<?php
-//                    <td align="right"><?php echo ($custom['TransportData']['TransportType']['price']+$custom[0]['sum_price']);? ></td>
-?>
+                    <td align="right"><?php echo $common->getMoneyFormat($custom[0]['sum_price'], 2, '.', '');?></td>
+                    <td align="right"><?php echo $common->getMoneyFormat($transport_price+$custom[0]['sum_price'], 2, '.', '');?></td>
                     <td align="center"><?php echo $custom[0]['created_date'];?></td>
                 </tr>
                 <?php } ?>
@@ -165,7 +130,7 @@
 
         $('.table-customs tbody tr').click(function() {
             var custom_id = $(this).attr('custom_id');
-            document.location = webroot+'customs/adm_view/'+custom_id;
+            document.location = webroot+'customs/admin_view/'+custom_id;
         });
 
         $('#custom-filter-date1').datepicker();
@@ -176,19 +141,9 @@
             active: false
         });
 
-        $('#pagination-input-limit').change(function() {
-            var limit = $('#pagination-input-limit option:selected').val();
-
-            var url = "<?php echo $this->webroot.'customs/adm_custom';?>";
-            url += '/limit:'+limit;
-            window.location = url;
-        });
-
         $('.input-username').autocomplete({
             'minLength': 0,
-            'source': [
-                <?php foreach($users as $user) echo "'$user', ";?>
-            ]
+            'source': [<?php foreach($users as $user) echo "'$user', ";?>]
         });
     });
 </script>

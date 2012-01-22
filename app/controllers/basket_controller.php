@@ -5,9 +5,15 @@ class BasketController extends AppController {
     var $uses = array(
         'Catalog',
         'CompanyType',
+        'Custom',
+        'CustomClientInfo',
+        'CustomDet',
+        'CustomStatus',
+        'PayType',
         'Product',
         'ProductDet',
-        'ProfilType'
+        'ProfilType',
+        'TransportType'
     );
     var $components = array(
         "Cookie",
@@ -42,16 +48,88 @@ class BasketController extends AppController {
             array('url'=>array('controller'=>'basket','action'=>'index'),'label'=>'Корзина')
         ));
         
-        if(!empty($this->data)) {
-            $this->Basket->clear();
-            if(!empty($this->data['Product'])) {
-                foreach($this->data['Product'] as $product_id => $count) {
-                    $this->Basket->add($product_id, null, $count);
+        if(!empty($this->data) && !empty($this->data['request_type'])) {
+            if($this->data['request_type'] == 'basket_update') {
+                $this->Basket->clear();
+                if(!empty($this->data['Product'])) {
+                    foreach($this->data['Product'] as $product_id => $count) {
+                        $this->Basket->add($product_id, null, $count);
+                    }
                 }
-            }
-            if(!empty($this->data['ProductDet'])) {
-                foreach($this->data['ProductDet'] as $product_det_id => $count) {
-                    $this->Basket->add(null, $product_det_id, $count);
+                if(!empty($this->data['ProductDet'])) {
+                    foreach($this->data['ProductDet'] as $product_det_id => $count) {
+                        $this->Basket->add(null, $product_det_id, $count);
+                    }
+                }
+            } else if($this->data['request_type'] == 'custom_order') {
+                $is_ok = true;
+                
+                $basket = $this->Basket->get();
+                if(empty($basket) || (empty($basket['products']) && empty($basket['product_dets']))) {
+                    $this->Session->setFlash('Нельзя оформить заказ при пустой корзине');
+                    $is_ok = false;
+                }
+                
+                if($this->is_opt_price && empty($this->data['CustomClientInfo']['name'])) {
+                    $this->CustomClientInfo->invalidate('name', 'Введите название фирмы');
+                    $is_ok = false;
+                }
+                
+                if(empty($this->data['CustomClientInfo']) || empty($this->data['CustomClientInfo']['fio'])) {
+                    $this->CustomClientInfo->invalidate('fio', 'Введите ФИО');
+                    $is_ok = false;
+                }
+                
+                if(empty($this->data['CustomClientInfo']['phone'])) {
+                    $this->CustomClientInfo->invalidate('phone', 'Введите телефон');
+                    $is_ok = false;
+                }
+                
+                if($is_ok) {
+                    $user_id = null;
+                    if(!empty($this->curUser['User']['id']))
+                            $user_id = $this->curUser['User']['id'];
+                    
+                    $data = array(
+                        'Custom' => array(
+                            'user_id' => $user_id,
+                            'custom_status_type_id' => 1
+                        ),
+                        'CustomClientInfo' => $this->data['CustomClientInfo'],
+                        'CustomStatus' => array(
+                            array(
+                                'user_id' => $user_id,
+                                'custom_status_type_id' => 1
+                            )
+                        ),
+                        'CustomDet' => array()
+                    );
+                    
+                    foreach(array_merge($basket['products'],$basket['product_dets']) as $product) {
+                        $price = ($this->is_opt_price)?
+                                $product['Product']['opt_price']:
+                                $product['Product']['price'];
+                        $name = $product['Product']['name'];
+                        if(!empty($product['ProductDet'])) $name .= " ({$product['ProductDet']['name']})";
+                        
+                        $data['CustomDet'][] = array(
+                            'product_id' => $product['Product']['id'],
+                            'product_det_id' => (empty($product['ProductDet']))?null:$product['ProductDet']['id'],
+                            'name' => $name,
+                            'cnt' => $product['Basket']['cnt'],
+                            'price' => $price
+                        );
+                    }
+                    
+                    $this->Custom->create();
+                    if($this->Custom->saveall($data)) {
+                        $this->Basket->clear();
+                        $basket = $this->Basket->get();
+                        $this->set('basket', $basket);
+
+                        $this->pageTitle = 'Заказ успешно оформлен';
+                        $this->render('order_finish');
+                    }
                 }
             }
         }
@@ -82,7 +160,7 @@ class BasketController extends AppController {
                     'ClientInfo'
                 )
             ));
-            $this->data = $u_user;
+            if(empty($this->data)) $this->data = $u_user;
             
             if(($company_types = Cache::read('company_types')) === false) {
                 $company_types = $this->CompanyType->find('list');
@@ -96,6 +174,16 @@ class BasketController extends AppController {
             }
             $this->set('profilTypes', $profil_types);
         }
+        
+        $pay_type_list = $this->PayType->find('list');
+        $this->set('payTypes', $pay_type_list);
+        
+        $transport_types = $this->TransportType->find('all');
+        $transport_type_list = Set::combine($transport_types, '{n}.TransportType.id', '{n}.TransportType.name');
+        $this->set('transportTypes', $transport_type_list);
+        
+        $transport_prices = Set::combine($transport_types, '{n}.TransportType.id', '{n}.TransportType.price');
+        $this->set('transport_prices', $transport_prices);
     }
     
     function add() {

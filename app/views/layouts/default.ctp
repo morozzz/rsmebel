@@ -4,11 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php echo $html->charset(); ?>
-<?php if(empty($main_title_for_layout)) $main_title_for_layout = $title_for_layout;?>
-<title><?php echo $main_title_for_layout?></title>
+<title><?php echo $title_for_layout?></title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-<meta content="<?php echo $url_keyword;?>" name="keywords"/>
-<meta content="<?php echo $url_description;?>" name="description"/>
+<meta content="<?php echo '';?>" name="keywords"/>
+<meta content="<?php echo '';?>" name="description"/>
 <?php echo $scripts_for_layout ?>
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery-1.4.2.min.js"> </script>
 <script type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery.cookie.js"> </script>

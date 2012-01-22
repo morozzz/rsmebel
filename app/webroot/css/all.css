@@ -24,6 +24,7 @@ h4{font-size:16px;font-weight:normal;font-style:italic;}
 .div-form{background:#714723;
     -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;
     margin:5px auto 0 auto;padding:10px;width:50%;}
+.div-required .span-required{color:red;font-size:1.3em;}
 div.input{padding-bottom:10px;overflow:auto;}
 label{display:block;float:left;width:20%;}
 input[type=text],input[type=password],select,textarea{background:#7d502a;
@@ -232,8 +233,16 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 #div-custom-order .table-person-info td{padding-bottom:10px;}
 #div-custom-order .table-person-info input{margin:0;width:100%;}
 #div-custom-order .table-person-info div.input{padding:0 10px 0 0;}
+#div-custom-order .table-person-info .error-message{color:yellow;margin:0;text-align:center;}
 #div-custom-order .div-company-info label{width:26%;}
 #div-custom-order .div-company-info input[type=text],select{margin-left:26%;width:73%;}
+#div-custom-order .div-company-info .error-message{color:yellow;margin-left:26%;
+    text-align:center;width:73%;}
 #div-custom-order .table-company-info td{padding-bottom:10px;}
 #div-custom-order .table-company-info input[type=text]{margin:0;width:100%;}
 #div-custom-order .table-company-info div.input{padding:0 10px 0 0;}
+#div-custom-order .div-price{font-size:1.2em;margin-left:365px;width:300px;}
+#div-custom-order .div-price .div-transport-price,
+#div-custom-order .div-price .div-itogo{overflow:auto;}
+#div-custom-order span.price{float:right;font-size:1.1em;font-weight:bold;
+    width:130px;text-align:right;}

@@ -7,8 +7,7 @@ class SettingController extends AppController {
     );
 
     var $components = array(
-        'AdminCommon',
-        'ProductCommon'
+        'AdminCommon'
     );
 
     var $helpers = array(

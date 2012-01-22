@@ -92,6 +92,8 @@ drop table if exists cake_design_order_statuses;
 drop table if exists cake_diler_infos;
 drop table if exists cake_home_footers;
 drop table if exists cake_home_news;
+drop table if exists cake_filters;
+drop table if exists cake_filter_types;
 drop table if exists cake_producers;
 drop table if exists cake_product_datas;
 drop table if exists cake_product_det_params;
@@ -113,3 +115,9 @@ drop table if exists cake_section_types;
 drop table if exists cake_shop_rules;
 drop table if exists cake_short_links;
 drop table if exists cake_slides;
+
+delete from cake_users where id > 10;
+delete from cake_user_logs;
+delete from cake_client_infos where user_id not in (select id from cake_users);
+delete from cake_load_catalogs where created < '2012-01-01';
+delete from cake_load_catalog_dets where load_catalog_id not in (select id from cake_load_catalogs);

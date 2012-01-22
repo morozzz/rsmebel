@@ -1,0 +1,41 @@
+#custom-data{font-size:0.8em;}
+.td-align-center{text-align:center;}
+.td-align-right{text-align:right;}
+.td-align-left{text-align:left;}
+#tab-infos{overflow:auto;}
+#tab-infos h2{padding:5px 0px;margin:0px;font-size:1.2em;}
+#tab-infos-general{float:left;width:400px;}
+#tab-person{margin-left:400px;}
+.div-info-label{width:200px;float:left;padding: 3px 0px;min-height:20px;
+    height:expression((this.scrollHeight<20)?"20px":"auto");line-height:20px;}
+.div-info-value{margin-left:200px;width:190px;padding:3px 0px;min-height:20px;
+    height: expression((this.scrollHeight<20)?"20px":"auto");
+    line-height:20px;font-weight:bold;font-size:14px;}
+#tab-dets table,#tab-statuses table{width:650px;border-collapse:collapse;text-align:left;}
+#tab-dets a{color:black;}
+#tab-dets a:hover{color:red;}
+#tab-dets table th,#tab-statuses table th,#tab-dets table td,#tab-statuses table td{
+    border-top: 2px solid #A3A3D3;border-bottom: 2px solid #A3A3D3;}
+#tab-dets table th:first-child,#tab-statuses table th:first-child,
+#tab-dets table td:first-child,#tab-statuses table td:first-child,
+#tab-dets table tr .td-first,#tab-statuses table tr .td-first{
+    border-left: 2px solid #A3A3D3}
+#tab-dets table th:last-child,#tab-statuses table th:last-child,
+#tab-dets table td:last-child,#tab-statuses table td:last-child,
+#tab-dets table tr .td-last,#tab-statuses table tr .td-last{
+    border-right:2px solid #A3A3D3}
+#tab-dets table th,#tab-statuses table th{padding:3px 2px;background-color:#EEEEEE;
+    text-align:center;border-left:1px dotted #A3A3D3;border-right: 1px dotted #A3A3D3;}
+#tab-dets table td,#tab-statuses table td{padding:4px 5px;
+    border-left:1px dotted #A3A3D3;border-right:1px dotted #A3A3D3;}
+.status-image{float:left;padding:2px 5px;padding-right:15px;}
+#link-add-status{color:red;}
+#link-add-status:hover{color:blue;}
+.link-delete-status img{border:none;}
+
+.ui-dialog .ui-dialog-buttonpane{padding:0;margin:0;}
+.ui-dialog .ui-dialog-buttonpane button{padding:0;margin:5px 10px;}
+.ui-dialog .ui-dialog-content{padding:5px 10px;}
+#dialog-add-status{text-align:right;}
+#input-add-status{width:200px;}
+.widget-add-status .ui-widget-header{color:black;}
