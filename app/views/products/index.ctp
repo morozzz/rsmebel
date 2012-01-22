@@ -10,6 +10,19 @@
             <?php echo $html->image($current_product['BigImage']['url'], array(
                 'class' => 'image-product'
             ));?>
+            <?php if(!empty($current_product['ProductImage'])) { ?>
+            <div class="div-product-images">
+                <?php foreach($current_product['ProductImage'] as $product_image) {
+                    echo $html->link($html->image($product_image['SmallImage']['url']),
+                            $this->webroot.'img/'.$product_image['BigImage']['url'], array(
+                                'class' => 'link-product-image',
+                                'rel' => 'lightbox_product_images',
+                                'escape' => false,
+                                'title' => $product_image['name']
+                            ));
+                } ?>
+            </div>
+            <?php } ?>
         </div>
         <div class="div-product-about">
             <?php echo $current_product['Product']['about'];?>

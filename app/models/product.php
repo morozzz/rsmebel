@@ -28,7 +28,12 @@ class Product extends AppModel {
         'Special'
     );
     var $hasMany = array(
-        'ProductDet',
+        'ProductDet' => array(
+            'order' => 'ProductDet.sort_order'
+        ),
+        'ProductImage' => array(
+            'order' => 'ProductImage.sort_order'
+        )
     );
     var $order = 'Product.sort_order';
     var $caches = array(

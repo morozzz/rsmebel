@@ -3,11 +3,12 @@
 class ProductsController extends AppController {
     var $name = 'Products';
     var $uses = array(
-        'Product',
         'Catalog',
         'Image',
-        'Special',
-        'ProductDet'
+        'Product',
+        'ProductDet',
+        'ProductImage',
+        'Special'
     );
     var $components = array(
         'AdminCommon'
@@ -17,10 +18,7 @@ class ProductsController extends AppController {
         'Javascript'
     );
     var $actionJs = array(
-        "jquery.treeview.min",
-        "jquery.fumodal",
-        "common",
-        "jquery-ui-1.8.5.custom.min"
+        "common"
     );
 
     function isAuthorized() {
@@ -74,6 +72,10 @@ class ProductsController extends AppController {
             'contain' => array(
                 'BigImage',
                 'ProductDet' => array(
+                    'BigImage'
+                ),
+                'ProductImage' => array(
+                    'SmallImage',
                     'BigImage'
                 )
             )

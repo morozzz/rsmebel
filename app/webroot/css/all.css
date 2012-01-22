@@ -198,7 +198,11 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 /*#div-products .div-product .select-product-det{margin:10px 0 0 0;width:100%;}*/
 
 #div-product h1{margin-left:40px;}
-#div-product .div-product-image{margin-left:40px;}
+#div-product .div-product-image{margin-left:40px;overflow:auto;}
+#div-product .image-product{float:left;margin-right:10px;}
+#div-product .div-product-images{}
+#div-product .link-product-image{float:left;margin-right:10px;}
+#div-product .link-product-image img{border:2px solid #956134;}
 #div-product .div-product-about{padding:20px;text-align:justify;text-indent:20px;}
 #div-product .div-product-order{font-size:1.1em;margin:0 0 0 40px;width:300px;}
 #div-product .label{float:left;text-align:left;width:200px;}

@@ -83,6 +83,7 @@ echo $adminCommon->table(array(
     'actions' => array(
         'move' => 'Сменить каталог',
         'go_to_det' => 'Детализация товара',
+        'go_to_images' => 'Изображения товара',
         'del' => 'Удалить'
     ),
     'buttons' => array(
@@ -274,5 +275,9 @@ function del(row_id) {
 
 function go_to_det(row_id) {
     window.location = webroot+'product_dets/admin_index/'+row_id;
+}
+
+function go_to_images(row_id) {
+    window.location = webroot+'product_images/admin_index/'+row_id;
 }
 </script>
