@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 22 2012 г., 09:16
+-- Время создания: Янв 22 2012 г., 16:14
 -- Версия сервера: 5.5.8
 -- Версия PHP: 5.3.4
 
@@ -2907,14 +2907,15 @@ CREATE TABLE IF NOT EXISTS `cake_settings` (
   `value_str` varchar(1000) DEFAULT NULL,
   `value_text` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `cake_settings`
 --
 
 INSERT INTO `cake_settings` (`id`, `name`, `image_id`, `value_str`, `value_text`) VALUES
-(1, 'Подвал', NULL, '', '<div> 	ООО РегионСибМебель 2011 (С)</div> <div> 	Все права защищены</div> <div> 	&nbsp;</div> <div> 	Телефон: 8 (391) 264-97-22, Факс: 8 (391) 263-62-09</div> <div> 	&nbsp;</div> <div> 	e-mail: regionsibmebel@mail.ru, regionsibmebel@yandex.ru</div>');
+(1, 'Подвал', NULL, '', '<div> 	ООО РегионСибМебель 2011 (С)</div> <div> 	Все права защищены</div> <div> 	&nbsp;</div> <div> 	Телефон: 8 (391) 264-97-22, Факс: 8 (391) 263-62-09</div> <div> 	&nbsp;</div> <div> 	e-mail: regionsibmebel@mail.ru, regionsibmebel@yandex.ru</div>'),
+(2, 'Ссылка-email сверху', NULL, 'mailto:rsmebel@mail.ru', '');
 
 -- --------------------------------------------------------
 
@@ -3119,14 +3120,19 @@ CREATE TABLE IF NOT EXISTS `cake_user_logs` (
   `user_log_type_id` int(11) NOT NULL,
   `ip_addr` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=295 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=300 ;
 
 --
 -- Дамп данных таблицы `cake_user_logs`
 --
 
 INSERT INTO `cake_user_logs` (`id`, `user_id`, `stamp`, `user_log_type_id`, `ip_addr`) VALUES
-(294, 4, '2012-01-21 17:14:09', 1, '127.0.0.1');
+(294, 4, '2012-01-21 17:14:09', 1, '127.0.0.1'),
+(295, 7, '2012-01-22 10:16:00', 1, '127.0.0.1'),
+(296, 7, '2012-01-22 10:28:04', 1, '127.0.0.1'),
+(297, 7, '2012-01-22 10:28:33', 1, '127.0.0.1'),
+(298, 4, '2012-01-22 14:51:21', 1, '127.0.0.1'),
+(299, 4, '2012-01-22 14:51:39', 1, '127.0.0.1');
 
 -- --------------------------------------------------------
 
