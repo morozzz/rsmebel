@@ -77,11 +77,20 @@ input[type=button],input[type=submit],input[type=reset]{background:#9e612d;
 #image-magazin-domashnego-yuta{display:block;height:30px;left:485px;position:absolute;
     top:121px;width:270px;}
 #div-top-right{float:right;width:300px;text-align:center;}
+
+/*top auth*/
+#div-top-auth{height:20px;padding-top:15px;}
+#div-top-auth .div-top-user-menu{height:20px;position:relative;}
+#div-top-auth .div-top-user-menu .div-top-menu-items{background:#4a2f18;
+    border:1px solid #ee8a0d;display:none;left:0;left:50px;padding:5px 10px;
+    position:absolute;top:20px;width:200px;}
+#div-top-auth .div-top-user-menu:hover .div-top-menu-items{display:block;}
+#div-top-auth .div-top-user-menu .div-top-menu-items a{display:block;}
 #div-top-phone{color:#ffe8c5;font-family:Georgia,serif;font-size:30px;
-    font-style:italic;padding-top:40px;}
+    font-style:italic;padding-top:5px;}
 #div-top-work-time{color:#ae8e62;font-size:16px;font-style:italic;font-weight:bold;}
 
-/*search*/
+/*top search*/
 #div-top-search{margin:15px 0 0 15px;overflow:auto;}
 #div-top-search .link-top-search{background:url(../img/icons.png) no-repeat;
     height:13px;float:left;margin:3px 7px 0 0;width:13px;}
