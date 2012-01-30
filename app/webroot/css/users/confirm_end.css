@@ -1,9 +1,12 @@
 .info-message {
   padding-top: 20px;
-  color: white;
+  text-align: center;
 }
 
 a {
-    color: yellow;
     text-decoration: underline;
+}
+
+h1 {
+  text-align: center;
 }
