@@ -85,6 +85,7 @@
                 <?php foreach($custom_status_type['customs'] as $custom) { ?>
                 <?php
                 $username = (empty($custom['User']))?'':$custom['User']['username'];
+                $username .= " ({$custom['CustomClientInfo']['fio']})";
                 $transport_type_name = (empty($custom['CustomClientInfo']['TransportType']))?
                         '':$custom['CustomClientInfo']['TransportType']['name'];
                 $pay_type_name = (empty($custom['CustomClientInfo']['PayType']))?
