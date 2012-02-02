@@ -120,19 +120,13 @@ class AdminCommonComponent extends Object {
                 Cache::delete($ch);
             }
         }
-
-        //удаляем сформированные ексель-файлы
-//        $handle = opendir('xls');
-//        if($handle) {
-//            while(($file = readdir($handle)) !== false) {
-//                if($file!='.' && $file!='..') {
-//                    $info = pathinfo($file);
-//                    if($info['extension'] == 'xls') {
-//                        unlink("xls/$file");
-//                    }
-//                }
-//            }
-//        }
+        if(isset($model->cache_list)) {
+            $cache_list = Cache::read($model->cache_list);
+            foreach($cache_list as $cache) {
+                Cache::delete($cache);
+            }
+            Cache::delete($cache_list);
+        }
     }
 
     function getModelFields(&$model) {

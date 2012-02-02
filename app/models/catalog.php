@@ -35,6 +35,8 @@ class Catalog extends AppModel {
         'specials',
         'all_catalogs'
     );
+    
+    var $cache_list = 'catalog_parents_log';
 
     var $field_types = array(
         'name' => 'text',

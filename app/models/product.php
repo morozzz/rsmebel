@@ -42,6 +42,8 @@ class Product extends AppModel {
         'specials',
         'all_catalogs'
     );
+    
+    var $cache_list = 'product_log';
 
     var $field_types = array(
         'name' => 'text',
