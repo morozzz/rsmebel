@@ -47,4 +47,5 @@
         Router::connect('/guestbook/*', array('controller' => 'guestbooks', 'action' => 'index'));
         Router::connect('/catalog/*', array('controller' => 'catalogs', 'action' => 'index'));
         Router::connect('/product/*', array('controller' => 'products', 'action' => 'index'));
+        Router::connect('/search/*', array('controller' => 'searches', 'action' => 'index'));
 ?>

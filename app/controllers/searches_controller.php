@@ -17,13 +17,21 @@ class SearchesController extends AppController {
         $this->Auth2->allow('*');
     }
 
-    function index() {
+    function index($search_str = null) {
         $this->pageTitle = "Поиск";
+        if(!empty($this->params) && !empty($this->params['url']) && !empty($this->params['url']['search_str'])) {
+            $search_str = $this->params['url']['search_str'];
+            $this->redirect(array(
+                'controller' => 'searches',
+                'action' => 'index',
+                $search_str
+            ));
+        }
+        $this->set('search_str', $search_str);
         
-        if(!empty($this->data) &&
-                !empty($this->data['Search']) &&
-                !empty($this->data['Search']['search_str'])) {
-            $search_str = htmlspecialchars(mb_strtoupper($this->data['Search']['search_str'], 'UTF-8'));
+        if(!empty($search_str)) {
+            
+            $search_str = htmlspecialchars(mb_strtoupper($search_str, 'UTF-8'));
             $search_list = split(" ", $search_str);
             
             $conditions = array('OR' => array());
@@ -37,7 +45,8 @@ class SearchesController extends AppController {
                     'conditions' => $conditions,
                     'contain' => array(
                         'Image'
-                    )
+                    ),
+                    'limit' => 10
                 )
             );
             $founds = $this->paginate('Search');
@@ -48,12 +57,16 @@ class SearchesController extends AppController {
                         'action' => 'index',
                         $this->Catalog->get_url(null, $found['Search']['id'])
                     );
+                    $found['Search']['breadcrumb'] = array(array('label'=>'Каталог', 'url'=>array('controller'=>'catalogs','action'=>'index')));
+                    $found['Search']['breadcrumb'] = array_merge($found['Search']['breadcrumb'], $this->Catalog->get_breadcrumb(null, $found['Search']['id']));
                 } else if($found['Search']['type']=='product') {
                     $found['Search']['url'] = array(
                         'controller' => 'products',
                         'action' => 'index',
                         $this->Product->get_url($found['Search']['id'])
                     );
+                    $found['Search']['breadcrumb'] = array(array('label'=>'Каталог', 'url'=>array('controller'=>'catalogs','action'=>'index')));
+                    $found['Search']['breadcrumb'] += $this->Product->get_breadcrumb($found['Search']['id']);
                 }
                 
                 $found['Search']['name'] = $this->_prepare_search_result($found['Search']['name'], $search_list);

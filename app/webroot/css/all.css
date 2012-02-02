@@ -299,5 +299,6 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 #div-search-result .div-search{overflow:auto;padding:0 0 10px 0;}
 #div-search-result .image-search{float:left;margin-right:10px;width:120px;}
 #div-search-result .div-search-info{float:left;width:350px;}
-#div-search-result .link-search{display:block;font-size:1.1em;}
+#div-search-result .link-search{display:block;font-size:1.2em;}
+#div-search-result .div-search-breadcrumb{font-size:0.8em;}
 #div-search-result .div-search-about{}

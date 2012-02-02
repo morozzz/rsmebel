@@ -10,7 +10,8 @@ echo $form->create('Search', array(
         'controller' => 'searches',
         'action' => 'index'
     ),
-    'id' => 'form-search-top'
+    'id' => 'form-search-top',
+    'type' => 'GET'
 ));
 echo $form->input('search_str', array(
     'id' => 'input-search-top-text',
