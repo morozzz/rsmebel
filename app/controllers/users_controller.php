@@ -37,9 +37,10 @@ class UsersController extends AppController {
     }
 
     function sendd() {
-
-        $tt = $this->SendEmail->sendd();
-		if(!$tt)
+      // phpinfo();
+        //$tt = $this->SendEmail->sendd();
+		//$tt = mail("i.morozov@krasinform.ru", "Hello", "Hello", "detinkin.ilya@yandex.ru");
+        if($tt)
         {
 			$this->Session->setFlash('Сообщение успешно отправлено = '.$tt, 'default', array('class' => 'info-message'));
         }
@@ -576,10 +577,10 @@ class UsersController extends AppController {
        $this->set('user_email', $email);
 
        $this->Session->setFlash("<font size = 4> Вы успешно зарегистрированы.</font><br>
-                                 <font color=white> Данные для активации отправлены на </font><font color=yellow>".$email."</font><br>
-                                 <font color=white>Для активации вашего логина, вам необходимо
-                                 зайти в свой почтовый ящик и перейти по указанной ссылке. <font color=white><br>
-                                 </font><font color=yellow> Добро пожаловать!</font>", 'default', array('class' => 'info-message'));
+                                 Данные для активации отправлены на <font color=yellow>".$email."</font><br>
+                                 Для активации вашего логина, вам необходимо
+                                 зайти в свой почтовый ящик и перейти по указанной ссылке.<br>
+                                 Добро пожаловать!", 'default', array('class' => 'info-message'));
 
     }
 

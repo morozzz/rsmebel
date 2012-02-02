@@ -5,47 +5,21 @@ class SendEmailComponent extends Object {
 
       $from    = "MIME-Version: 1.0" . "\r\n";
       $from   .= "Content-type: text/html; charset=utf-8" . "\r\n";
-      $from   .= "From: MTO Angelika<mto24@mail.ru>". "\r\n";
+      $from   .= "From: OOO RegionSibMebel<regionsibmebel@mail.ru>". "\r\n";
       $from   .= "Subject: $subject\n";
 
-      $body   = $body."<br><br> С уважением компания \"Склад Магазин Торгового Оборудования\" Анжелика. <br>";
-      $body   = $body."Сайт: www.mto24.ru <br>";
-      $body   = $body."Email: mto24@mail.ru<br>";
-      $body   = $body."Телефон: 8(391)2-265-365, 8(391)2-941-495";
+      $body   = $body."<br><br> С уважением компания \"РегионСибМебель\". <br>";
+      $body   = $body."Сайт: www.rsmebel.ru <br>";
+      $body   = $body."Email: regionsibmebel@mail.ru<br>";
+      $body   = $body."Телефон: 8(391)2-649-722, 8(391)2-636-209";
 
       return mail($to, $subject, $body, $from);
     }
 
-   function old_send_img($to, $subject, $body_in) {
-        $file_name="logo.jpg";
-        $bound="----------4F160803692326F";
-        $headers="From: MTO Angelika<mto24@mail.ru>". "\r\n";
-        $headers.="Subject: $subject\n";
-        $headers.="Mime-Version: 1.0\n";
-        $headers.="Content-Type: multipart/mixed; boundary=\"$bound\"\n";
-        $body="--$bound\n";
-        $body.="Content-type: text/html; charset=\"utf-8\"\n";
-        $body.="Content-Transfer-Encoding: 8bit\n\n";
-        $body.="<img src=\"cid:spravkaweb_img_1\"><br>";
-        $body.=$body_in;
-        $body.="<br><br> С уважением компания \"Склад Магазин Торгового Оборудования\" Анжелика. <br>";
-        $body.="Сайт: www.mto24.ru <br>";
-        $body.="Email: mto24@mail.ru<br>";
-        $body.="Телефон: 8(391)2-265-365, 8(391)2-941-495";
-        $body.="\n\n--$bound\n";
-        $body.="Content-Type: image/jpeg; name=\"".basename($file_name)."\"\n";
-        $body.="Content-Transfer-Encoding:base64\n";
-        $body.="Content-ID: <spravkaweb_img_1>\n\n";
-        $f=fopen($file_name,"rb");
-        $body.=base64_encode(fread($f,filesize($file_name)))."\n";
-        $body.="--$bound--\n\n";
-        return mail($to, $subject, $body, $headers);
-   }
-
    function send_img($to, $subject, $body_in) {
         $file_name="logo.jpg";
         $bound="----------4F160803692326F";
-        $headers="From: MTO Angelika<mto24@mail.ru>". "\r\n";
+        $headers="From: OOO RegionSibMebel<regionsibmebel@mail.ru>". "\r\n";
         $headers.="Subject: $subject\n";
         $headers.="Mime-Version: 1.0\n";
         $headers.="Content-Type: multipart/mixed; boundary=\"$bound\"\n";
@@ -87,10 +61,10 @@ class SendEmailComponent extends Object {
         $body.="Content-Transfer-Encoding: 8bit\n\n";
         $body.="<img src=\"cid:spravkaweb_img_1\"><br>";
         $body.=$body_in;
-        $body.="<br><br> С уважением компания \"Склад Магазин Торгового Оборудования\" Анжелика. <br>";
-        $body.="Сайт: www.mto24.ru <br>";
-        $body.="Email: mto24@mail.ru<br>";
-        $body.="Телефон: 8(391)2-265-365, 8(391)2-941-495";
+        $body.="<br><br> С уважением компания \"РегионСибМебель\". <br>";
+        $body.="Сайт: www.rsmebel.ru <br>";
+        $body.="Email: regionsibmebel@mail.ru<br>";
+        $body.="Телефон: 8(391)2-649-722, 8(391)2-636-209";
         $body.="\n";
         $body.="--$bound--\n\n";
         return mail($to, $subject, $body, $headers);
