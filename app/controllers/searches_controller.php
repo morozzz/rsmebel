@@ -2,7 +2,11 @@
 
 class SearchesController extends AppController {
     var $name = 'Searches';
-    var $uses = array("Catalog", "Product", "Article", "Cnew", "Project", "SmallImage", "BigImage", "Image", "Producer", "Post");
+    var $uses = array(
+        "Catalog",
+        "Product",
+        'Search'
+    );
     var $helpers = array(
         'paginator'
     );
@@ -15,6 +19,49 @@ class SearchesController extends AppController {
 
     function index() {
         $this->pageTitle = "Поиск";
+        
+        if(!empty($this->data) &&
+                !empty($this->data['Search']) &&
+                !empty($this->data['Search']['search_str'])) {
+            $search_str = htmlspecialchars(mb_strtoupper($this->data['Search']['search_str'], 'UTF-8'));
+            $search_list = split(" ", $search_str);
+            
+            $conditions = array('OR' => array());
+            foreach($search_list as $l) {
+                $conditions['OR'][] = "upper(Search.name) like '%$l%'";
+                $conditions['OR'][] = "upper(Search.about) like '%$l%'";
+            }
+            
+            $this->paginate = array(
+                'Search' => array(
+                    'conditions' => $conditions,
+                    'contain' => array(
+                        'Image'
+                    )
+                )
+            );
+            $founds = $this->paginate('Search');
+            foreach($founds as &$found) {
+                if($found['Search']['type']=='catalog') {
+                    $found['Search']['url'] = array(
+                        'controller' => 'catalogs',
+                        'action' => 'index',
+                        $this->Catalog->get_url(null, $found['Search']['id'])
+                    );
+                } else if($found['Search']['type']=='product') {
+                    $found['Search']['url'] = array(
+                        'controller' => 'products',
+                        'action' => 'index',
+                        $this->Product->get_url($found['Search']['id'])
+                    );
+                }
+                
+                $found['Search']['name'] = $this->_prepare_search_result($found['Search']['name'], $search_list);
+                $found['Search']['about'] = $this->_prepare_search_result($found['Search']['about'], $search_list);
+            }
+            
+            $this->set('founds', $founds);
+        }
     }
 
     function result() {
@@ -323,29 +370,22 @@ class SearchesController extends AppController {
         }
     }
 
-    function _prepare_search_result($result, $list) {
+    function _prepare_search_result($result, $search_list) {
         $strs = array();
-        foreach($result as $key => $value) {
-            $pos = strpos($key, 'search_str');
-            if($pos === false) continue;
-
-            foreach($list as $l) {
-                $about = strip_tags($value);
-
-                $pos = mb_stripos($about, $l, 0, 'UTF-8');
-                if($pos===false) continue;
-
-                if($pos<30) $pos = 0;
-                else $pos = $pos-30;
-
-                $about = mb_substr($about, $pos, 70, 'UTF-8');
-                $about = str_ireplace($l, "<strong>$l</strong>", $about);
-
-                $strs[] = $about;
-            }
+        $result = strip_tags($result);
+        foreach($search_list as $l) {
+            $pos = mb_stripos($result, $l, 0, 'UTF-8');
+            if($pos===false) continue;
+            if($pos<30) $pos = 0;
+            else $pos = $pos-30;
+            
+            $str = mb_substr($result, $pos, 70, 'UTF-8');
+            $str = preg_replace("#$l#isu", "<b>$l</b>", $str);
+            
+            $strs[] = $str;
         }
-
-        return $strs;
+        if(empty($strs)) return $result;
+        return implode("</br>", $strs);
     }
 }
 ?>

@@ -288,3 +288,16 @@ table.menu td a:hover{background-position:0 -41px;text-decoration:none;}
 #div-custom .div-custom-dets{margin:20px 20px 0 0;}
 #div-custom .div-custom-dets tr.transport{font-size:1.2em;font-weight:bold;}
 #div-custom .div-custom-dets tr.itogo{font-size:1.2em;font-weight:bold;}
+
+/*search*/
+#div-search-form{overflow:auto;width:500px;}
+#div-search-form div.input{float:left;margin-right:10px;width:80%;}
+#div-search-form div.input input{margin:5px 0 0 0;width:99%;}
+#div-search-form div.submit{float:left;padding:0;text-align:left;width:17%;}
+#div-search-result{width:500px;}
+#div-search-result .div-search-type{}
+#div-search-result .div-search{overflow:auto;padding:0 0 10px 0;}
+#div-search-result .image-search{float:left;margin-right:10px;width:120px;}
+#div-search-result .div-search-info{float:left;width:350px;}
+#div-search-result .link-search{display:block;font-size:1.1em;}
+#div-search-result .div-search-about{}

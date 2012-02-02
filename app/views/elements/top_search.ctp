@@ -12,10 +12,11 @@ echo $form->create('Search', array(
     ),
     'id' => 'form-search-top'
 ));
-echo $form->text('', array(
-    'name' => 'data[search_str]',
+echo $form->input('search_str', array(
     'id' => 'input-search-top-text',
-    'value' => ''
+    'value' => '',
+    'label' => false,
+    'div' => false
 ));
 echo $html->link('поиск', array(
     'controller' => 'searches',
