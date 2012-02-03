@@ -1,7 +1,7 @@
 <?php
 
-class ProductDet extends AppModel {
-    var $name = 'ProductDet';
+class ProductDetImage extends AppModel {
+    var $name = 'ProductDetImage';
     var $actsAs = array(
         'Image' => array(
             'images' => array(
@@ -9,12 +9,10 @@ class ProductDet extends AppModel {
                 'big_image_id' => 'BigImage'
             ),
             'image_type_id' => 7
-        ),
-        'Code1c',
-        'SortOrder'
+        )
     );
     var $belongsTo = array(
-        'Product',
+        'ProductDet',
         'SmallImage' => array(
             'className' => 'Image',
             'foreignKey' => 'small_image_id'
@@ -24,23 +22,12 @@ class ProductDet extends AppModel {
             'foreignKey' => 'big_image_id'
         )
     );
-    var $hasMany = array(
-        'ProductDetImage' => array(
-            'order' => 'ProductDetImage.sort_order'
-        )
-    );
-    var $order = 'ProductDet.sort_order';
+    var $order = 'ProductDetImage.sort_order';
 
     var $field_types = array(
-        'product_id' => 'number',
         'name' => 'text',
-        'price' => 'number',
-        'opt_price' => 'number',
-        'cnt' => 'number',
+        'product_det_id' => 'number',
         'sort_order' => 'number',
-        'code_1c' => 'text',
-        'name_1c' => 'text',
-        'about' => 'text',
         'SmallImage' => 'file',
         'BigImage' => 'file'
     );

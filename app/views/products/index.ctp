@@ -11,7 +11,7 @@
                 'class' => 'image-product'
             ));?>
             <?php if(!empty($current_product['ProductImage'])) { ?>
-            <div class="div-product-images">
+            <div class="div-product-images div-main-product-images">
                 <?php foreach($current_product['ProductImage'] as $product_image) {
                     echo $html->link($html->image($product_image['SmallImage']['url']),
                             $this->webroot.'img/'.$product_image['BigImage']['url'], array(
@@ -22,6 +22,25 @@
                             ));
                 } ?>
             </div>
+            <?php } ?>
+            <?php $product_dets_has_images = array(); ?>
+            <?php foreach($current_product['ProductDet'] as $product_det) { ?>
+            <?php if(!empty($product_det['ProductDetImage'])) { ?>
+            <div class="div-product-images div-sub-product-images"
+                 product_det_id="<?php echo $product_det['id'];?>">
+                <?php 
+                $product_dets_has_images[] = $product_det['id'];
+                foreach($product_det['ProductDetImage'] as $product_det_image) {
+                    echo $html->link($html->image($product_det_image['SmallImage']['url']),
+                            $this->webroot.'img/'.$product_det_image['BigImage']['url'], array(
+                                'class' => 'link-product-image',
+                                'rel' => 'lightbox_product_det_images_'.$product_det['id'],
+                                'escape' => false,
+                                'title' => $product_det_image['name']
+                            ));
+                } ?>
+            </div>
+            <?php } ?>
             <?php } ?>
         </div>
         <div class="div-product-about">
@@ -130,6 +149,7 @@
 <?php if(!empty($current_product['Product']['product_det_list'])) { ?>
 <script type="text/javascript">
     var product_dets_images = <?php echo $javascript->object(Set::combine($current_product['ProductDet'], '{n}.id', '{n}.BigImage.url'));?>;
+    var product_dets_has_images = <?php echo $javascript->object($product_dets_has_images);?>;
     var product_dets_prices = <?php echo $javascript->object(Set::combine($current_product['ProductDet'], '{n}.id', '{n}.price'));?>;
     var product_dets_opt_prices = <?php echo $javascript->object(Set::combine($current_product['ProductDet'], '{n}.id', '{n}.opt_price'));?>;
     var product_image_url = "<?php echo $current_product['BigImage']['url'];?>";
@@ -141,6 +161,14 @@
             var new_image_url = product_dets_images[product_det_id];
             if(new_image_url==null) new_image_url = product_image_url;
             $('#div-product .image-product').attr('src', '<?php echo $this->webroot;?>img/'+new_image_url);
+            
+            //меняем изображения
+            $('.div-product-images').hide();
+            if($.inArray(product_det_id, product_dets_has_images) >= 0) {
+                $('.div-sub-product-images[product_det_id='+product_det_id+']').show();
+            } else {
+                $('.div-main-product-images').show();
+            }
             
             //меняем цены
             $('#div-product .div-product-price .price').text(product_dets_prices[product_det_id]);

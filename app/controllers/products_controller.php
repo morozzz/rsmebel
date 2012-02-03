@@ -72,7 +72,11 @@ class ProductsController extends AppController {
             'contain' => array(
                 'BigImage',
                 'ProductDet' => array(
-                    'BigImage'
+                    'BigImage',
+                    'ProductDetImage' => array(
+                        'SmallImage',
+                        'BigImage'
+                    )
                 ),
                 'ProductImage' => array(
                     'SmallImage',
